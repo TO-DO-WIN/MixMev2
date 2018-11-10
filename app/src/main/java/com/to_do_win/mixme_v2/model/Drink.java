@@ -1,6 +1,9 @@
 package com.to_do_win.mixme_v2.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Drink {
 

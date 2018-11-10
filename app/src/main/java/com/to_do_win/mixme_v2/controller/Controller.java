@@ -9,6 +9,7 @@ import com.to_do_win.mixme_v2.model.Ingredient;
 import com.to_do_win.mixme_v2.model.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Controller {
 
@@ -222,5 +223,35 @@ public class Controller {
             drinkNames.add(d.getName());
         }
         return  drinkNames;
+    }
+    public ArrayList<String> getUserIngredients() {
+        return user.getMyIngredientNames();
+    }
+
+    public ArrayList<Integer> getUserIngredientIDs() {
+        return user.getMyIngredientIDs();
+    }
+
+
+    public void addIngredientsToCabinet(SparseBooleanArray sba) {
+        user.addIngredientsToCabinet(sba);
+    }
+
+    public void removeIngredientFromCabinet(String ingredName) {
+        user.removeIngredientFromCabinet(ingredName);
+    }
+
+    public Collection<? extends String> getUserShoppingLS() {
+        ArrayList<String> shoppingLS = new ArrayList<>();
+        for (Ingredient i: user.getShoppingLS())
+            shoppingLS.add(i.getName());
+        return shoppingLS;
+    }
+
+    public Collection<? extends String> getUserShoppingGS() {
+        ArrayList<String> shoppingGS = new ArrayList<>();
+        for (Ingredient i: user.getShoppingGS())
+            shoppingGS.add(i.getName());
+        return shoppingGS;
     }
 }
