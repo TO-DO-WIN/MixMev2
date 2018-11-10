@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.to_do_win.mixme_v2">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".UI.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.SearchActivity"
+            android:label="Search Drinks" />
+        <activity
+            android:name=".UI.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".UI.CabinetActivity"
+            android:label="My Cabinet" />
+        <activity
+            android:name=".UI.DrinksFoundActivity"
+            android:label="Drinks Found" />
+        <activity
+            android:name=".UI.CreateDrinkActivity"
+            android:label="Create A Drink" />
+        <activity
+            android:name=".UI.FavoritesActivity"
+            android:label="Favorites" />
+        <activity
+            android:name=".UI.ShoppingListActivity"
+            android:label="Shopping List" />
+        <activity
+            android:name=".UI.RandomActivity"
+            android:label="Random Drink" />
+        <activity
+            android:name=".UI.SelectIngredientActivity"
+            android:label="Select Ingredient" />
+        <activity
+            android:name=".UI.NewIngredientActivity"
+            android:label="New Ingredient" />
+        <activity
+            android:name=".UI.IngredientVolumeActivity"
+            android:label="Ingredient Volume" />
+        <activity
+            android:name=".UI.DrinkRecipeActivity"
+            android:label="Drink Recipe" />
+    </application>
+
+</manifest>
