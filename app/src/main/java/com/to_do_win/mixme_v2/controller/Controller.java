@@ -429,5 +429,10 @@ public class Controller {
     public void clearUser(){
         user.clearUser();
     }
+
+    public String getRandomDrink(){
+        return catalog.getRandomDrink();
+    }
+
 }
 
