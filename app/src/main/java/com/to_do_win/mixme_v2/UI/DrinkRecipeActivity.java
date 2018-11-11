@@ -93,10 +93,9 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         String glassType = controller.getRecipeGlassType();
 
         if (userName!=null) {
-            ArrayList<Boolean> hasIngredient = controller.getHasIngredient(recipeIngredients);
+            ArrayList<Boolean> hasIngredient = controller.getHasIngredient();
             boolean isFavorite = controller.isFavorite(drinkName);
         }
-
         drinkNameTV = (TextView) findViewById(R.id.drink_name);
         drinkNameTV.setText(drinkName);
 
