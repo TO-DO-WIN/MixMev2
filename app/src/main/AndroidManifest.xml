@@ -57,6 +57,9 @@
         <activity
             android:name=".UI.DrinkRecipeActivity"
             android:label="Drink Recipe" />
+        <activity
+            android:name=".UI.AddIngredientsToCabinetActivity"
+            android:label="Add Ingredients To Cabinet" />
     </application>
 
 </manifest>
