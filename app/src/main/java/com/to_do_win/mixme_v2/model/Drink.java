@@ -73,7 +73,6 @@ public class Drink {
         numIngreds--;
     }
 
-
     public String getDirections() {
         return directions;
     }
