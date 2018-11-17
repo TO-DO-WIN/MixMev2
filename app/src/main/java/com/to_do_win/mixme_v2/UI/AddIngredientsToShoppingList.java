@@ -1,12 +1,14 @@
 package com.to_do_win.mixme_v2.UI;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.to_do_win.mixme_v2.R;
@@ -16,49 +18,29 @@ import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
 
 import java.util.ArrayList;
 
-public class ShoppingListActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
-        ShoppingRecyclerViewAdapter.ItemClickListener {
+public class AddIngredientsToShoppingList extends AppCompatActivity implements LogToggle, View.OnClickListener,
+        IngredientRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
     Button logBtn;
     String userName;
-    Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
+    SearchView searchView;
+    Button clearBtn, submitBtn;
+    Button createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
-
-    TextView ingredsTV;
-    ShoppingRecyclerViewAdapter adapter;
-    Button addIngredsBtn;
+    IngredientRecyclerViewAdapter adapter;
     Controller controller;
-
-    int posOfText;
-    ArrayList<String> items = new ArrayList<>();
+    SparseBooleanArray sba;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userName = SharedPrefsManager.getUserName(ShoppingListActivity.this);
-
-        if (userName == null) {
-
-            // This should never happen...shouldn't be in ShoppingList without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName + ".UI.LogInActivity");
-            startActivity(intent);
-        }
-
-        setContentView(R.layout.activity_shopping);
+        setContentView(R.layout.activity_add_ingredients_to_shopping_list);
 
         greeting = (TextView) findViewById(R.id.greeting);
         greeting.setText(userName);
-
         logBtn = (Button) findViewById(R.id.logBtn);
         logBtn.setText("Log Out");
-        logBtn.setOnClickListener(this);
-
-        searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
-        searchDrinksBtn.setOnClickListener(this);
 
         createDrinkBtn = (Button) findViewById(R.id.createNVBtn);
         createDrinkBtn.setOnClickListener(this);
@@ -75,109 +57,111 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);
 
-        addIngredsBtn = (Button) findViewById(R.id.addIngredientBtn);
-        addIngredsBtn.setOnClickListener(this);
+        logBtn.setOnClickListener(this);
 
-        ingredsTV = (TextView) findViewById(R.id.ingredientsTV);
+        searchView = (SearchView) findViewById(R.id.searchView);
+
+        clearBtn = (Button) findViewById(R.id.clearBtn);
+        clearBtn.setOnClickListener(this);
+
+        submitBtn = (Button) findViewById(R.id.submitBtn);
+        submitBtn.setOnClickListener(this);
 
         controller = Controller.getInstance();
-        //ArrayList<Integer> userIngredIDs = controller.getUserIngredientIDs();
+        ArrayList<String> ingredientList = controller.getIngredientList();
+        sba = new SparseBooleanArray();
 
-        items.addAll(controller.getUserShoppingLS());
-        //ArrayList<String> makableNames = new ArrayList<>();
-        String text = "Grocery Store List:";
-        posOfText = items.size();
-        //controller.searchDrinks(userIngredIDs, makableNames);
-        items.add(text);
-        items.addAll(controller.getUserShoppingGS());
-
-        // no need to use recylerView if no ingredients in cabinet
-        // display a text instead.
-        if (posOfText < 1){
-            ingredsTV.setText("You do not have any ingredients in your shopping list.");
-        }
-        else {
-            RecyclerView rv = findViewById(R.id.shoppingRV);
-            rv.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ShoppingRecyclerViewAdapter(this, items, posOfText);
-            adapter.setClickListener(this);
-            rv.setAdapter(adapter);
-        }
+        RecyclerView rv = findViewById(R.id.rvIngredients);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new IngredientRecyclerViewAdapter(this, ingredientList);
+        adapter.setClickListener(this);
+        rv.setAdapter(adapter);
     }
 
+    @Override
     public void onClick(View v) {
         Intent intent = new Intent();
 
-        switch (v.getId()) {
+        switch (v.getId()){
 
             case R.id.logBtn:
                 logToggle(userName);
                 break;
 
             case R.id.searchNVBtn:
+
                 intent.setClassName(packageName,
-                        packageName + ".UI.SearchActivity");
+                        packageName +".UI.SearchActivity");
                 startActivity(intent);
                 break;
 
             case R.id.createNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.CreateDrinkActivity");
+                        packageName +".UI.CreateDrinkActivity");
                 startActivity(intent);
                 break;
 
             case R.id.favesNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.FavoritesActivity");
+                        packageName +".UI.FavoritesActivity");
                 startActivity(intent);
                 break;
 
             case R.id.shoppingNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.ShoppingListActivity");
+                        packageName +".UI.ShoppingListActivity");
                 startActivity(intent);
                 break;
 
             case R.id.cabinetNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.CabinetActivity");
+                        packageName +".UI.CabinetActivity");
                 startActivity(intent);
                 break;
 
             case R.id.randomNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.RandomActivity");
+                        packageName +".UI.RandomActivity");
                 startActivity(intent);
                 break;
-
-            case R.id.addIngredientBtn:
+            case R.id.clearBtn:
+                break;
+            case R.id.submitBtn:
+                controller.addIngredientsToShoppingList(sba);
                 intent.setClassName(packageName,
-                        packageName + ".UI.AddIngredientsToShoppingList");
+                        packageName +".UI.ShoppingListActivity");
                 startActivity(intent);
                 break;
         }
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        if (sba.get(position)) {
+            sba.put(position, false);
+        } else {
+            sba.put(position, true);
+        }
+
     }
 
     @Override
     public void logToggle(String userName) {
         if (userName != null) {
-            SharedPrefsManager.setUserName(ShoppingListActivity.this, null);
+            SharedPrefsManager.setUserName(AddIngredientsToShoppingList.this, null);
             Intent intent = new Intent();
             intent.setClassName(packageName,
-                    packageName + ".UI.SearchActivity");
+                    packageName +".UI.SearchActivity");
             startActivity(intent);
         } else {
 
             // This should never happen...shouldn't be in ShoppingList without logged in
             Intent intent = new Intent();
             intent.setClassName(packageName,
-                    packageName + ".UI.LoginActivity");
+                    packageName +".UI.LoginActivity");
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
 
     }
 }

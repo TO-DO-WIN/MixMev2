@@ -434,5 +434,8 @@ public class Controller {
         return catalog.getRandomDrink();
     }
 
+    public void addIngredientsToShoppingList(SparseBooleanArray sba) {
+        user.addIngredientsToShoppingList(sba);
+    }
 }
 
