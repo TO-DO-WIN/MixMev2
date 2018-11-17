@@ -14,6 +14,15 @@
         app:layout_constraintRight_toRightOf="parent"
        />
 
+    <Button
+        android:id="@+id/findRandomDrink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Random Drink"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"/>
+
     <include
         android:id="@+id/bottom_navigation"
         layout="@layout/bottom_navigation_guest"

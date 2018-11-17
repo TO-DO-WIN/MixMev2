@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/drinkName" />
 
     <EditText
-        android:id="@+id/instructionsText"
+        android:id="@+id/instructionsTV"
         android:layout_width="match_parent"
         android:layout_height="77dp"
         android:gravity="top|left"
@@ -59,7 +59,7 @@
         />
 
     <EditText
-        android:id="@+id/glassTypeText"
+        android:id="@+id/glassTypeTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Glass Type"
