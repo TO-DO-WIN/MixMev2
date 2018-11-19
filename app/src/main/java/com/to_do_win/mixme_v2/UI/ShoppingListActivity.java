@@ -74,7 +74,6 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
 
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);
-
         addIngredsBtn = (Button) findViewById(R.id.addIngredientBtn);
         addIngredsBtn.setOnClickListener(this);
 
@@ -146,12 +145,6 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
             case R.id.randomNVBtn:
                 intent.setClassName(packageName,
                         packageName + ".UI.RandomActivity");
-                startActivity(intent);
-                break;
-
-            case R.id.addIngredientBtn:
-                intent.setClassName(packageName,
-                        packageName + ".UI.AddIngredientsToShoppingList");
                 startActivity(intent);
                 break;
         }
