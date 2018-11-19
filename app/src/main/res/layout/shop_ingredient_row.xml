@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/ingredientTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="units"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/toCabBtn"
+        android:text="Add To Cabinet"
+        android:textSize="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintRight_toLeftOf="@+id/removeBtn"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <Button
+        android:id="@+id/removeBtn"
+        android:text="Remove"
+        android:textSize="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+</android.support.constraint.ConstraintLayout>

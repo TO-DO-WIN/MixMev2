@@ -53,7 +53,7 @@ public class Catalog {
         Ingredient l = new Ingredient("Passion Fruit Juice", 8, Ingredient.Category.MIXER);
         Ingredient m = new Ingredient("Pinapple Juice", 9, Ingredient.Category.MIXER);
         Ingredient d = new Ingredient("Tomato Juice", 4, "Ounces", 10, Ingredient.Category.MIXER);
-        Ingredient b = new Ingredient("Vodka", 11, "Ounces", 11, Ingredient.Category.SPIRIT);
+        Ingredient b = new Ingredient("Vodka", 1.5, "Ounces", 11, Ingredient.Category.SPIRIT);
         Ingredient e = new Ingredient("Whiskey", 12, Ingredient.Category.SPIRIT);
 
         allIngredients.add(f);

@@ -78,7 +78,7 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
         addIngredsBtn = (Button) findViewById(R.id.addIngredientBtn);
         addIngredsBtn.setOnClickListener(this);
 
-        ingredsTV = (TextView) findViewById(R.id.ingredientsTV);
+        ingredsTV = (TextView) findViewById(R.id.liquorStoreTV);
 
         controller = Controller.getInstance();
         //ArrayList<Integer> userIngredIDs = controller.getUserIngredientIDs();
@@ -91,18 +91,17 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
         items.add(text);
         items.addAll(controller.getUserShoppingGS());
 
-        // no need to use recylerView if no ingredients in cabinet
+        // no need to use recylerView if no ingredients in shopping list
         // display a text instead.
-        if (posOfText < 1){
-            ingredsTV.setText("You do not have any ingredients in your shopping list.");
+        if (posOfText < 1) {
+            ingredsTV.setText("You do not have any ingredients in your liquor store shopping list.");
         }
-        else {
-            RecyclerView rv = findViewById(R.id.shoppingRV);
-            rv.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ShoppingRecyclerViewAdapter(this, items, posOfText);
-            adapter.setClickListener(this);
-            rv.setAdapter(adapter);
-        }
+        RecyclerView rv = findViewById(R.id.shoppingRV);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ShoppingRecyclerViewAdapter(this, items, posOfText);
+        adapter.setClickListener(this);
+        rv.setAdapter(adapter);
+
     }
 
     public void onClick(View v) {
@@ -178,6 +177,28 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
 
     @Override
     public void onItemClick(View view, int position) {
+        Intent intent = new Intent();
 
+        // get positive or negative integer to determine which shopping list to remove from
+        int shopList = position - posOfText;
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////what to pass to controller remove from shopping list method//////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////could pas shopList int so no need to search both lists in user to remove the ingredient. currently searching
+        //////////////////both lists
+        ///////////////////or could have method for each list and call correct method from here to avoid searching both lists.
+        if (position != posOfText) {
+            controller.removeIngredientFromShoppingList(items.get(position));
+            intent.setClassName(packageName,
+                    packageName + ".UI.ShoppingListActivity");
+            startActivity(intent);
+        }
+//        if (position > posOfText) {
+//            intent.putExtra("drink", items.get(position));
+//            intent.setClassName(packageName,
+//                    packageName + ".UI.DrinkRecipeActivity");
+//            startActivity(intent);
+//        }
     }
 }

@@ -324,5 +324,20 @@ public class User {
         }
         return false;
     }
+
+    public void removeIngredientFromShoppingList(String ingredientName) {
+        for (Ingredient i : shoppingLS) {
+            if (i.getName().equals(ingredientName)) {
+                shoppingLS.remove(i);
+                return;
+            }
+        }
+        for (Ingredient i : shoppingGS) {
+            if (i.getName().equals(ingredientName)) {
+                shoppingGS.remove(i);
+                return;
+            }
+        }
+    }
 }
 

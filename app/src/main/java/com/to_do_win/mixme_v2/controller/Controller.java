@@ -437,5 +437,9 @@ public class Controller {
     public void addIngredientsToShoppingList(SparseBooleanArray sba) {
         user.addIngredientsToShoppingList(sba);
     }
+
+    public void removeIngredientFromShoppingList(String ingredientName) {
+        user.removeIngredientFromShoppingList(ingredientName);
+    }
 }
 
