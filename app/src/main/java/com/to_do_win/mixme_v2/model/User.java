@@ -339,5 +339,21 @@ public class User {
             }
         }
     }
+
+    private boolean inCabinet(Ingredient ingredient){
+        if (myIngreds.contains(ingredient)){
+            return true;
+        }
+        return false;
+    }
+
+    public void addToCabinet(String ingredName) {
+        Ingredient ingredient = catalog.getIngredientByName(ingredName);
+
+
+        if (!inCabinet(ingredient)){
+            myIngreds.add(ingredient);
+        }
+    }
 }
 

@@ -441,5 +441,9 @@ public class Controller {
     public void removeIngredientFromShoppingList(String ingredientName) {
         user.removeIngredientFromShoppingList(ingredientName);
     }
+
+    public void addToCabinet(String ingredName) {
+        user.addToCabinet(ingredName);
+    }
 }
 

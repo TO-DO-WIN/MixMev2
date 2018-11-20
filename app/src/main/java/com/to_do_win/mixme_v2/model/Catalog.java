@@ -620,6 +620,14 @@ public class Catalog {
         return null;
     }
 
+    public Ingredient getIngredientByName(String ingredientName){
+        for (Ingredient i: allIngredients){
+            if (ingredientName.equals(i.getName()))
+                return i;
+        }
+        return null;
+    }
+
     public String getRandomDrink() {
 
         Random random = new Random();

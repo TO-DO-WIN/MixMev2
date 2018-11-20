@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
@@ -17,7 +18,7 @@ import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
 import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
-        ShoppingRecyclerViewAdapter.ItemClickListener {
+        ShoppingRecyclerViewAdapter.MyItemClickListener {
 
     TextView greeting;
     Button logBtn;
@@ -168,9 +169,42 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
         }
     }
 
+
     @Override
     public void onItemClick(View view, int position) {
+
         Intent intent = new Intent();
+
+        switch (view.getId()) {
+            case R.id.toCabBtn:
+
+                addToCabinet(position);
+                Toast.makeText(this, "Ingredient Has Been Added To Your Cabinet", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.removeBtn:
+
+
+                remove(position);
+                break;
+            default:
+                break;
+        }
+
+        intent.setClassName(packageName,
+                packageName + ".UI.ShoppingListActivity");
+        startActivity(intent);
+
+    }
+
+
+    public void addToCabinet(int position) {
+
+        controller.addToCabinet(items.get(position));
+        controller.removeIngredientFromShoppingList(items.get(position));
+
+    }
+
+    public void remove(int position) {
 
         // get positive or negative integer to determine which shopping list to remove from
         int shopList = position - posOfText;
@@ -181,17 +215,12 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
         //////////////////could pas shopList int so no need to search both lists in user to remove the ingredient. currently searching
         //////////////////both lists
         ///////////////////or could have method for each list and call correct method from here to avoid searching both lists.
-        if (position != posOfText) {
+       // if (position != posOfText) {
             controller.removeIngredientFromShoppingList(items.get(position));
-            intent.setClassName(packageName,
-                    packageName + ".UI.ShoppingListActivity");
-            startActivity(intent);
-        }
-//        if (position > posOfText) {
-//            intent.putExtra("drink", items.get(position));
 //            intent.setClassName(packageName,
-//                    packageName + ".UI.DrinkRecipeActivity");
+//                    packageName + ".UI.ShoppingListActivity");
 //            startActivity(intent);
-//        }
+        //}
+
     }
 }

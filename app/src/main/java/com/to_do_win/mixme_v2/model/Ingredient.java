@@ -18,6 +18,10 @@ public class Ingredient implements Comparable<Ingredient>{
         return getName().compareTo(i.getName());
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
     public enum Category {
         GARNISH (1),
         MIXER (3),
