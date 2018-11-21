@@ -151,6 +151,10 @@ public class ShoppingListActivity extends AppCompatActivity implements LogToggle
                 break;
 
             case R.id.addIngredientBtn:
+                intent.setClassName(packageName,
+                        packageName + ".UI.AddIngredientsToShoppingListActivity");
+                startActivity(intent);
+                break;
                 
         }
     }

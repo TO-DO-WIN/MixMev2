@@ -60,6 +60,9 @@
         <activity
             android:name=".UI.AddIngredientsToCabinetActivity"
             android:label="Add Ingredients To Cabinet" />
+        <activity
+            android:name=".UI.AddIngredientsToShoppingListActivity"
+            android:label="Add Ingredients To Shopping List" />
     </application>
 
 </manifest>
