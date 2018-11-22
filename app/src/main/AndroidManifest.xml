@@ -63,6 +63,9 @@
         <activity
             android:name=".UI.AddIngredientsToShoppingListActivity"
             android:label="Add Ingredients To Shopping List" />
+        <activity
+            android:name=".UI.RateReviewActivity"
+            android:label="Rate/Review" />
     </application>
 
 </manifest>
