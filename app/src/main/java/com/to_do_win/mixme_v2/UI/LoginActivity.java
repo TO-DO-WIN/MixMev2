@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.to_do_win.mixme_v2.R;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -335,7 +335,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Intent intent = new Intent();
                     // Account exists, start intent to CabinetActivity
                     if (pieces[1].equals(mPassword)) {
-                        SharedPrefsManager.setUserName(LoginActivity.this, mEmail);
+                        UserManager.userLogOut();
                         intent.setClassName(packageName,
                                 packageName +".UI.CabinetActivity");
                         startActivity(intent);

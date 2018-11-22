@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
 
         controller = Controller.getInstance();
 
-        userName = SharedPrefsManager.getUserName(CreateDrinkActivity.this);
+        userName = UserManager.getUserName();
 
         greeting = (TextView) findViewById(R.id.greeting);
         greeting.setText(userName);
@@ -177,7 +177,7 @@ public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
 
     @Override
     public void logToggle(String userName) {
-        SharedPrefsManager.setUserName(CreateDrinkActivity.this, null);
+        UserManager.userLogOut();
         Intent intent = new Intent();
         intent.setClassName(packageName,
                 packageName +".UI.SearchActivity");
