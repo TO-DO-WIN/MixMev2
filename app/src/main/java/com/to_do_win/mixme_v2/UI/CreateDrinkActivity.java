@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
@@ -114,6 +116,7 @@ public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
                 controller.setCreationInstructions(instructionsET.getText().toString());
                 controller.setCreationGlassType(glassTypeET.getText().toString());
 
+                Toast.makeText(this,"Drink has been created", Toast.LENGTH_LONG).show();
                 controller.addCreation();
                 intent.setClassName(packageName,
                         packageName +".UI.SearchActivity");

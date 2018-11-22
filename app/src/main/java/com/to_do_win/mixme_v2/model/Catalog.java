@@ -53,7 +53,7 @@ public class Catalog {
         Ingredient l = new Ingredient("Passion Fruit Juice", 8, Ingredient.Category.MIXER);
         Ingredient m = new Ingredient("Pinapple Juice", 9, Ingredient.Category.MIXER);
         Ingredient d = new Ingredient("Tomato Juice", 4, "Ounces", 10, Ingredient.Category.MIXER);
-        Ingredient b = new Ingredient("Vodka", 11, "Ounces", 11, Ingredient.Category.SPIRIT);
+        Ingredient b = new Ingredient("Vodka", 1.5, "Ounces", 11, Ingredient.Category.SPIRIT);
         Ingredient e = new Ingredient("Whiskey", 12, Ingredient.Category.SPIRIT);
 
         allIngredients.add(f);
@@ -438,7 +438,8 @@ public class Catalog {
         Ingredient i;
 
         if (ingredientId == NO_ID) {
-            i = new Ingredient(name, ingredientVolume, units, NO_ID, category);
+            String upperName = upperCaseAllFirst(name);
+            i = new Ingredient(upperName, ingredientVolume, units, NO_ID, category);
             newIngredients.add(i);
         } else {
             i = allIngredients.get(ingredientId);
@@ -470,7 +471,10 @@ public class Catalog {
         allDrinks.add(creation);
         if (newIngredients.size() > 0) {
             allIngredients.addAll(newIngredients);
-            /////////////////////////////////////////////////////////////////////////////////////////////TO DO -- RE-ORDER INGREDIENTS ALPHABETICALLY AND GIVE THEM INCREMENTING IDS CORRELATING WITH THEIR ALPHABETICAL ORDER
+            Collections.sort(allIngredients);
+            for (int i = 0; i < allIngredients.size(); i++){
+                allIngredients.get(i).setId(i);
+            }
             newIngredients.clear();
         }
         creation = new Drink();
@@ -612,6 +616,14 @@ public class Catalog {
         for (Drink d : allDrinks) {
             if (drinkName.equals(d.getName()))
                 return d;
+        }
+        return null;
+    }
+
+    public Ingredient getIngredientByName(String ingredientName){
+        for (Ingredient i: allIngredients){
+            if (ingredientName.equals(i.getName()))
+                return i;
         }
         return null;
     }

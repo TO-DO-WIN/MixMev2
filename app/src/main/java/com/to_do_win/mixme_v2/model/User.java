@@ -40,7 +40,6 @@ public class User {
         Ingredient e = new Ingredient("Whiskey", 12, Ingredient.Category.SPIRIT);
 
 
-
         // if (userName.equals("matt@mixme.com")) {
         myIngreds.add(a);
         myIngreds.add(b);
@@ -110,8 +109,8 @@ public class User {
 //        return user;
 //    }
 //
-    public static User getInstance(){
-        if(user == null){
+    public static User getInstance() {
+        if (user == null) {
             user = new User();
         }
         return user;
@@ -157,28 +156,29 @@ public class User {
         this.faves = faves;
     }
 
-    public ArrayList<String> getMyIngredientNames(){
+    public ArrayList<String> getMyIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
 
-        for (Ingredient i: myIngreds)
+        for (Ingredient i : myIngreds)
             ingredientNames.add(i.getName());
 
         return ingredientNames;
     }
 
-    public ArrayList<Integer> getMyIngredientIDs(){
+    public ArrayList<Integer> getMyIngredientIDs() {
         ArrayList<Integer> ingredientIDs = new ArrayList<>();
 
-        for (Ingredient i: myIngreds)
+        for (Ingredient i : myIngreds)
             ingredientIDs.add(i.getId());
 
         return ingredientIDs;
     }
 
     public boolean isFavorite(String drinkName) {
-        for (Drink d: faves){
+        for (Drink d : faves) {
             if (d.getName().equals(drinkName)) return true;
-        } return false;
+        }
+        return false;
     }
 
     public void addFavorite(String drinkName) {
@@ -187,18 +187,18 @@ public class User {
         faves.add(d);
     }
 
-    public void addIngredientsToCabinet(SparseBooleanArray sba){
+    public void addIngredientsToCabinet(SparseBooleanArray sba) {
         ArrayList<Ingredient> allIngreds;
         allIngreds = catalog.getAllIngredients();
-        for (int i = 0; i < allIngreds.size(); i++){
-            if (sba.get(i)){
+        for (int i = 0; i < allIngreds.size(); i++) {
+            if (sba.get(i)) {
                 myIngreds.add(allIngreds.get(i));
             }
         }
     }
 
     public void removeIngredientFromCabinet(String ingredName) {
-        for (Ingredient i: myIngreds){
+        for (Ingredient i : myIngreds) {
             if (i.getName().equals(ingredName)) {
                 myIngreds.remove(i);
                 return;
@@ -220,7 +220,6 @@ public class User {
         Ingredient d = new Ingredient("Tomato Juice", 4, "Ounces", 10, Ingredient.Category.MIXER);
         Ingredient b = new Ingredient("Vodka", 11, "Ounces", 11, Ingredient.Category.SPIRIT);
         Ingredient e = new Ingredient("Whiskey", 12, Ingredient.Category.SPIRIT);
-
 
 
         if (userName.equals("matt@mixme.com")) {
@@ -287,6 +286,74 @@ public class User {
 
     public void clearUser() {
         user = new User();
+    }
+
+    public void addIngredientsToShoppingList(SparseBooleanArray sba) {
+        ArrayList<Ingredient> allIngreds;
+        allIngreds = catalog.getAllIngredients();
+        for (int i = 0; i < allIngreds.size(); i++) {
+            if (sba.get(i)) {
+                Ingredient ingredient = allIngreds.get(i);
+                Ingredient.Category category = ingredient.getCategory();
+
+                if (!inShoppingList(ingredient)) {
+                    switch (category) {
+                        case SPIRIT:
+                        case LIQUEUR:
+                        case LOW_ALCOHOL:
+                            shoppingLS.add(ingredient);
+                            break;
+                        case MIXER:
+                        case GARNISH:
+                            shoppingGS.add(ingredient);
+                            break;
+                        default:
+
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean inShoppingList(Ingredient ingredient) {
+        if (shoppingGS.contains(ingredient)) {
+            return true;
+        }
+        if (shoppingLS.contains(ingredient)){
+            return true;
+        }
+        return false;
+    }
+
+    public void removeIngredientFromShoppingList(String ingredientName) {
+        for (Ingredient i : shoppingLS) {
+            if (i.getName().equals(ingredientName)) {
+                shoppingLS.remove(i);
+                return;
+            }
+        }
+        for (Ingredient i : shoppingGS) {
+            if (i.getName().equals(ingredientName)) {
+                shoppingGS.remove(i);
+                return;
+            }
+        }
+    }
+
+    private boolean inCabinet(Ingredient ingredient){
+        if (myIngreds.contains(ingredient)){
+            return true;
+        }
+        return false;
+    }
+
+    public void addToCabinet(String ingredName) {
+        Ingredient ingredient = catalog.getIngredientByName(ingredName);
+
+
+        if (!inCabinet(ingredient)){
+            myIngreds.add(ingredient);
+        }
     }
 }
 

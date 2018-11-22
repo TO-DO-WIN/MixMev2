@@ -3,15 +3,21 @@ package com.to_do_win.mixme_v2.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.to_do_win.mixme_v2.R;
+import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
 
-public class CabinetActivity extends AppCompatActivity implements LogToggle, View.OnClickListener {
+import java.util.ArrayList;
+
+public class CabinetActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
+        CabinetRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
     Button logBtn;
@@ -19,6 +25,13 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
     Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
 
+    TextView ingredsTV;
+    CabinetRecyclerViewAdapter adapter;
+    Button addIngredsBtn;
+    Controller controller;
+
+    int posOfText;
+    ArrayList<String> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +74,35 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
 
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);
+
+        addIngredsBtn = (Button) findViewById(R.id.addIngredientBtn);
+        addIngredsBtn.setOnClickListener(this);
+
+        ingredsTV = (TextView) findViewById(R.id.ingredientsTV);
+
+        controller = Controller.getInstance();
+        ArrayList<Integer> userIngredIDs = controller.getUserIngredientIDs();
+
+        items.addAll(controller.getUserIngredients());
+        ArrayList<String> makableNames = new ArrayList<>();
+        String text = "You can make these drinks.";
+        posOfText = items.size();
+        controller.searchDrinks(userIngredIDs, makableNames);
+        items.add(text);
+        items.addAll(makableNames);
+
+        // no need to use recylerView if no ingredients in cabinet
+        // display a text instead.
+        if (posOfText < 1){
+            ingredsTV.setText("You do not have any ingredients, and therefore you also cannot make any drinks.");
+        }
+        else {
+            RecyclerView rv = findViewById(R.id.cabinetRV);
+            rv.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new CabinetRecyclerViewAdapter(this, items, posOfText);
+            adapter.setClickListener(this);
+            rv.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -109,6 +151,11 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
                         packageName + ".UI.RandomActivity");
                 startActivity(intent);
                 break;
+            case R.id.addIngredientBtn:
+                intent.setClassName(packageName,
+                        packageName + ".UI.AddIngredientsToCabinetActivity");
+                startActivity(intent);
+                break;
         }
     }
 
@@ -129,5 +176,24 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
                     packageName + ".UI.LoginActivity");
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent();
+
+        if (position < posOfText){
+            controller.removeIngredientFromCabinet(items.get(position));
+            intent.setClassName(packageName,
+                    packageName + ".UI.CabinetActivity");
+            startActivity(intent);
+        }
+        if (position > posOfText) {
+            intent.putExtra("drink", items.get(position));
+            intent.setClassName(packageName,
+                    packageName + ".UI.DrinkRecipeActivity");
+            startActivity(intent);
+        }
+
     }
 }

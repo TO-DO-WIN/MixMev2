@@ -83,7 +83,7 @@ public class NewIngredientActivity extends AppCompatActivity implements View.OnC
 
                 if (controller.getIngredientID(newIngName) >= 0) {
                     Toast.makeText(this, "Ingredient already exist. Either go back to select ingredient or check spelling",
-                            Toast.LENGTH_LONG );
+                            Toast.LENGTH_LONG ).show();
 
 
                 } else {

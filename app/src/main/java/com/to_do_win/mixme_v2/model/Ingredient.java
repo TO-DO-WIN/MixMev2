@@ -1,12 +1,27 @@
 package com.to_do_win.mixme_v2.model;
 
-public class Ingredient {
+import android.support.annotation.NonNull;
+
+public class Ingredient implements Comparable<Ingredient>{
 
     private String name;
     private double volume;
     private String unit;
     private int id;
     private Category category;
+
+    @Override
+    public int compareTo(@NonNull Ingredient i) {
+        if (getName() == null || i.getName() == null) {
+            return 0;
+        }
+        return getName().compareTo(i.getName());
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
     public enum Category {
         GARNISH (1),
         MIXER (3),

@@ -434,5 +434,16 @@ public class Controller {
         return catalog.getRandomDrink();
     }
 
+    public void addIngredientsToShoppingList(SparseBooleanArray sba) {
+        user.addIngredientsToShoppingList(sba);
+    }
+
+    public void removeIngredientFromShoppingList(String ingredientName) {
+        user.removeIngredientFromShoppingList(ingredientName);
+    }
+
+    public void addToCabinet(String ingredName) {
+        user.addToCabinet(ingredName);
+    }
 }
 
