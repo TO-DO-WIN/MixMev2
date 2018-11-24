@@ -17,6 +17,7 @@ public class Drink {
     private int numIngreds;
     private int totalWeight = 0;
     private ArrayList<RateReview> ratings = new ArrayList<>();
+    private double rating;
 
 
     public int getTotalWeight() {
@@ -128,12 +129,14 @@ public class Drink {
 
     public void addRating(String userName, float rating, String review) {
         ratings.add(new RateReview(userName, rating, review));
+        setRating();
     }
 
     public void replaceRating(String userName, float rating, String review) {
         int indexOfRating = findRatingIndexByName(userName);
         ratings.get(indexOfRating).setRating(rating);
         ratings.get(indexOfRating).setReview(review);
+        setRating();
     }
 
     public int findRatingIndexByName(String userName){
@@ -146,6 +149,18 @@ public class Drink {
                 return i;
         }
         return -1;
+    }
+
+    public void setRating(){
+        double sum = 0;
+        for (RateReview r: ratings){
+            sum += r.getRating();
+        }
+        rating = sum / ratings.size();
+    }
+
+    public double getDrinkRating(){
+        return rating;
     }
 
     public class RateReview {

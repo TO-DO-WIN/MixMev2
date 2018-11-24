@@ -305,6 +305,8 @@ public class Controller {
      */
     public String getRecipeGlassType() { return catalog.getRecipeGlassType();}
 
+    public String getRecipeRating() { return catalog.getRecipeRating();}
+
     /**
      * Creates and returns a list of boolean values which correspond to the user's having of
      * ingredients in a list of recipe ingredients. Method iterates through each of the user's
@@ -461,5 +463,7 @@ public class Controller {
     public void setRating(String drinkName, String userName, float rating, String review) {
         catalog.addDrinkRating(drinkName, userName, rating, review);
     }
+
+
 }
 

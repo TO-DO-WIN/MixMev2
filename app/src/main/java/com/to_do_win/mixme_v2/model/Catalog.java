@@ -567,6 +567,10 @@ public class Catalog {
         return recipe.getGlassType();
     }
 
+    public String getRecipeRating() {
+        return String.format("%.2f", recipe.getDrinkRating());
+    }
+
     /**
      * Gets an ingredients id from the passed in ingredient name. Primarily used to check if an
      * ingredient is new. It returns the id of the ingredient if it exists, or -1 if it is a
@@ -680,4 +684,6 @@ public class Catalog {
             d.replaceRating(userName, rating, review);
         }
     }
+
+
 }

@@ -25,7 +25,8 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
     String userName;
     Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
-    TextView drinkNameTV, drinkRatingTV, instructionsTV, glassTV;
+    TextView drinkNameTV, instructionsTV, glassTV;
+    Button drinkRatingBtn;
     RecyclerView rv;
     Controller controller;
     CreateRecyclerViewAdapter adapter;
@@ -91,6 +92,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
 
         String instructions = controller.getRecipeInstructions();
         String glassType = controller.getRecipeGlassType();
+        String rating = "Rating = " + controller.getRecipeRating();
 
         if (userName!=null) {
             ArrayList<Boolean> hasIngredient = controller.getHasIngredient();
@@ -99,8 +101,9 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         drinkNameTV = (TextView) findViewById(R.id.drink_name);
         drinkNameTV.setText(drinkName);
 
-        drinkRatingTV = (TextView) findViewById(R.id.rating);
-        drinkRatingTV.setText("Rating = 4.5");//////////////////////////////////// Save for later
+        drinkRatingBtn = (Button) findViewById(R.id.ratingBtn);
+        drinkRatingBtn.setText(rating);
+        drinkRatingBtn.setOnClickListener(this);
 
         instructionsTV = (TextView) findViewById(R.id.instructionsTV);
         instructionsTV.setText(instructions);
@@ -129,6 +132,13 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
 
             case R.id.logBtn:
                 logToggle(userName);
+                break;
+              //////////////////////////////////////////////////////////////////////////////rating button to display ratings and reviews. no layout created yet.
+            case R.id.ratingBtn:
+                intent.putExtra("drinkName", drinkName);
+                intent.setClassName(packageName,
+                        packageName + ".UI.RateReviewActivity");
+                startActivity(intent);
                 break;
 
             case R.id.addFavesBtn:
