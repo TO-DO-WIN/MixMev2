@@ -16,6 +16,8 @@ public class Drink {
     private int percentMatch;
     private int numIngreds;
     private int totalWeight = 0;
+    private ArrayList<RateReview> ratings = new ArrayList<>();
+
 
     public int getTotalWeight() {
         return totalWeight;
@@ -114,9 +116,72 @@ public class Drink {
         return ingredIDs;
     }
 
+    public ArrayList<RateReview> getRatings() {
+        return ratings;
+    }
+
     public void addIngredient(Ingredient i) {
         totalWeight += i.getWeight();
         ingreds.add(i);
         numIngreds++;
+    }
+
+    public void addRating(String userName, float rating, String review) {
+        ratings.add(new RateReview(userName, rating, review));
+    }
+
+    public void replaceRating(String userName, float rating, String review) {
+        int indexOfRating = findRatingIndexByName(userName);
+        ratings.get(indexOfRating).setRating(rating);
+        ratings.get(indexOfRating).setReview(review);
+    }
+
+    public int findRatingIndexByName(String userName){
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////return index of rating from list which reefers to the user in question.
+        ///////////////to be used in above method for replacing a rating from a particular user.
+        //////////////also may be used in catalog methods to find rating and review based on a userName.
+        for (int i = 0; i < ratings.size(); i++){
+            if (ratings.get(i).getUser().equals(userName))
+                return i;
+        }
+        return -1;
+    }
+
+    public class RateReview {
+
+        private String user;
+        private float rating;
+        private String review;
+
+        public RateReview(String user, float rating, String review){
+            this.user = user;
+            this.rating = rating;
+            this.review = review;
+        }
+
+        public String getUser() {
+            return user;
+        }
+
+        public void setUser(String user) {
+            this.user = user;
+        }
+
+        public float getRating() {
+            return rating;
+        }
+
+        public void setRating(float rating) {
+            this.rating = rating;
+        }
+
+        public String getReview() {
+            return review;
+        }
+
+        public void setReview(String review) {
+            this.review = review;
+        }
     }
 }

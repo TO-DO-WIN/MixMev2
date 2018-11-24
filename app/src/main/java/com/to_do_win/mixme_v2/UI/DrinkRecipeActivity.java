@@ -136,6 +136,13 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
                 Toast.makeText(this,"Drink added to your favorites", Toast.LENGTH_LONG).show();
                 break;
 
+            case R.id.rateBtn:
+                intent.putExtra("drinkName", drinkName);
+                intent.setClassName(packageName,
+                        packageName + ".UI.RateReviewActivity");
+                startActivity(intent);
+                break;
+
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
                         packageName + ".UI.SearchActivity");

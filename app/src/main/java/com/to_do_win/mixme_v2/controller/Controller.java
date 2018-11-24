@@ -445,5 +445,21 @@ public class Controller {
     public void addToCabinet(String ingredName) {
         user.addToCabinet(ingredName);
     }
+
+//    public boolean userReviewed(String drinkName, String userName) {
+//        return catalog.userReviewed(drinkName, userName);
+//    }
+
+    public float getUserRating(String drinkName, String userName) {
+        return catalog.getUserRating(drinkName, userName);
+    }
+
+    public String getUserReview(String drinkName, String userName) {
+        return catalog.getUserReview(drinkName, userName);
+    }
+
+    public void setRating(String drinkName, String userName, float rating, String review) {
+        catalog.addDrinkRating(drinkName, userName, rating, review);
+    }
 }
 
