@@ -41,8 +41,9 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         super.onCreate(savedInstanceState);
 
         userName = SharedPrefsManager.getUserName(DrinkRecipeActivity.this);
+        Boolean user = (userName != null);
 
-        if (userName != null) {
+        if (userName != null ) {
             setContentView(R.layout.activity_drink_recipe);
             greeting = (TextView) findViewById(R.id.greeting);
             greeting.setText(userName);
@@ -89,6 +90,15 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         ArrayList<String> recipeIngredients = controller.getRecipeIngredients();
         ArrayList<String> recipeVolumes = controller.getRecipeVolumes();
         ArrayList<String> recipeUnits = controller.getRecipeUnits();
+
+        ArrayList<IngredientStatus> ingredientStatuses = new ArrayList<>();
+        ArrayList<Boolean> hasInCabinet = controller.getHasIngredient();
+        ArrayList<Boolean> hasInShoppingList = controller.getHasInShopping();
+        for (int i = 0; i < recipeIngredients.size(); i++){
+            if (hasInCabinet.get(i)) ingredientStatuses.add(IngredientStatus.CABINET);
+            else if (hasInShoppingList.get(i)) ingredientStatuses.add(IngredientStatus.SHOPPING);
+            else ingredientStatuses.add(IngredientStatus.NONE);
+        }
 
         String instructions = controller.getRecipeInstructions();
         String glassType = controller.getRecipeGlassType();
@@ -214,4 +224,6 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
     public void onItemClick(View view, int position) {
 
     }
+
+    private enum IngredientStatus {NONE, SHOPPING, CABINET}
 }

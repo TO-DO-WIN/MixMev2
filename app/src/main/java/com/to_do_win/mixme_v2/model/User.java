@@ -315,7 +315,7 @@ public class User {
         }
     }
 
-    private boolean inShoppingList(Ingredient ingredient) {
+    public boolean inShoppingList(Ingredient ingredient) {
         if (shoppingGS.contains(ingredient)) {
             return true;
         }
