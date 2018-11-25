@@ -187,6 +187,16 @@ public class User {
         faves.add(d);
     }
 
+    public void removeFavorite(String drinkName){
+        Boolean found = false;
+        for (int i = 0; !found && i < faves.size(); i++){
+            if (faves.get(i).getName().equals(drinkName)){
+                faves.remove(i);
+                found = true;
+            }
+        }
+    }
+
     public void addIngredientsToCabinet(SparseBooleanArray sba) {
         ArrayList<Ingredient> allIngreds;
         allIngreds = catalog.getAllIngredients();

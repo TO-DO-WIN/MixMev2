@@ -34,6 +34,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
     Button addFavesBtn, rateBtn;
 
     String drinkName;
+    boolean isFavorite;
 
 
     @Override
@@ -43,7 +44,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         userName = SharedPrefsManager.getUserName(DrinkRecipeActivity.this);
         Boolean user = (userName != null);
 
-        if (userName != null ) {
+        if (userName != null) {
             setContentView(R.layout.activity_drink_recipe);
             greeting = (TextView) findViewById(R.id.greeting);
             greeting.setText(userName);
@@ -67,8 +68,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
 
             rateBtn = (Button) findViewById(R.id.rateBtn);
             rateBtn.setOnClickListener(this);
-        }
-        else {
+        } else {
             setContentView(R.layout.drink_recipe_guest);
             logBtn = (Button) findViewById(R.id.logBtn);
         }
@@ -92,22 +92,25 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         ArrayList<String> recipeUnits = controller.getRecipeUnits();
 
         ArrayList<IngredientStatus> ingredientStatuses = new ArrayList<>();
-        ArrayList<Boolean> hasInCabinet = controller.getHasIngredient();
-        ArrayList<Boolean> hasInShoppingList = controller.getHasInShopping();
-        for (int i = 0; i < recipeIngredients.size(); i++){
-            if (hasInCabinet.get(i)) ingredientStatuses.add(IngredientStatus.CABINET);
-            else if (hasInShoppingList.get(i)) ingredientStatuses.add(IngredientStatus.SHOPPING);
-            else ingredientStatuses.add(IngredientStatus.NONE);
+
+        if (userName != null) {
+            isFavorite = controller.isFavorite(drinkName);
+            if (isFavorite) addFavesBtn.setText("Remove From Favorites");
+
+            ArrayList<Boolean> hasInCabinet = controller.getHasIngredient();
+            ArrayList<Boolean> hasInShoppingList = controller.getHasInShopping();
+            for (int i = 0; i < recipeIngredients.size(); i++) {
+                if (hasInCabinet.get(i)) ingredientStatuses.add(IngredientStatus.CABINET);
+                else if (hasInShoppingList.get(i))
+                    ingredientStatuses.add(IngredientStatus.SHOPPING);
+                else ingredientStatuses.add(IngredientStatus.NONE);
+            }
         }
 
         String instructions = controller.getRecipeInstructions();
         String glassType = controller.getRecipeGlassType();
         String rating = "Rating = " + controller.getRecipeRating();
 
-        if (userName!=null) {
-            ArrayList<Boolean> hasIngredient = controller.getHasIngredient();
-            boolean isFavorite = controller.isFavorite(drinkName);
-        }
         drinkNameTV = (TextView) findViewById(R.id.drink_name);
         drinkNameTV.setText(drinkName);
 
@@ -143,7 +146,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
             case R.id.logBtn:
                 logToggle(userName);
                 break;
-              //////////////////////////////////////////////////////////////////////////////rating button to display ratings and reviews. no layout created yet.
+            //////////////////////////////////////////////////////////////////////////////rating button to display ratings and reviews. no layout created yet.
             case R.id.ratingBtn:
                 intent.putExtra("drinkName", drinkName);
                 intent.setClassName(packageName,
@@ -152,8 +155,17 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
                 break;
 
             case R.id.addFavesBtn:
-                controller.addFavorite(drinkName);
-                Toast.makeText(this,"Drink added to your favorites", Toast.LENGTH_LONG).show();
+                if (!isFavorite) {
+                    controller.addFavorite(drinkName);
+                    Toast.makeText(this, "Drink added to your favorites", Toast.LENGTH_LONG).show();
+                } else {
+                    controller.removeFavorite(drinkName);
+                    Toast.makeText(this, "Drink removed from your favorites", Toast.LENGTH_LONG).show();
+                }
+                intent.putExtra("drink", drinkName);
+                intent.setClassName(packageName,
+                        packageName + ".UI.DrinkRecipeActivity");
+                startActivity(intent);
                 break;
 
             case R.id.rateBtn:

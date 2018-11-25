@@ -372,6 +372,8 @@ public class Controller {
      */
     public void addFavorite(String drinkName) {user.addFavorite(drinkName); }
 
+    public void removeFavorite(String drinkName) {user.removeFavorite(drinkName); }
+
     /**
      * Iterates through collection of user's favorites and pulls out the name of each drink. The name
      * of each favorite drink is added to list and returned.
