@@ -365,5 +365,26 @@ public class User {
             myIngreds.add(ingredient);
         }
     }
+
+    public void addToShoppingList(String ingredientName) {
+        Ingredient ingredient = catalog.getIngredientByName(ingredientName);
+        Ingredient.Category category = ingredient.getCategory();
+
+        if (!inShoppingList(ingredient)) {
+            switch (category) {
+                case SPIRIT:
+                case LIQUEUR:
+                case LOW_ALCOHOL:
+                    shoppingLS.add(ingredient);
+                    break;
+                case MIXER:
+                case GARNISH:
+                    shoppingGS.add(ingredient);
+                    break;
+                default:
+
+            }
+        }
+    }
 }
 

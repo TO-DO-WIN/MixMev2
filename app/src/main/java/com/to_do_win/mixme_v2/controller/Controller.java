@@ -494,6 +494,6 @@ public class Controller {
     }
 
 
-
+    public void addToShoppingList(String ingredientName) { user.addToShoppingList(ingredientName); }
 }
 
