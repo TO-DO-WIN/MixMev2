@@ -244,6 +244,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
                 break;
             case SHOPPING:
                 controller.addToCabinet(ingredientName);
+                controller.removeIngredientFromShoppingList(ingredientName);
                 Toast.makeText(this, "Ingredient Added to Your Cabinet", Toast.LENGTH_LONG).show();
                 break;
             case CABINET:
