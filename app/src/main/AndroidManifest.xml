@@ -65,7 +65,7 @@
             android:label="Add Ingredients To Shopping List" />
         <activity
             android:name=".UI.RateReviewActivity"
-            android:label="Rate/Review" />
+            android:label="Rate Review" />
     </application>
 
 </manifest>

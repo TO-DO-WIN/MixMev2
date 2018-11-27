@@ -305,6 +305,8 @@ public class Controller {
      */
     public String getRecipeGlassType() { return catalog.getRecipeGlassType();}
 
+    public String getRecipeRating() { return catalog.getRecipeRating();}
+
     /**
      * Creates and returns a list of boolean values which correspond to the user's having of
      * ingredients in a list of recipe ingredients. Method iterates through each of the user's
@@ -314,16 +316,43 @@ public class Controller {
      */
     public ArrayList<Boolean> getHasIngredient() {
         ArrayList<Boolean> hasIngredient = new ArrayList<>();
-//////////////////////////////////////////////////////////////////////////////////////////////////// TO DO -- SHORT CIRCUIT THIS WHEN TRUE FOUND
+
         for (String recIng: getRecipeIngredients()){
-            for (String userIng: user.getMyIngredientNames()){
-                if (userIng.equals(recIng)){
-                    hasIngredient.add(true);
-                } else {
-                    hasIngredient.add(false);}
-            }
+            Boolean found = false;
+            for (int i = 0; i < user.getMyIngredientNames().size() && !found; i++)
+
+                if (user.getMyIngredientNames().get(i).equals(recIng)){
+                    found = true;
+                }
+
+            if (found) hasIngredient.add(true);
+            else hasIngredient.add(false);
         }
         return hasIngredient;
+    }
+
+    public ArrayList<Boolean> getHasInShopping() {
+        ArrayList<Boolean> hasInShopping = new ArrayList<>();
+        Ingredient ingredient;
+        Boolean found;
+
+        // for each recipe ingredient as a string
+        for (int i = 0; i < getRecipeIngredients().size(); i++){
+            found = false;
+            for (int j = 0; j < user.getShoppingLS().size() && !found; j++){
+                ingredient = user.getShoppingLS().get(j);
+                if (ingredient.getName().equals(getRecipeIngredients().get(i)))
+                    found = true;
+            }
+            for (int j = 0; j < user.getShoppingGS().size() && !found; j++) {
+                ingredient = user.getShoppingGS().get(j);
+                if (ingredient.getName().equals(getRecipeIngredients().get(i)))
+                    found = true;
+            }
+            if (found) hasInShopping.add(true);
+            else hasInShopping.add(false);
+        }
+        return  hasInShopping;
     }
 
     /**
@@ -342,6 +371,8 @@ public class Controller {
      * @param drinkName the name of the drink to be added to favorites
      */
     public void addFavorite(String drinkName) {user.addFavorite(drinkName); }
+
+    public void removeFavorite(String drinkName) {user.removeFavorite(drinkName); }
 
     /**
      * Iterates through collection of user's favorites and pulls out the name of each drink. The name
@@ -445,5 +476,24 @@ public class Controller {
     public void addToCabinet(String ingredName) {
         user.addToCabinet(ingredName);
     }
+
+//    public boolean userReviewed(String drinkName, String userName) {
+//        return catalog.userReviewed(drinkName, userName);
+//    }
+
+    public float getUserRating(String drinkName, String userName) {
+        return catalog.getUserRating(drinkName, userName);
+    }
+
+    public String getUserReview(String drinkName, String userName) {
+        return catalog.getUserReview(drinkName, userName);
+    }
+
+    public void setRating(String drinkName, String userName, float rating, String review) {
+        catalog.addDrinkRating(drinkName, userName, rating, review);
+    }
+
+
+    public void addToShoppingList(String ingredientName) { user.addToShoppingList(ingredientName); }
 }
 

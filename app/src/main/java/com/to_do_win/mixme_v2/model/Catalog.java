@@ -1,5 +1,9 @@
 package com.to_do_win.mixme_v2.model;
 
+import android.content.SharedPreferences;
+
+import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -563,6 +567,10 @@ public class Catalog {
         return recipe.getGlassType();
     }
 
+    public String getRecipeRating() {
+        return String.format("%.2f", recipe.getDrinkRating());
+    }
+
     /**
      * Gets an ingredients id from the passed in ingredient name. Primarily used to check if an
      * ingredient is new. It returns the id of the ingredient if it exists, or -1 if it is a
@@ -634,4 +642,48 @@ public class Catalog {
         int drinkNumber = random.nextInt(allDrinks.size());
         return allDrinks.get(drinkNumber).getName();
     }
+
+//    public boolean userReviewed(String drinkName, String userName) {
+//        Drink d = getDrinkByName(drinkName);
+//        ArrayList<Drink.RateReview> ratings = d.getRatings();
+//        for (int i = 0; i < ratings.size(); i++){
+//            if (ratings.get(i).getUser().equals(userName))
+//                return true;
+//        }
+//
+//        return false;
+//    }
+
+    public float getUserRating(String drinkName, String userName) {
+        Drink d = getDrinkByName(drinkName);
+        ArrayList<Drink.RateReview> ratings = d.getRatings();
+        for (int i = 0; i < ratings.size(); i++){
+            if (ratings.get(i).getUser().equals(userName))
+                return ratings.get(i).getRating();
+        }
+
+        return -1;
+    }
+
+    public String getUserReview(String drinkName, String userName) {
+        Drink d = getDrinkByName(drinkName);
+        ArrayList<Drink.RateReview> ratings = d.getRatings();
+        for (int i = 0; i < ratings.size(); i++){
+            if (ratings.get(i).getUser().equals(userName))
+                return ratings.get(i).getReview();
+        }
+        return null;
+    }
+
+    public void addDrinkRating(String drinkName, String userName, float rating, String review) {
+        Drink d = getDrinkByName(drinkName);
+
+        if (getUserRating(drinkName, userName) == -1) {
+            d.addRating(userName, rating, review);
+        } else {
+            d.replaceRating(userName, rating, review);
+        }
+    }
+
+
 }

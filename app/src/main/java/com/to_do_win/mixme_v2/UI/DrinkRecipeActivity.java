@@ -18,28 +18,33 @@ import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
 import java.util.ArrayList;
 
 public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
-        CreateRecyclerViewAdapter.ItemClickListener {
+        DrinkRecipeRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
     Button logBtn;
     String userName;
     Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
-    TextView drinkNameTV, drinkRatingTV, instructionsTV, glassTV;
+    TextView drinkNameTV, instructionsTV, glassTV;
+    Button drinkRatingBtn;
     RecyclerView rv;
     Controller controller;
-    CreateRecyclerViewAdapter adapter;
+    DrinkRecipeRecyclerViewAdapter adapter;
 
     Button addFavesBtn, rateBtn;
 
     String drinkName;
+    boolean isFavorite;
 
+    ArrayList<IngredientStatus> ingredientStatuses;
+    ArrayList<String> recipeIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         userName = SharedPrefsManager.getUserName(DrinkRecipeActivity.this);
+        Boolean user = (userName != null);
 
         if (userName != null) {
             setContentView(R.layout.activity_drink_recipe);
@@ -65,8 +70,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
 
             rateBtn = (Button) findViewById(R.id.rateBtn);
             rateBtn.setOnClickListener(this);
-        }
-        else {
+        } else {
             setContentView(R.layout.drink_recipe_guest);
             logBtn = (Button) findViewById(R.id.logBtn);
         }
@@ -85,22 +89,36 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         drinkName = intent.getStringExtra("drink");
         controller.setRecipe(drinkName);
 
-        ArrayList<String> recipeIngredients = controller.getRecipeIngredients();
+        recipeIngredients = controller.getRecipeIngredients();
         ArrayList<String> recipeVolumes = controller.getRecipeVolumes();
         ArrayList<String> recipeUnits = controller.getRecipeUnits();
 
+
+        if (userName != null) {
+            ingredientStatuses = new ArrayList<>();
+            isFavorite = controller.isFavorite(drinkName);
+            if (isFavorite) addFavesBtn.setText("Remove From Favorites");
+
+            ArrayList<Boolean> hasInCabinet = controller.getHasIngredient();
+            ArrayList<Boolean> hasInShoppingList = controller.getHasInShopping();
+            for (int i = 0; i < recipeIngredients.size(); i++) {
+                if (hasInCabinet.get(i)) ingredientStatuses.add(IngredientStatus.CABINET);
+                else if (hasInShoppingList.get(i))
+                    ingredientStatuses.add(IngredientStatus.SHOPPING);
+                else ingredientStatuses.add(IngredientStatus.NONE);
+            }
+        }
+
         String instructions = controller.getRecipeInstructions();
         String glassType = controller.getRecipeGlassType();
+        String rating = "Rating = " + controller.getRecipeRating();
 
-        if (userName!=null) {
-            ArrayList<Boolean> hasIngredient = controller.getHasIngredient();
-            boolean isFavorite = controller.isFavorite(drinkName);
-        }
         drinkNameTV = (TextView) findViewById(R.id.drink_name);
         drinkNameTV.setText(drinkName);
 
-        drinkRatingTV = (TextView) findViewById(R.id.rating);
-        drinkRatingTV.setText("Rating = 4.5");//////////////////////////////////// Save for later
+        drinkRatingBtn = (Button) findViewById(R.id.ratingBtn);
+        drinkRatingBtn.setText(rating);
+        drinkRatingBtn.setOnClickListener(this);
 
         instructionsTV = (TextView) findViewById(R.id.instructionsTV);
         instructionsTV.setText(instructions);
@@ -114,8 +132,8 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         // must pass values for user/non-user, and for ingredient being in user's cabinet and or shopping list
         // use different constructors for whether user or not, and within RecipeActivity or just in
         // create activity
-        adapter = new CreateRecyclerViewAdapter(this, recipeIngredients, recipeVolumes,
-                recipeUnits);
+        adapter = new DrinkRecipeRecyclerViewAdapter(this, recipeIngredients, recipeVolumes,
+                recipeUnits, user, ingredientStatuses);
         adapter.setClickListener(this);
         rv.setAdapter(adapter);
     }
@@ -130,10 +148,33 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
             case R.id.logBtn:
                 logToggle(userName);
                 break;
+            //////////////////////////////////////////////////////////////////////////////rating button to display ratings and reviews. no layout created yet.
+            case R.id.ratingBtn:
+                intent.putExtra("drinkName", drinkName);
+                intent.setClassName(packageName,
+                        packageName + ".UI.RateReviewActivity");
+                startActivity(intent);
+                break;
 
             case R.id.addFavesBtn:
-                controller.addFavorite(drinkName);
-                Toast.makeText(this,"Drink added to your favorites", Toast.LENGTH_LONG).show();
+                if (!isFavorite) {
+                    controller.addFavorite(drinkName);
+                    Toast.makeText(this, "Drink added to your favorites", Toast.LENGTH_LONG).show();
+                } else {
+                    controller.removeFavorite(drinkName);
+                    Toast.makeText(this, "Drink removed from your favorites", Toast.LENGTH_LONG).show();
+                }
+                intent.putExtra("drink", drinkName);
+                intent.setClassName(packageName,
+                        packageName + ".UI.DrinkRecipeActivity");
+                startActivity(intent);
+                break;
+
+            case R.id.rateBtn:
+                intent.putExtra("drinkName", drinkName);
+                intent.setClassName(packageName,
+                        packageName + ".UI.RateReviewActivity");
+                startActivity(intent);
                 break;
 
             case R.id.searchNVBtn:
@@ -195,6 +236,29 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
 
     @Override
     public void onItemClick(View view, int position) {
+        String ingredientName = recipeIngredients.get(position);
+        switch (ingredientStatuses.get(position)) {
+            case NONE:
+                controller.addToShoppingList(ingredientName);
+                Toast.makeText(this, "Ingredient Added to Your Shopping List", Toast.LENGTH_SHORT).show();
+                break;
+            case SHOPPING:
+                controller.addToCabinet(ingredientName);
+                controller.removeIngredientFromShoppingList(ingredientName);
+                Toast.makeText(this, "Ingredient Added to Your Cabinet", Toast.LENGTH_LONG).show();
+                break;
+            case CABINET:
+                controller.removeIngredientFromCabinet(ingredientName);
+                Toast.makeText(this, "Ingredient Removed from Your Cabinet", Toast.LENGTH_LONG).show();
+                break;
+        }
+        Intent intent = new Intent();
+        intent.putExtra("drink", drinkName);
+        intent.setClassName(packageName,
+                packageName + ".UI.DrinkRecipeActivity");
+        startActivity(intent);
 
     }
+
+    public enum IngredientStatus {NONE, SHOPPING, CABINET}
 }
