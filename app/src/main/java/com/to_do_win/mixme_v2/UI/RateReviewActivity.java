@@ -34,6 +34,7 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
     String drinkName;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,5 +185,4 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
             startActivity(intent);
         }
     }
-
 }
