@@ -146,7 +146,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                logToggle();
                 break;
             //////////////////////////////////////////////////////////////////////////////rating button to display ratings and reviews. no layout created yet.
             case R.id.ratingBtn:
@@ -216,23 +216,25 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
     }
 
     @Override
-    public void logToggle(String userName) {
-
-        if (userName != null) {
+    public void logToggle() {
+        if (!UserManager.getUserName().equals("guest")) {
             UserManager.userLogOut();
+            greeting.setText("Hello, Guest");
+            logBtn.setText("Log In");
             Intent intent = new Intent();
             intent.setClassName(packageName,
-                    packageName + ".UI.SearchActivity");
+                    packageName +".UI.SearchActivity");
             startActivity(intent);
         } else {
 
             // This should never happen...shouldn't be in Cabinet without logged in
             Intent intent = new Intent();
             intent.setClassName(packageName,
-                    packageName + ".UI.LoginActivity");
+                    packageName +".UI.LoginActivity");
             startActivity(intent);
         }
     }
+
 
     @Override
     public void onItemClick(View view, int position) {

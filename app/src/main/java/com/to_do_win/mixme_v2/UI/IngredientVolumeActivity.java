@@ -94,10 +94,11 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
 
     }
 
-    public void logToggle(String userName) {
-
-        if (userName != null) {
+    public void logToggle() {
+        if (!UserManager.getUserName().equals("guest")) {
             UserManager.userLogOut();
+            greeting.setText("Hello, Guest");
+            logBtn.setText("Log In");
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName +".UI.SearchActivity");
@@ -110,7 +111,6 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
                     packageName +".UI.LoginActivity");
             startActivity(intent);
         }
-
     }
 
     @Override
@@ -120,7 +120,7 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                logToggle();
                 break;
 
             case R.id.cancelBtn:

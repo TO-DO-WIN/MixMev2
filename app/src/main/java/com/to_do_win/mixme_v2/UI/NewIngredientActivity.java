@@ -68,7 +68,7 @@ public class NewIngredientActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                logToggle();
                 break;
 
             case R.id.cancelBtn:
@@ -108,11 +108,22 @@ public class NewIngredientActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void logToggle(String userName) {
-        UserManager.userLogOut();
-        Intent intent = new Intent();
-        intent.setClassName(packageName,
-                packageName +".UI.SearchActivity");
-        startActivity(intent);
+    public void logToggle() {
+        if (!UserManager.getUserName().equals("guest")) {
+            UserManager.userLogOut();
+            greeting.setText("Hello, Guest");
+            logBtn.setText("Log In");
+            Intent intent = new Intent();
+            intent.setClassName(packageName,
+                    packageName +".UI.SearchActivity");
+            startActivity(intent);
+        } else {
+
+            // This should never happen...shouldn't be in Cabinet without logged in
+            Intent intent = new Intent();
+            intent.setClassName(packageName,
+                    packageName +".UI.LoginActivity");
+            startActivity(intent);
+        }
     }
 }

@@ -85,7 +85,7 @@ public class AddIngredientsToShoppingListActivity extends AppCompatActivity impl
         switch (v.getId()){
 
             case R.id.logBtn:
-                logToggle(userName);
+                logToggle();
                 break;
 
             case R.id.searchNVBtn:
@@ -147,9 +147,11 @@ public class AddIngredientsToShoppingListActivity extends AppCompatActivity impl
     }
 
     @Override
-    public void logToggle(String userName) {
-        if (userName != null) {
+    public void logToggle() {
+        if (!UserManager.getUserName().equals("guest")) {
             UserManager.userLogOut();
+            greeting.setText("Hello, Guest");
+            logBtn.setText("Log In");
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName +".UI.SearchActivity");

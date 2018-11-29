@@ -41,9 +41,10 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
 
         userName = UserManager.getUserName();
 
-        if (userName != null) {
+        if (!UserManager.getUserName().equals("guest")) {
             setContentView(R.layout.activity_search);
             greeting = (TextView) findViewById(R.id.greeting);
+
             greeting.setText(userName);
             logBtn = (Button) findViewById(R.id.logBtn);
             logBtn.setText("Log Out");
@@ -93,14 +94,19 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
         rv.setAdapter(adapter);
     }
 
-
     @Override
-    public void logToggle(String userName) {
-        if (userName != null){
+    public void logToggle() {
+        if (!UserManager.getUserName().equals("guest")) {
             UserManager.userLogOut();
             greeting.setText("Hello, Guest");
             logBtn.setText("Log In");
+            Intent intent = new Intent();
+            intent.setClassName(packageName,
+                    packageName +".UI.SearchActivity");
+            startActivity(intent);
         } else {
+
+            // This should never happen...shouldn't be in Cabinet without logged in
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName +".UI.LoginActivity");
@@ -108,20 +114,16 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
         }
     }
 
+
     @Override
     public void onClick(View v) {
 
         Intent intent = new Intent();
 
-
         switch (v.getId()){
 
             case R.id.logBtn:
-                UserManager us = new UserManager();
-                us.userLogOut();
-                intent.setClassName(packageName,
-                        packageName +".UI.LoginActivity");
-                startActivity(intent);
+                logToggle();
                 break;
 
             case R.id.findDrinks:

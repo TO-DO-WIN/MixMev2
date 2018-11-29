@@ -5,7 +5,7 @@ import android.view.View;
 
 public interface LogToggle {
 
-    public void logToggle(String userName);
+    public void logToggle();
 
 
 }
