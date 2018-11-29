@@ -1,21 +1,18 @@
 package com.to_do_win.mixme_v2.UI;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
-
-import java.util.ArrayList;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 public class RateReviewActivity extends AppCompatActivity implements LogToggle, View.OnClickListener {
 
@@ -39,7 +36,7 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userName = SharedPrefsManager.getUserName(RateReviewActivity.this);
+        userName = UserManager.getUserName();
 
         if (userName == null) {
             // should never happen, shouldn't be in this activity when
@@ -171,7 +168,7 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
     public void logToggle(String userName) {
 
         if (userName != null) {
-            SharedPrefsManager.setUserName(RateReviewActivity.this, null);
+            UserManager.userLogOut();
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName + ".UI.SearchActivity");

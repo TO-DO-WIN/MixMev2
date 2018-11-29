@@ -1,9 +1,5 @@
 package com.to_do_win.mixme_v2.model;
 
-import android.content.SharedPreferences;
-
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;

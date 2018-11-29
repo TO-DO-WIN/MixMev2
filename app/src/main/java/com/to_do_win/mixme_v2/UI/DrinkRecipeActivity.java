@@ -43,7 +43,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements LogToggle,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userName = SharedPrefsManager.getUserName(DrinkRecipeActivity.this);
+        userName = UserManager.getUserName();
         Boolean user = (userName != null);
 
         if (userName != null) {

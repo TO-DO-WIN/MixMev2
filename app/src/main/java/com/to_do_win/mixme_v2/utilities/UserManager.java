@@ -1,6 +1,5 @@
 package com.to_do_win.mixme_v2.utilities;
 
-import android.content.SharedPreferences;
 
 import com.google.firebase.auth.FirebaseAuth;
 
