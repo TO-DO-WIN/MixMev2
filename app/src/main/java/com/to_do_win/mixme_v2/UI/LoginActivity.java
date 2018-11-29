@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
             return;
         }
 
-        progressDialog.setMessage("Registering Please Wait...");
+        progressDialog.setMessage("Logging In Please Wait...");
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -87,8 +87,6 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
                 }else{
                     Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
     }

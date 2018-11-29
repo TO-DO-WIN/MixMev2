@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.to_do_win.mixme_v2.R;
 
+import org.w3c.dom.Text;
+
 public class RegisterActivity extends AppCompatActivity implements  View.OnClickListener{
     String packageName = "com.to_do_win.mixme_v2";
     private Button buttonRegister;
@@ -54,25 +56,19 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
 
         if(TextUtils.isEmpty(email)){
             //email is empty
-            Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        if(TextUtils.isEmpty(password)){
+        } else if(TextUtils.isEmpty(password)){
             //password is empty
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        if(TextUtils.isEmpty(confirmPassword)){
+        } else if(TextUtils.isEmpty(confirmPassword)){
             //password is empty
-            Toast.makeText(this,"Please confirm password",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please confirm password",Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        if(password.equals(confirmPassword)){
+        } else if(!TextUtils.equals(password,confirmPassword)){
             //password is empty
-            Toast.makeText(this,"Passwords do not match",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Passwords do not match",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -110,6 +106,7 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
     public void onClick(View v) {
         if(v == buttonRegister){
             registerUser();
+            return;
         }
 
         if(v == textViewLogin) {
