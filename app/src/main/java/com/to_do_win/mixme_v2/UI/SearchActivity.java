@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
@@ -92,6 +93,7 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
         rv.setAdapter(adapter);
     }
 
+
     @Override
     public void logToggle(String userName) {
         if (userName != null){
@@ -111,10 +113,15 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
 
         Intent intent = new Intent();
 
+
         switch (v.getId()){
 
             case R.id.logBtn:
-                logToggle(userName);
+                UserManager us = new UserManager();
+                us.userLogOut();
+                intent.setClassName(packageName,
+                        packageName +".UI.LoginActivity");
+                startActivity(intent);
                 break;
 
             case R.id.findDrinks:
