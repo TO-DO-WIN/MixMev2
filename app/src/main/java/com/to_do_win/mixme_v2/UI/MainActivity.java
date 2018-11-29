@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Check if User is Already Logged In
 
-        if (UserManager.getUserName() == null){
+        if (UserManager.getUserName().equals("fail")){
             intent.setClassName(packageName,
                     packageName +".UI.LoginActivity");
         } else {

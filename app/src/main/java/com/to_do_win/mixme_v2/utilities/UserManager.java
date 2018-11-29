@@ -9,12 +9,8 @@ public class UserManager {
     private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public static String getUserName(){
-        try{
-            return firebaseAuth.getCurrentUser().getEmail();
-        }catch (ExceptionInInitializerError | IllegalStateException e){
-            e.printStackTrace();
-        }
-        return null;
+        firebaseAuth = FirebaseAuth.getInstance();
+        return firebaseAuth.getCurrentUser()==null ? "fail" : firebaseAuth.getCurrentUser().getEmail();
     }
 
 

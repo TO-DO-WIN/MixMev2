@@ -109,7 +109,11 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
                     Intent intent = new Intent();
                     intent.setClassName(packageName,
                             packageName +".UI.CabinetActivity");
-                    startActivity(intent);                }
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });

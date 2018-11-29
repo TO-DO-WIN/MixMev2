@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:480980615946:android:4add062d8caf6814",
         "android_client_info": {
-          "package_name": "com.to_do_win.mixme_v2"
+          "package_name": "com.example.bellescott.mixmetwo"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "480980615946-tasc23hr30pmknu7k1ib99bogo7j3je4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.to_do_win.mixme_v2",
+            "package_name": "com.example.bellescott.mixmetwo",
             "certificate_hash": "70724e148968d57ef15f86c8769efab6862f068d"
           }
         },
@@ -44,6 +44,37 @@
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480980615946:android:caa8860db837123d",
+        "android_client_info": {
+          "package_name": "com.to_do_win.mixme_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480980615946-7mbmtr41k839l78kguc6h1ls353k2s5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOiRjUls535vzQus_8W-E7b9wLzuIt3IQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
