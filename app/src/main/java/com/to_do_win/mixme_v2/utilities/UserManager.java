@@ -10,7 +10,7 @@ public class UserManager {
 
     public static String getUserName(){
         firebaseAuth = FirebaseAuth.getInstance();
-        return firebaseAuth.getCurrentUser()==null ? "fail" : firebaseAuth.getCurrentUser().getEmail();
+        return firebaseAuth.getCurrentUser()==null ? "guest" : firebaseAuth.getCurrentUser().getEmail();
     }
 
 
@@ -19,7 +19,11 @@ public class UserManager {
 //    }
 //
     public static void userLogOut(){
-        firebaseAuth.signOut();
+
+        if(getUserName().equals("guest")){
+            firebaseAuth.signOut();
+        }
+
     }
 
 }
