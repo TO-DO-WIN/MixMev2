@@ -187,6 +187,16 @@ public class User {
         faves.add(d);
     }
 
+    public void removeFavorite(String drinkName){
+        Boolean found = false;
+        for (int i = 0; !found && i < faves.size(); i++){
+            if (faves.get(i).getName().equals(drinkName)){
+                faves.remove(i);
+                found = true;
+            }
+        }
+    }
+
     public void addIngredientsToCabinet(SparseBooleanArray sba) {
         ArrayList<Ingredient> allIngreds;
         allIngreds = catalog.getAllIngredients();
@@ -315,7 +325,7 @@ public class User {
         }
     }
 
-    private boolean inShoppingList(Ingredient ingredient) {
+    public boolean inShoppingList(Ingredient ingredient) {
         if (shoppingGS.contains(ingredient)) {
             return true;
         }
@@ -353,6 +363,27 @@ public class User {
 
         if (!inCabinet(ingredient)){
             myIngreds.add(ingredient);
+        }
+    }
+
+    public void addToShoppingList(String ingredientName) {
+        Ingredient ingredient = catalog.getIngredientByName(ingredientName);
+        Ingredient.Category category = ingredient.getCategory();
+
+        if (!inShoppingList(ingredient)) {
+            switch (category) {
+                case SPIRIT:
+                case LIQUEUR:
+                case LOW_ALCOHOL:
+                    shoppingLS.add(ingredient);
+                    break;
+                case MIXER:
+                case GARNISH:
+                    shoppingGS.add(ingredient);
+                    break;
+                default:
+
+            }
         }
     }
 }
