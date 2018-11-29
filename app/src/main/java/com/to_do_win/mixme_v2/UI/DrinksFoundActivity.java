@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class DrinksFoundActivity extends AppCompatActivity implements LogToggle,
 
         super.onCreate(savedInstanceState);
 
-        userName = SharedPrefsManager.getUserName(DrinksFoundActivity.this);
+        userName = UserManager.getUserName();
 
         if (userName != null) {
             setContentView(R.layout.activity_drinks_found);
@@ -162,7 +162,7 @@ public class DrinksFoundActivity extends AppCompatActivity implements LogToggle,
     @Override
     public void logToggle(String userName) {
         if (userName != null){
-            SharedPrefsManager.setUserName(DrinksFoundActivity.this, null);
+            UserManager.userLogOut();
             logBtn.setText("Log In");
         } else {
             Intent intent = new Intent();

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
 
 
 
-        userName = SharedPrefsManager.getUserName(SearchActivity.this);
+        userName = UserManager.getUserName();
 
         if (userName != null) {
             setContentView(R.layout.activity_search);
@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
     @Override
     public void logToggle(String userName) {
         if (userName != null){
-            SharedPrefsManager.setUserName(SearchActivity.this, null);
+            UserManager.userLogOut();
             greeting.setText("Hello, Guest");
             logBtn.setText("Log In");
         } else {

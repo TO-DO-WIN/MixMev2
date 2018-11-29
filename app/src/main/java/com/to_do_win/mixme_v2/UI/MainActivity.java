@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.to_do_win.mixme_v2.R;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 
 /**
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Check if User is Already Logged In
 
-        if (SharedPrefsManager.getUserName(MainActivity.this) == null){
+        if (UserManager.getUserName().equals("fail")){
             intent.setClassName(packageName,
                     packageName +".UI.LoginActivity");
         } else {

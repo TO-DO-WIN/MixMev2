@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userName = SharedPrefsManager.getUserName(CabinetActivity.this);
+        userName = UserManager.getUserName();
 
         if (userName == null) {
 
@@ -163,7 +163,7 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
     public void logToggle(String userName) {
 
         if (userName != null) {
-            SharedPrefsManager.setUserName(CabinetActivity.this, null);
+            UserManager.userLogOut();
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName + ".UI.SearchActivity");

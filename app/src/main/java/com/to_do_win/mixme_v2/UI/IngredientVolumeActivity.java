@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
-import com.to_do_win.mixme_v2.utilities.SharedPrefsManager;
+import com.to_do_win.mixme_v2.utilities.UserManager;
 
 public class IngredientVolumeActivity extends AppCompatActivity implements LogToggle, View.OnClickListener {
 
@@ -39,7 +39,7 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
         super.onCreate(savedInstanceState);
         controller = Controller.getInstance();
 
-        userName = SharedPrefsManager.getUserName(IngredientVolumeActivity.this);
+        userName = UserManager.getUserName();
 
         if (userName == null) {
 
@@ -97,7 +97,7 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
     public void logToggle(String userName) {
 
         if (userName != null) {
-            SharedPrefsManager.setUserName(IngredientVolumeActivity.this, null);
+            UserManager.userLogOut();
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName +".UI.SearchActivity");
