@@ -14,7 +14,7 @@ import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
-public class RateReviewActivity extends AppCompatActivity implements LogToggle, View.OnClickListener {
+public class RateReviewActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView greeting;
     Button logBtn;
@@ -29,12 +29,13 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
     Button clearBtn, submitBtn;
 
     String drinkName;
-
+    LogToggle logToggle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        logToggle = new LogToggle();
 
         userName = UserManager.getUserName();
 
@@ -107,7 +108,7 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle();
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.clearBtn:
@@ -164,24 +165,4 @@ public class RateReviewActivity extends AppCompatActivity implements LogToggle, 
         }
     }
 
-    @Override
-    public void logToggle() {
-        if (!UserManager.getUserName().equals("guest")) {
-            UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Cabinet without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
-
-}
+ }

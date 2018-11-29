@@ -16,7 +16,7 @@ import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
-public class IngredientVolumeActivity extends AppCompatActivity implements LogToggle, View.OnClickListener {
+public class IngredientVolumeActivity extends AppCompatActivity implements View.OnClickListener {
 
     String userName;
     TextView greeting;
@@ -33,11 +33,13 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
     int ingredientId, units = 0, categoryID;
     boolean isNewIngredient = false;
     String newIngredientName, cat;
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         controller = Controller.getInstance();
+        logToggle = new LogToggle();
 
         userName = UserManager.getUserName();
 
@@ -94,25 +96,6 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
 
     }
 
-    public void logToggle() {
-        if (!UserManager.getUserName().equals("guest")) {
-            UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Cabinet without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
-
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
@@ -120,7 +103,7 @@ public class IngredientVolumeActivity extends AppCompatActivity implements LogTo
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle();
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.cancelBtn:

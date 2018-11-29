@@ -19,7 +19,7 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity implements LogToggle,
+public class SearchActivity extends AppCompatActivity implements
         View.OnClickListener, IngredientRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
@@ -32,12 +32,12 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
     IngredientRecyclerViewAdapter adapter;
     Controller controller;
     SparseBooleanArray sba;
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        logToggle = new LogToggle();
 
         userName = UserManager.getUserName();
 
@@ -94,26 +94,6 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
         rv.setAdapter(adapter);
     }
 
-    @Override
-    public void logToggle() {
-        if (!UserManager.getUserName().equals("guest")) {
-            UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Cabinet without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -123,7 +103,7 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
         switch (v.getId()){
 
             case R.id.logBtn:
-                logToggle();
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.findDrinks:

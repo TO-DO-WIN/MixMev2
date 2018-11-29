@@ -18,7 +18,7 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class AddIngredientsToCabinetActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
+public class AddIngredientsToCabinetActivity extends AppCompatActivity implements View.OnClickListener,
         IngredientRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
@@ -31,11 +31,13 @@ public class AddIngredientsToCabinetActivity extends AppCompatActivity implement
     IngredientRecyclerViewAdapter adapter;
     Controller controller;
     SparseBooleanArray sba;
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient_to_cabinet);
+        logToggle = new LogToggle();
 
         greeting = (TextView) findViewById(R.id.greeting);
         greeting.setText(userName);
@@ -85,7 +87,7 @@ public class AddIngredientsToCabinetActivity extends AppCompatActivity implement
         switch (v.getId()){
 
             case R.id.logBtn:
-                logToggle();
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.searchNVBtn:
@@ -146,24 +148,4 @@ public class AddIngredientsToCabinetActivity extends AppCompatActivity implement
 
     }
 
-    @Override
-    public void logToggle() {
-        if (!UserManager.getUserName().equals("guest")) {
-            UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Cabinet without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-
-    }
 }

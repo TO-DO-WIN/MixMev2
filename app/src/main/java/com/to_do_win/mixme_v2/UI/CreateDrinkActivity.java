@@ -18,7 +18,7 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
+public class CreateDrinkActivity extends AppCompatActivity implements
         View.OnClickListener, CreateRecyclerViewAdapter.ItemClickListener{
 
     String userName;
@@ -29,11 +29,13 @@ public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
     String packageName = "com.to_do_win.mixme_v2";
     Controller controller;
     CreateRecyclerViewAdapter adapter;
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_drink);
+        logToggle = new LogToggle();
 
         controller = Controller.getInstance();
 
@@ -97,7 +99,7 @@ public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle();
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.addIngredientBtn:
@@ -175,23 +177,4 @@ public class CreateDrinkActivity extends AppCompatActivity implements LogToggle,
         startActivity(intent);
     }
 
-    @Override
-    public void logToggle() {
-        if (!UserManager.getUserName().equals("guest")) {
-            UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Cabinet without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
 }
