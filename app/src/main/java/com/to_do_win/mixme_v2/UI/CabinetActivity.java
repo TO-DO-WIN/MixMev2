@@ -113,7 +113,10 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                UserManager.userLogOut();
+                intent.setClassName(packageName,
+                        packageName +".UI.LoginActivity");
+                startActivity(intent);
                 break;
 
             case R.id.searchNVBtn:
