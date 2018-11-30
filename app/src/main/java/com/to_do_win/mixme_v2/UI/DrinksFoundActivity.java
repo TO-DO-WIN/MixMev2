@@ -37,12 +37,24 @@ public class DrinksFoundActivity extends AppCompatActivity implements
 
         userName = UserManager.getUserName();
 
-        if (userName != null) {
+        if (!UserManager.getUserName().equals("guest")) {
             setContentView(R.layout.activity_drinks_found);
             greeting = (TextView) findViewById(R.id.greeting);
             greeting.setText(userName);
             logBtn = (Button) findViewById(R.id.logBtn);
             logBtn.setText("Log Out");
+
+            createDrinkBtn = (Button) findViewById(R.id.createNVBtn);
+            createDrinkBtn.setOnClickListener(this);
+
+            favesBtn = (Button) findViewById(R.id.favesNVBtn);
+            favesBtn.setOnClickListener(this);
+
+            shoppingBtn = (Button) findViewById(R.id.shoppingNVBtn);
+            shoppingBtn.setOnClickListener(this);
+
+            cabinetBtn = (Button) findViewById(R.id.cabinetNVBtn);
+            cabinetBtn.setOnClickListener(this);
 
         } else {
             setContentView(R.layout.drinks_found_guest);
@@ -54,17 +66,7 @@ public class DrinksFoundActivity extends AppCompatActivity implements
         searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
         searchDrinksBtn.setOnClickListener(this);
 
-        createDrinkBtn = (Button) findViewById(R.id.createNVBtn);
-        createDrinkBtn.setOnClickListener(this);
 
-        favesBtn = (Button) findViewById(R.id.favesNVBtn);
-        favesBtn.setOnClickListener(this);
-
-        shoppingBtn = (Button) findViewById(R.id.shoppingNVBtn);
-        shoppingBtn.setOnClickListener(this);
-
-        cabinetBtn = (Button) findViewById(R.id.cabinetNVBtn);
-        cabinetBtn.setOnClickListener(this);
 
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);

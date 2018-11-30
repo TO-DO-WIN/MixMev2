@@ -12,8 +12,8 @@ public class LogToggle {
 
         if (!UserManager.getUserName().equals("guest")) {
             UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
+           // greeting.setText("Hello, Guest");
+            //logBtn.setText("Log In");
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName +".UI.SearchActivity");

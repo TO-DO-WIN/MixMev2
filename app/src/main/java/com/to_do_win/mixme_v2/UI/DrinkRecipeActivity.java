@@ -46,9 +46,9 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
         logToggle = new LogToggle();
 
         userName = UserManager.getUserName();
-        Boolean user = (userName != null);
+        Boolean user = (!userName.equals("guest"));
 
-        if (userName != null) {
+        if (user) {
             setContentView(R.layout.activity_drink_recipe);
             greeting = (TextView) findViewById(R.id.greeting);
             greeting.setText(userName);
@@ -95,9 +95,10 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
         ArrayList<String> recipeVolumes = controller.getRecipeVolumes();
         ArrayList<String> recipeUnits = controller.getRecipeUnits();
 
+        ingredientStatuses = new ArrayList<>();
 
-        if (userName != null) {
-            ingredientStatuses = new ArrayList<>();
+        if (user) {
+
             isFavorite = controller.isFavorite(drinkName);
             if (isFavorite) addFavesBtn.setText("Remove From Favorites");
 
