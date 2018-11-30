@@ -17,8 +17,7 @@ import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
-public class NewIngredientActivity extends AppCompatActivity implements View.OnClickListener,
-        LogToggle {
+public class NewIngredientActivity extends AppCompatActivity implements View.OnClickListener{
 
     String userName;
     TextView greeting;
@@ -28,11 +27,13 @@ public class NewIngredientActivity extends AppCompatActivity implements View.OnC
     RadioButton selectedRB;
     String packageName = "com.to_do_win.mixme_v2";
     Controller controller;
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ingredient);
+        logToggle = new LogToggle();
 
         controller = Controller.getInstance();
 
@@ -68,7 +69,7 @@ public class NewIngredientActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.cancelBtn:
@@ -105,14 +106,5 @@ public class NewIngredientActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
         }
-    }
-
-    @Override
-    public void logToggle(String userName) {
-        UserManager.userLogOut();
-        Intent intent = new Intent();
-        intent.setClassName(packageName,
-                packageName +".UI.SearchActivity");
-        startActivity(intent);
     }
 }

@@ -19,8 +19,8 @@ public class UserManager {
 //
     public static void userLogOut(){
 
-        if(getUserName().equals("guest")){
-            firebaseAuth.signOut();
+        if(!(firebaseAuth.getCurrentUser() == null)){
+             firebaseAuth.signOut();
         }
 
     }

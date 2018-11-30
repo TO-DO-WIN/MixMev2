@@ -16,7 +16,7 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class CabinetActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
+public class CabinetActivity extends AppCompatActivity implements View.OnClickListener,
         CabinetRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
@@ -24,6 +24,7 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
     String userName;
     Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
+    LogToggle logToggle;
 
     TextView ingredsTV;
     CabinetRecyclerViewAdapter adapter;
@@ -36,7 +37,7 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        logToggle = new LogToggle();
         userName = UserManager.getUserName();
 
         if (userName == null) {
@@ -113,7 +114,7 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.searchNVBtn:
@@ -159,24 +160,7 @@ public class CabinetActivity extends AppCompatActivity implements LogToggle, Vie
         }
     }
 
-    @Override
-    public void logToggle(String userName) {
 
-        if (userName != null) {
-            UserManager.userLogOut();
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName + ".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Cabinet without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName + ".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
 
     @Override
     public void onItemClick(View view, int position) {

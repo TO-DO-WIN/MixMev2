@@ -66,6 +66,10 @@
         <activity
             android:name=".UI.RateReviewActivity"
             android:label="Rate Review" />
+        <activity
+            android:name=".UI.RegisterActivity"
+            android:label="Register a new user"
+            ></activity>
     </application>
 
 </manifest>

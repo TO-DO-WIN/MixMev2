@@ -19,7 +19,7 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity implements LogToggle,
+public class SearchActivity extends AppCompatActivity implements
         View.OnClickListener, IngredientRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting;
@@ -32,18 +32,19 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
     IngredientRecyclerViewAdapter adapter;
     Controller controller;
     SparseBooleanArray sba;
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        logToggle = new LogToggle();
 
         userName = UserManager.getUserName();
 
-        if (userName != null) {
+        if (!UserManager.getUserName().equals("guest")) {
             setContentView(R.layout.activity_search);
             greeting = (TextView) findViewById(R.id.greeting);
+
             greeting.setText(userName);
             logBtn = (Button) findViewById(R.id.logBtn);
             logBtn.setText("Log Out");
@@ -95,33 +96,14 @@ public class SearchActivity extends AppCompatActivity implements LogToggle,
 
 
     @Override
-    public void logToggle(String userName) {
-        if (userName != null){
-            UserManager.userLogOut();
-            greeting.setText("Hello, Guest");
-            logBtn.setText("Log In");
-        } else {
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
-
-    @Override
     public void onClick(View v) {
 
         Intent intent = new Intent();
 
-
         switch (v.getId()){
 
             case R.id.logBtn:
-                UserManager us = new UserManager();
-                us.userLogOut();
-                intent.setClassName(packageName,
-                        packageName +".UI.LoginActivity");
-                startActivity(intent);
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.findDrinks:

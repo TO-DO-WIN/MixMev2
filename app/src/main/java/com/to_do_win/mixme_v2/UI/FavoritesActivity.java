@@ -16,7 +16,7 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class FavoritesActivity extends AppCompatActivity implements LogToggle, View.OnClickListener,
+public class FavoritesActivity extends AppCompatActivity implements View.OnClickListener,
         FavoritesRecyclerViewAdapter.ItemClickListener {
 
     TextView greeting, favoritesTV;
@@ -27,10 +27,12 @@ public class FavoritesActivity extends AppCompatActivity implements LogToggle, V
     FavoritesRecyclerViewAdapter adapter;
     Controller controller;
     ArrayList<String> drinks = new ArrayList<>();
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        logToggle = new LogToggle();
 
         userName = UserManager.getUserName();
 
@@ -92,7 +94,7 @@ public class FavoritesActivity extends AppCompatActivity implements LogToggle, V
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.searchNVBtn:
@@ -130,24 +132,6 @@ public class FavoritesActivity extends AppCompatActivity implements LogToggle, V
                         packageName +".UI.RandomActivity");
                 startActivity(intent);
                 break;
-        }
-    }
-
-    @Override
-    public void logToggle(String userName) {
-        if (userName != null) {
-            UserManager.userLogOut();
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
-            startActivity(intent);
-        } else {
-
-            // This should never happen...shouldn't be in Favorites without logged in
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
         }
     }
 

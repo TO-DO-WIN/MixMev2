@@ -13,7 +13,7 @@ import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
 
-public class RandomActivity extends AppCompatActivity implements LogToggle, View.OnClickListener {
+public class RandomActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView greeting;
     String packageName = "com.to_do_win.mixme_v2";
@@ -21,13 +21,14 @@ public class RandomActivity extends AppCompatActivity implements LogToggle, View
     String userName;
     Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn, findRandomDrinkBtn;
     Controller controller;
+    LogToggle logToggle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        logToggle = new LogToggle();
         userName = UserManager.getUserName();
 
         if (userName == null) {
@@ -79,7 +80,7 @@ public class RandomActivity extends AppCompatActivity implements LogToggle, View
         switch (v.getId()) {
 
             case R.id.logBtn:
-                logToggle(userName);
+                startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
             case R.id.findRandomDrink:
@@ -129,19 +130,4 @@ public class RandomActivity extends AppCompatActivity implements LogToggle, View
         }
     }
 
-    @Override
-    public void logToggle(String userName) {
-        if (userName != null) {
-            UserManager.userLogOut();
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.RandomActivity");
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent();
-            intent.setClassName(packageName,
-                    packageName +".UI.LoginActivity");
-            startActivity(intent);
-        }
-    }
 }
