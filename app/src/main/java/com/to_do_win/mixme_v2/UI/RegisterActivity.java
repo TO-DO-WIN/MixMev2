@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,7 +75,6 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
 
         progressDialog.setMessage("Registering User....");
         progressDialog.show();
-
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -90,11 +90,9 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
                                     packageName +".UI.CabinetActivity");
                             startActivity(intent);
                         }else {
-                            Toast.makeText(RegisterActivity.this, "Registration Unsuccessful, Please try again", Toast.LENGTH_SHORT)
-                                    .show();
-                            //FirebaseAuthException e = (FirebaseAuthException) task.getException();
-                            // Toast.makeText(MainActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
-                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Toast.makeText(RegisterActivity.this,
+                                    "Registration Unsuccessful: "+task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

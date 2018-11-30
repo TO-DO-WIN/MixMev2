@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
         //checking if email and passwords are empty
         if(TextUtils.isEmpty(email)){
@@ -84,8 +84,10 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
                     intent.setClassName(packageName,
                             packageName +".UI.CabinetActivity");
                     startActivity(intent);
-                }else{
-                    Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(LoginActivity.this,
+                            "Registration Unsuccessful: "+task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
