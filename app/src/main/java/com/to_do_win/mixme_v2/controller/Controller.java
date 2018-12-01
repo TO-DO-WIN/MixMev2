@@ -477,10 +477,10 @@ public class Controller {
         return shoppingGS;
     }
 
-
-    public void setupUser(String userName) {
-        user.setupUser(userName);
-    }
+//
+//    public void setupUser(String userName) {
+//        user.setupUser(userName);
+//    }
 
     public void clearUser(){
         user.clearUser();
