@@ -119,7 +119,7 @@ public class CabinetActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.SearchActivity");
+                        packageName + ".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

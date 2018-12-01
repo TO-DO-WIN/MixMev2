@@ -93,7 +93,7 @@ public class AddIngredientsToCabinetActivity extends AppCompatActivity implement
             case R.id.searchNVBtn:
 
                 intent.setClassName(packageName,
-                        packageName +".UI.SearchActivity");
+                        packageName +".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

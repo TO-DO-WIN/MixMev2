@@ -1,50 +1,55 @@
 package com.to_do_win.mixme_v2.UI;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.to_do_win.mixme_v2.R;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
+import java.util.ArrayList;
 
-public class RandomActivity extends AppCompatActivity implements View.OnClickListener {
+public class AllDrinksActivity extends AppCompatActivity implements View.OnClickListener{
+
+    Controller controller;
+    SearchView searchView;
+    ListView listView;
+    ArrayList<String> drinkNames;
+    ArrayAdapter<String> lvAdapter;
+    Button searchByIngredsBtn;
 
     TextView greeting;
-    String packageName = "com.to_do_win.mixme_v2";
     Button logBtn;
     String userName;
-    Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn, findRandomDrinkBtn;
-    Controller controller;
-    LogToggle logToggle;
+    Button createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
+    String packageName = "com.to_do_win.mixme_v2";
 
+    LogToggle logToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         logToggle = new LogToggle();
+
         userName = UserManager.getUserName();
 
-        if (userName == null) {
-
-            setContentView(R.layout.random_guest);
-            logBtn = (Button) findViewById(R.id.logBtn);
+        if (!UserManager.getUserName().equals("guest")) {
+            setContentView(R.layout.activity_all_drinks);
             greeting = (TextView) findViewById(R.id.greeting);
 
-
-        } else {
-            setContentView(R.layout.activity_random);
+            greeting.setText(userName);
             logBtn = (Button) findViewById(R.id.logBtn);
             logBtn.setText("Log Out");
-
-            greeting = (TextView) findViewById(R.id.greeting);
-            greeting.setText(userName);
 
             createDrinkBtn = (Button) findViewById(R.id.createNVBtn);
             createDrinkBtn.setOnClickListener(this);
@@ -58,43 +63,70 @@ public class RandomActivity extends AppCompatActivity implements View.OnClickLis
             cabinetBtn = (Button) findViewById(R.id.cabinetNVBtn);
             cabinetBtn.setOnClickListener(this);
         }
+        else {
+            setContentView(R.layout.all_drinks_guest);
+            logBtn = (Button) findViewById(R.id.logBtn);
+
+        }
 
         logBtn.setOnClickListener(this);
 
-        searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
-        searchDrinksBtn.setOnClickListener(this);
+        searchView = (SearchView) findViewById(R.id.searchView);
+        searchView.setQueryHint("Search Here");
 
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);
 
-        findRandomDrinkBtn = (Button) findViewById(R.id.findRandomDrink);
-        findRandomDrinkBtn.setOnClickListener(this);
+        searchByIngredsBtn = (Button) findViewById(R.id.searchByIngredsBtn);
+        searchByIngredsBtn.setOnClickListener(this);
 
         controller = Controller.getInstance();
 
+        listView = findViewById(R.id.lv_drink_names);
+
+        drinkNames = controller.getDrinkNames();
+
+        lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drinkNames);
+        listView.setAdapter(lvAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(drinkNames.contains(query)){
+                    lvAdapter.getFilter().filter(query);
+                    lvAdapter.getFilter().filter(query);
+                    Toast.makeText(getBaseContext(), "Match found",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getBaseContext(), "No Match found",Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String text = newText;
+                lvAdapter.getFilter().filter(text);
+                return false;
+            }
+        });
+
     }
 
+
+    @Override
     public void onClick(View v) {
+
         Intent intent = new Intent();
 
-        switch (v.getId()) {
+        switch (v.getId()){
 
             case R.id.logBtn:
                 startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
 
-            case R.id.findRandomDrink:
-                String nameString = controller.getRandomDrink();
-
-                intent.putExtra("drink", nameString);
+            case R.id.searchByIngredsBtn:
                 intent.setClassName(packageName,
-                        packageName +".UI.DrinkRecipeActivity");
-                startActivity(intent);
-                break;
-
-            case R.id.searchNVBtn:
-                intent.setClassName(packageName,
-                        packageName +".UI.AllDrinksActivity");
+                        packageName +".UI.SearchActivity");
                 startActivity(intent);
                 break;
 
@@ -130,4 +162,13 @@ public class RandomActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+//    @Override
+//    public void onItemClick(View view, int position) {
+//
+//        if (sba.get(position)) {
+//            sba.put(position, false);
+//        }
+//        else{
+//            sba.put(position, true);
+//        }}
 }

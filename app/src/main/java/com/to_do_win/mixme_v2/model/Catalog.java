@@ -16,7 +16,7 @@ import java.util.Random;
 public class Catalog {
 
     ////////////////////////////   Chinh's Addition /////////////////////////////////////
-    private ArrayList<A_Drink> allDrinks2;
+    //private ArrayList<A_Drink> allDrinks2;
     ////////////////////////////   Chinh's Addition /////////////////////////////////////
 
     private static final int MIN_PERCENT_MATCH = 51;
@@ -43,7 +43,7 @@ public class Catalog {
         this.newIngredients = new ArrayList<>();
 
         // Call to DB to get all ingredients and all A_Drink
-        allDrinks2 = new ArrayList<>();
+       // allDrinks2 = new ArrayList<>();
 
         // mock this call for now
         // ingreds
@@ -144,17 +144,21 @@ public class Catalog {
      * Adds a single drink into the allDrinks list
      * @param aDrink The passed drink to be added.
      */
-    public void insertDrink(A_Drink aDrink){
-        allDrinks2.add(aDrink);
-    }
+//    public void insertDrink(A_Drink aDrink){
+//        allDrinks2.add(aDrink);
+//    }
 
     /**
      * Gets and returns the list of all A_Drink.
      *
      * @return list of all A_Drink
      */
-    public ArrayList<A_Drink> getAllDrinks() {
-        return allDrinks2;
+//    public ArrayList<A_Drink> getAllDrinks() {
+//        return allDrinks2;
+//    }
+
+    public ArrayList<Drink> getAllDrinks() {
+        return allDrinks;
     }
 
 ////////////////////////////   Chinh's Addition /////////////////////////////////////

@@ -127,7 +127,7 @@ public class CreateDrinkActivity extends AppCompatActivity implements
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName +".UI.SearchActivity");
+                        packageName +".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

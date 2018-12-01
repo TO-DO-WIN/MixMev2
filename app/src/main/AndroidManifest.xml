@@ -68,8 +68,10 @@
             android:label="Rate Review" />
         <activity
             android:name=".UI.RegisterActivity"
-            android:label="Register a new user"
-            ></activity>
+            android:label="Register a new user" />
+        <activity
+            android:name=".UI.AllDrinksActivity"
+            android:label="All Drinks" />
     </application>
 
 </manifest>

@@ -99,7 +99,7 @@ public class FavoritesActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName +".UI.SearchActivity");
+                        packageName +".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

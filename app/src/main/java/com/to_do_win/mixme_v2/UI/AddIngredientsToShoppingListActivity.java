@@ -93,7 +93,7 @@ public class AddIngredientsToShoppingListActivity extends AppCompatActivity impl
             case R.id.searchNVBtn:
 
                 intent.setClassName(packageName,
-                        packageName +".UI.SearchActivity");
+                        packageName +".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

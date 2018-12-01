@@ -16,7 +16,7 @@ public class LogToggle {
             //logBtn.setText("Log In");
             Intent intent = new Intent();
             intent.setClassName(packageName,
-                    packageName +".UI.SearchActivity");
+                    packageName +".UI.AllDrinksActivity");
             return intent;
 
         } else {
