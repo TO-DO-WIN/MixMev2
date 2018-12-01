@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 public class Ingredient implements Comparable<Ingredient>{
 
     private String name;
-    private double volume;
-    private String unit;
+    //private double volume;
+    //private String unit;
     private int id;
     private Category category;
 
@@ -68,13 +68,13 @@ public class Ingredient implements Comparable<Ingredient>{
         this.category = cat;
     }
 
-    public Ingredient(String name, double volume, String unit, int id, Category cat) {
-        this.name = name;
-        this.volume = volume;
-        this.unit = unit;
-        this.id = id;
-        this.category = cat;
-    }
+//    public Ingredient(String name, double volume, String unit, int id, Category cat) {
+//        this.name = name;
+//        this.volume = volume;
+//        this.unit = unit;
+//        this.id = id;
+//        this.category = cat;
+//    }
 
     public String getName() {
         return name;
@@ -84,21 +84,21 @@ public class Ingredient implements Comparable<Ingredient>{
         this.name = name;
     }
 
-    public double getVolume() {
-        return volume;
-    }
+  //  public double getVolume() {
+//        return volume;
+//    }
+//
+//    public void setVolume(double volume) {
+//        this.volume = volume;
+//    }
 
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+//    public String getUnit() {
+//        return unit;
+//    }
+//
+//    public void setUnit(String unit) {
+//        this.unit = unit;
+//    }
 
     public int getId() {
         return id;

@@ -9,7 +9,7 @@ public class Drink {
 
     private static final int MAX_INGREDS = 15;
     private String name;
-    private ArrayList<Ingredient> ingreds = new ArrayList<>();
+    private ArrayList<RecipeIngredient> recipeIngredients = new ArrayList<>();
     //private Ingredient[] ingreds = new Ingredient[MAX_INGREDS];
     private String directions;
     private String glassType;
@@ -25,28 +25,29 @@ public class Drink {
     }
 
     private void setTotalWeight() {
-        for (Ingredient i : ingreds) {
-            totalWeight += i.getWeight();
-        }
+        for (int i = 0; i < recipeIngredients.size(); i++)
+
+            totalWeight += recipeIngredients.get(i).getIngredient().getWeight();
+
     }
 
     public Drink() {
     }
 
-    public Drink(String name, ArrayList<Ingredient> ingreds) {
+    public Drink(String name, ArrayList<RecipeIngredient> recipeIngredients) {
         this.name = name;
-        this.ingreds = ingreds;
-        this.numIngreds = ingreds.size();
+        this.recipeIngredients = recipeIngredients;
+        this.numIngreds = recipeIngredients.size();
         setTotalWeight();
     }
 
-    public Drink(String name, ArrayList<Ingredient> ingreds, String directions, String glassType, int percentMatch) {
+    public Drink(String name, ArrayList<RecipeIngredient> recipeIngredients, String directions, String glassType, int percentMatch) {
         this.name = name;
-        this.ingreds = ingreds;
+        this.recipeIngredients = recipeIngredients;
         this.directions = directions;
         this.glassType = glassType;
         this.percentMatch = percentMatch;
-        this.numIngreds = ingreds.size();
+        this.numIngreds = recipeIngredients.size();
         setTotalWeight();
     }
 
@@ -62,17 +63,34 @@ public class Drink {
         this.name = name;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // next two methods are for getting and setting the ingredient object contained inside the
+    // recipeIngredient objects
     public ArrayList<Ingredient> getIngreds() {
+        ArrayList<Ingredient> ingreds = new ArrayList<>();
+        for (int i = 0; i < recipeIngredients.size(); i++) {
+            ingreds.add(recipeIngredients.get(i).getIngredient());
+        }
         return ingreds;
     }
 
     public void setIngreds(ArrayList<Ingredient> ingreds) {
-        this.ingreds = ingreds;
+        for (int i = 0; i < ingreds.size(); i++) {
+            recipeIngredients.get(i).setIngredient(ingreds.get(i));
+        }
+    }
+
+    public ArrayList<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+
+    public void setRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredients){
+        this.recipeIngredients =  recipeIngredients;
     }
 
     public void removeIngredient(int index) {
-        totalWeight -= ingreds.get(index).getWeight();
-        ingreds.remove(index);
+        totalWeight -= recipeIngredients.get(index).ingredient.getWeight();
+        recipeIngredients.remove(index);
         numIngreds--;
     }
 
@@ -111,8 +129,8 @@ public class Drink {
     public ArrayList<Integer> getIngredIDs() {
         ArrayList<Integer> ingredIDs = new ArrayList<>();
 
-        for (int i = 0; i < ingreds.size(); i++)
-            ingredIDs.add(ingreds.get(i).getId());
+        for (int i = 0; i < recipeIngredients.size(); i++)
+            ingredIDs.add(recipeIngredients.get(i).ingredient.getId());
 
         return ingredIDs;
     }
@@ -121,11 +139,17 @@ public class Drink {
         return ratings;
     }
 
-    public void addIngredient(Ingredient i) {
-        totalWeight += i.getWeight();
-        ingreds.add(i);
+    public void addRecipeIngredient(RecipeIngredient recipeIngredient){
+        totalWeight += recipeIngredient.ingredient.getWeight();
+        recipeIngredients.add(recipeIngredient);
         numIngreds++;
     }
+
+//    public void addIngredient(Ingredient i) {
+//        totalWeight += i.getWeight();
+//        ingreds.add(i);
+//        numIngreds++;
+//    }
 
     public void addRating(String userName, float rating, String review) {
         ratings.add(new RateReview(userName, rating, review));
@@ -197,6 +221,43 @@ public class Drink {
 
         public void setReview(String review) {
             this.review = review;
+        }
+    }
+
+    public class RecipeIngredient {
+
+        private Ingredient ingredient;
+        private double volume;
+        private String unit;
+
+        public RecipeIngredient(Ingredient ingredient, double volume, String unit) {
+            this.ingredient = ingredient;
+            this.volume = volume;
+            this.unit = unit;
+        }
+
+        public Ingredient getIngredient() {
+            return ingredient;
+        }
+
+        public void setIngredient(Ingredient ingredient) {
+            this.ingredient = ingredient;
+        }
+
+        public double getVolume() {
+            return volume;
+        }
+
+        public void setVolume(double volume) {
+            this.volume = volume;
+        }
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
         }
     }
 }
