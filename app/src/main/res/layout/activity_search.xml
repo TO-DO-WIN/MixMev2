@@ -56,6 +56,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <ListView
+        android:id="@+id/lv_drink_names"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/findDrinks"
+        app:layout_constraintTop_toBottomOf="@+id/useIngredsBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <Button
         android:id="@+id/findDrinks"
         android:layout_width="match_parent"

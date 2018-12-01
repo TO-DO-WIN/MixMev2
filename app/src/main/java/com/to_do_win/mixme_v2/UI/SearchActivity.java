@@ -7,9 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.to_do_win.mixme_v2.R;
@@ -18,19 +21,26 @@ import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements
         View.OnClickListener, IngredientRecyclerViewAdapter.ItemClickListener {
 
+    Controller controller;
+    SearchView searchView;
+    ListView listView;
+    ArrayList<String> drinkNames;
+    ArrayAdapter<String> lvAdapter;
+
+
+    IngredientRecyclerViewAdapter adapter;
     TextView greeting;
     Button logBtn;
     String userName;
-    SearchView searchView;
     Button useIngredsBtn, clearBtn, findDrinksBtn;
     Button createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
-    IngredientRecyclerViewAdapter adapter;
-    Controller controller;
+
     SparseBooleanArray sba;
     LogToggle logToggle;
 
@@ -73,6 +83,7 @@ public class SearchActivity extends AppCompatActivity implements
         logBtn.setOnClickListener(this);
 
         searchView = (SearchView) findViewById(R.id.searchView);
+        searchView.setQueryHint("Search Here");
 
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);
@@ -84,14 +95,46 @@ public class SearchActivity extends AppCompatActivity implements
         findDrinksBtn.setOnClickListener(this);
 
         controller = Controller.getInstance();
-        ArrayList<String> ingredientList = controller.getIngredientList();
-        sba = new SparseBooleanArray();
 
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+        listView = findViewById(R.id.lv_drink_names);
+
+        drinkNames = controller.getDrinkNames();
+
+        lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drinkNames);
+        listView.setAdapter(lvAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(drinkNames.contains(query)){
+                    lvAdapter.getFilter().filter(query);
+                    lvAdapter.getFilter().filter(query);
+                    Toast.makeText(getBaseContext(), "Match found",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getBaseContext(), "No Match found",Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String text = newText;
+                lvAdapter.getFilter().filter(text);
+                return false;
+            }
+        });
+
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+ /*
+        ArrayList<String> ingredientList = controller.getIngredientList();  // not used yet
+        sba = new SparseBooleanArray();
         RecyclerView rv = findViewById(R.id.rvIngredients);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new IngredientRecyclerViewAdapter(this, ingredientList);
         adapter.setClickListener(this);
         rv.setAdapter(adapter);
+*/
     }
 
 

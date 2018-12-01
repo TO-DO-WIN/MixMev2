@@ -18,7 +18,7 @@ public class DrinkRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private ItemClickListener clickListener;
     private final int DRINK = 0, TEXT = 1;
-    private final String ALMOST_TEXT = "You can almost make these drinks.";
+    private final String ALMOST_TEXT = "You can almost make these A_Drink.";
 
     DrinkRecyclerViewAdapter(Context context, List<Object> items) {
         this.items = items;
@@ -67,7 +67,7 @@ public class DrinkRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
                 break;
         }
 
-//        String drink = drinks.get(position);
+//        String drink = A_Drink.get(position);
 //        holder.button.setText(drink);
 //        // not sure if needed
         //holder.bind(position);

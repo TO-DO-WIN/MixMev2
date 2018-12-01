@@ -1,8 +1,9 @@
 package com.to_do_win.mixme_v2.controller;
 
-import android.util.Log;
 import android.util.SparseBooleanArray;
 
+import com.google.firebase.database.DataSnapshot;
+import com.to_do_win.mixme_v2.model.A_Drink;
 import com.to_do_win.mixme_v2.model.Catalog;
 import com.to_do_win.mixme_v2.model.Drink;
 import com.to_do_win.mixme_v2.model.Ingredient;
@@ -37,6 +38,30 @@ public class Controller {
         return controller;
     }
 
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+    /**
+     * Method to read in and populate the catalog.
+     * @param snapshot The datasnapshot received from the database.
+     */
+    public void readInCatalog(DataSnapshot snapshot){
+        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+            A_Drink singleDrink = postSnapshot.getValue(A_Drink.class);
+
+            catalog.insertDrink( singleDrink );
+        }
+    }
+
+    public ArrayList<String> getDrinkNames() {
+        ArrayList<String> drinkNames = new ArrayList<>();
+
+        for (A_Drink i : catalog.getAllDrinks()) {
+            drinkNames.add(i.getStrDrink());
+        }
+        return drinkNames;
+    }
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+
+
     /**
      * Returns a complete list of all catalog ingredients. Catalog should maintain a complete list
      * that is alphabetized. UI activities call this method for the list as needed.
@@ -61,9 +86,9 @@ public class Controller {
      * catalog as the set of working ingredient ids. Then the catalog's search method is called.
      *
      * @param sba               sparse boolean array of ingredients being used for search
-     * @param makableNames      list of makeable drinks to be populated
-     * @param nearMakableNames  list of drinks that can almost be made to be populated
-     * @param nearMakableMatch  list of percent matches of near makeable drinks to be populated
+     * @param makableNames      list of makeable A_Drink to be populated
+     * @param nearMakableNames  list of A_Drink that can almost be made to be populated
+     * @param nearMakableMatch  list of percent matches of near makeable A_Drink to be populated
      */
     public void searchDrinks(SparseBooleanArray sba, ArrayList<String> makableNames,
                              ArrayList<String> nearMakableNames, ArrayList<String> nearMakableMatch) {
@@ -88,9 +113,9 @@ public class Controller {
     }
 
     /**
-     * Search method used when list of user ingredient ids is available and only makeable drinks
+     * Search method used when list of user ingredient ids is available and only makeable A_Drink
      * are needed. The UI Cabinet activity uses this after gaining the user's ingredients' ids to
-     * search for the drinks that can be made.
+     * search for the A_Drink that can be made.
      *
      * @param userIngredIDs     list of user's ingredients' ids
      * @param makableNames      list to be populated after calling catalog's search method
@@ -248,7 +273,7 @@ public class Controller {
     }
 
     /**
-     * Calls on catalog to add drink being created to list of all drinks.
+     * Calls on catalog to add drink being created to list of all A_Drink.
      */
     public void addCreation() {
         catalog.addCreation();
@@ -366,7 +391,7 @@ public class Controller {
     }
 
     /**
-     * Calls on user's addFavorite method to add given drink to user's list of favorite drinks.
+     * Calls on user's addFavorite method to add given drink to user's list of favorite A_Drink.
      *
      * @param drinkName the name of the drink to be added to favorites
      */
@@ -378,7 +403,7 @@ public class Controller {
      * Iterates through collection of user's favorites and pulls out the name of each drink. The name
      * of each favorite drink is added to list and returned.
      *
-     * @return  the list of names of favorite drinks
+     * @return  the list of names of favorite A_Drink
      */
     public ArrayList<String> getUserFavorites() {
         ArrayList<String> drinkNames = new ArrayList<>();

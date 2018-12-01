@@ -6,14 +6,18 @@ import java.util.Random;
 
 /**
  * Catalog class for the MixMe application. It is a singleton class that receives method calls
- * primarily from the Controller class. It maintains lists of all drinks, all ingredients, and
- * does most of the work while searching and creating drinks. For searches, it holds a list of the
- * ingredients used in the search, and lists of drinks that can be made with the ingredients as well
- * as drinks that can almost be made. It also holds a creation drink, which stores all attributes
+ * primarily from the Controller class. It maintains lists of all A_Drink, all ingredients, and
+ * does most of the work while searching and creating A_Drink. For searches, it holds a list of the
+ * ingredients used in the search, and lists of A_Drink that can be made with the ingredients as well
+ * as A_Drink that can almost be made. It also holds a creation drink, which stores all attributes
  * of a drink while it is being created, and a recipe drink, which is the drink who's recipe is
  * to be displayed.
  */
 public class Catalog {
+
+    ////////////////////////////   Chinh's Addition /////////////////////////////////////
+    private ArrayList<A_Drink> allDrinks2;
+    ////////////////////////////   Chinh's Addition /////////////////////////////////////
 
     private static final int MIN_PERCENT_MATCH = 51;
     private ArrayList<Ingredient> allIngredients;
@@ -38,7 +42,8 @@ public class Catalog {
         this.creation = new Drink();
         this.newIngredients = new ArrayList<>();
 
-        // Call to DB to get all ingredients and all drinks
+        // Call to DB to get all ingredients and all A_Drink
+        allDrinks2 = new ArrayList<>();
 
         // mock this call for now
         // ingreds
@@ -102,6 +107,29 @@ public class Catalog {
 
     }
 
+
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+
+    /**
+     * Adds a single drink into the allDrinks list
+     * @param aDrink The passed drink to be added.
+     */
+    public void insertDrink(A_Drink aDrink){
+        allDrinks2.add(aDrink);
+    }
+
+    /**
+     * Gets and returns the list of all A_Drink.
+     *
+     * @return list of all A_Drink
+     */
+    public ArrayList<A_Drink> getAllDrinks() {
+        return allDrinks2;
+    }
+
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+
+
     public static Catalog getInstance() {
         if (catalog == null) {
             catalog = new Catalog();
@@ -146,61 +174,52 @@ public class Catalog {
     }
 
     /**
-     * Gets and returns the list of all drinks.
+     * Sets the list of all A_Drink to the list of A_Drink passed in.
      *
-     * @return list of all drinks
-     */
-    public ArrayList<Drink> getAllDrinks() {
-        return allDrinks;
-    }
-
-    /**
-     * Sets the list of all drinks to the list of drinks passed in.
-     *
-     * @param allDrinks the list to which to set the list of drinks
+     * @param allDrinks the list to which to set the list of A_Drink
      */
     public void setAllDrinks(ArrayList<Drink> allDrinks) {
         this.allDrinks = allDrinks;
     }
 
     /**
-     * Gets and returns the list of makeable drinks.
+     * Gets and returns the list of makeable A_Drink.
      *
-     * @return the list of makeable drinks
+     * @return the list of makeable A_Drink
      */
     public ArrayList<Drink> getMakable() {
         return makable;
     }
 
     /**
-     * Sets the list of makeable drinks to the list of drinks passed in.
+     * Sets the list of makeable A_Drink to the list of A_Drink passed in.
      *
-     * @param makable the list to which to set the list of drinks
+     * @param makable the list to which to set the list of A_Drink
      */
     public void setMakable(ArrayList<Drink> makable) {
         this.makable = makable;
     }
 
     /**
-     * Gets and returns the list of near makeable drinks.
+     * Gets and returns the list of near makeable A_Drink.
      *
-     * @return the list of near makeable drinks
+     * @return the list of near makeable A_Drink
      */
     public ArrayList<Drink> getNearMakable() {
         return nearMakable;
     }
 
     /**
-     * Sets the list of near makeable drinks to the list of drinks passed in.
+     * Sets the list of near makeable A_Drink to the list of A_Drink passed in.
      *
-     * @param nearMakable the list to which to set the list of drinks
+     * @param nearMakable the list to which to set the list of A_Drink
      */
     public void setNearMakable(ArrayList<Drink> nearMakable) {
         this.nearMakable = nearMakable;
     }
 
     /**
-     * Searches drinks by iterating through every drink in the system. It compares each of the drink's
+     * Searches A_Drink by iterating through every drink in the system. It compares each of the drink's
      * ingredients' id to the set of working ingredient ids. Working ingredient ids should have been
      * set before this method is called.
      * <p>
@@ -219,11 +238,11 @@ public class Catalog {
      * weight is compared to the total drink weight to determine the percent match of the drink
      * with the given set of working ingredients.
      * <p>
-     * If the percent match is 100, the drink is added to the makeable drinks list, otherwise if the
+     * If the percent match is 100, the drink is added to the makeable A_Drink list, otherwise if the
      * percent match is greater than the minimum percent match constant, it is added to the near
      * makeable list. In both cases, the percent match attribute of the drink is set accordingly.
      * <p>
-     * At the start of the method, both makeable and near makeable lists are cleared of the drinks
+     * At the start of the method, both makeable and near makeable lists are cleared of the A_Drink
      * that are stored from the previous running of the method.
      */
     public void searchDrinks() {
@@ -263,7 +282,7 @@ public class Catalog {
     }
 
     /**
-     * Populates a list of Strings with the names of the drinks in the makeable drinks list, and
+     * Populates a list of Strings with the names of the A_Drink in the makeable A_Drink list, and
      * returns it.
      *
      * @return the list of makeable drink names
@@ -278,7 +297,7 @@ public class Catalog {
     }
 
     /**
-     * Populates a list of Strings with the names of the drinks in the near makeable drinks list, and
+     * Populates a list of Strings with the names of the A_Drink in the near makeable A_Drink list, and
      * returns it.
      *
      * @return the list of near makeable drink names
@@ -293,8 +312,8 @@ public class Catalog {
     }
 
     /**
-     * Populates a list of Strings with the toString value of the percent match of the drinks in
-     * the near makeable drinks list, and returns it.
+     * Populates a list of Strings with the toString value of the percent match of the A_Drink in
+     * the near makeable A_Drink list, and returns it.
      *
      * @return the list of near makeable percent matches as Strings
      */
@@ -463,7 +482,7 @@ public class Catalog {
     }
 
     /**
-     * Adds the creation drink to the set of all drinks. If there are any new ingredients, they are
+     * Adds the creation drink to the set of all A_Drink. If there are any new ingredients, they are
      * added to list of all ingredients and the list is ordered alphabetically and given new ids
      * based on their alphabetical order. The creation drink is then assigned a new empty drink.
      */
@@ -481,7 +500,7 @@ public class Catalog {
     }
 
     /**
-     * Finds the drink from the list of all drinks that's name matches the name passed in. It sets
+     * Finds the drink from the list of all A_Drink that's name matches the name passed in. It sets
      * the recipe drink to the drink found.
      *
      * @param drinkName the name of the drink to which to set the recipe
