@@ -40,7 +40,7 @@ public class CabinetActivity extends AppCompatActivity implements View.OnClickLi
         logToggle = new LogToggle();
         userName = UserManager.getUserName();
 
-        if (userName == null) {
+        if (userName.equals("guest")) {
 
             // This should never happen...shouldn't be in Cabinet without logged in
             Intent intent = new Intent();
