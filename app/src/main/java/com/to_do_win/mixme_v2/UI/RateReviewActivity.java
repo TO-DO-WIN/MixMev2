@@ -129,7 +129,7 @@ public class RateReviewActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.SearchActivity");
+                        packageName + ".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

@@ -16,9 +16,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.to_do_win.mixme_v2.R;
+import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
 
@@ -29,6 +33,10 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
  */
 public class MainActivity extends AppCompatActivity {
 
+    Controller controller;
+    private FirebaseDatabase database;
+    private DatabaseReference dbRef;
+
     private Button buttonRegister;
     private Button buttonGoToAddDrink;
     private EditText editTextEmail;
@@ -36,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewSignin;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
     String packageName = "com.to_do_win.mixme_v2";
 
 
@@ -45,10 +51,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+        controller = Controller.getInstance();
+        // Getting A_Drink reference from Firebase
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference().child("drinks");
+        dbRef.keepSynced(true);
+
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //controller.readInCatalog(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+
+
         Intent intent = new Intent();
 
         // Check if User is Already Logged In
-
         if (UserManager.getUserName().equals("guest")) {
             intent.setClassName(packageName,
                     packageName + ".UI.LoginActivity");

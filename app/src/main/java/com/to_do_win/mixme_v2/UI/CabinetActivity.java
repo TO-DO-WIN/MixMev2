@@ -86,7 +86,7 @@ public class CabinetActivity extends AppCompatActivity implements View.OnClickLi
 
         items.addAll(controller.getUserIngredients());
         ArrayList<String> makableNames = new ArrayList<>();
-        String text = "You can make these drinks.";
+        String text = "You can make these A_Drink.";
         posOfText = items.size();
         controller.searchDrinks(userIngredIDs, makableNames);
         items.add(text);
@@ -95,7 +95,7 @@ public class CabinetActivity extends AppCompatActivity implements View.OnClickLi
         // no need to use recylerView if no ingredients in cabinet
         // display a text instead.
         if (posOfText < 1){
-            ingredsTV.setText("You do not have any ingredients, and therefore you also cannot make any drinks.");
+            ingredsTV.setText("You do not have any ingredients, and therefore you also cannot make any A_Drink.");
         }
         else {
             RecyclerView rv = findViewById(R.id.cabinetRV);
@@ -119,7 +119,7 @@ public class CabinetActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.SearchActivity");
+                        packageName + ".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

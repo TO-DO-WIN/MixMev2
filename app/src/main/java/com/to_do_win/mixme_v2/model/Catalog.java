@@ -6,14 +6,18 @@ import java.util.Random;
 
 /**
  * Catalog class for the MixMe application. It is a singleton class that receives method calls
- * primarily from the Controller class. It maintains lists of all drinks, all ingredients, and
- * does most of the work while searching and creating drinks. For searches, it holds a list of the
- * ingredients used in the search, and lists of drinks that can be made with the ingredients as well
- * as drinks that can almost be made. It also holds a creation drink, which stores all attributes
+ * primarily from the Controller class. It maintains lists of all A_Drink, all ingredients, and
+ * does most of the work while searching and creating A_Drink. For searches, it holds a list of the
+ * ingredients used in the search, and lists of A_Drink that can be made with the ingredients as well
+ * as A_Drink that can almost be made. It also holds a creation drink, which stores all attributes
  * of a drink while it is being created, and a recipe drink, which is the drink who's recipe is
  * to be displayed.
  */
 public class Catalog {
+
+    ////////////////////////////   Chinh's Addition /////////////////////////////////////
+    //private ArrayList<A_Drink> allDrinks2;
+    ////////////////////////////   Chinh's Addition /////////////////////////////////////
 
     private static final int MIN_PERCENT_MATCH = 51;
     private ArrayList<Ingredient> allIngredients;
@@ -38,22 +42,37 @@ public class Catalog {
         this.creation = new Drink();
         this.newIngredients = new ArrayList<>();
 
-        // Call to DB to get all ingredients and all drinks
+        // Call to DB to get all ingredients and all A_Drink
+       // allDrinks2 = new ArrayList<>();
 
         // mock this call for now
         // ingreds
+//        Ingredient f = new Ingredient("Coke", 0, Ingredient.Category.MIXER);
+//        Ingredient h = new Ingredient("Cream", 1, "Ounces", 1, Ingredient.Category.MIXER);
+//        Ingredient k = new Ingredient("Dark Rum", 2, Ingredient.Category.SPIRIT);
+//        Ingredient g = new Ingredient("Ginger Beer", 5, "Ounces", 3, Ingredient.Category.MIXER);
+//        Ingredient c = new Ingredient("Kahlua", 2, "Ounces", 4, Ingredient.Category.LIQUEUR);
+//        Ingredient j = new Ingredient("Light Rum", 5, Ingredient.Category.SPIRIT);
+//        Ingredient i = new Ingredient("Lime Wedge", 1, "Pieces", 6, Ingredient.Category.GARNISH);
+//        Ingredient a = new Ingredient("Orange Juice", 3, "Ounces", 7, Ingredient.Category.MIXER);
+//        Ingredient l = new Ingredient("Passion Fruit Juice", 8, Ingredient.Category.MIXER);
+//        Ingredient m = new Ingredient("Pinapple Juice", 9, Ingredient.Category.MIXER);
+//        Ingredient d = new Ingredient("Tomato Juice", 4, "Ounces", 10, Ingredient.Category.MIXER);
+//        Ingredient b = new Ingredient("Vodka", 1.5, "Ounces", 11, Ingredient.Category.SPIRIT);
+//        Ingredient e = new Ingredient("Whiskey", 12, Ingredient.Category.SPIRIT);
+
         Ingredient f = new Ingredient("Coke", 0, Ingredient.Category.MIXER);
-        Ingredient h = new Ingredient("Cream", 1, "Ounces", 1, Ingredient.Category.MIXER);
+        Ingredient h = new Ingredient("Cream", 1, Ingredient.Category.MIXER);
         Ingredient k = new Ingredient("Dark Rum", 2, Ingredient.Category.SPIRIT);
-        Ingredient g = new Ingredient("Ginger Beer", 5, "Ounces", 3, Ingredient.Category.MIXER);
-        Ingredient c = new Ingredient("Kahlua", 2, "Ounces", 4, Ingredient.Category.LIQUEUR);
+        Ingredient g = new Ingredient("Ginger Beer", 3, Ingredient.Category.MIXER);
+        Ingredient c = new Ingredient("Kahlua", 4, Ingredient.Category.LIQUEUR);
         Ingredient j = new Ingredient("Light Rum", 5, Ingredient.Category.SPIRIT);
-        Ingredient i = new Ingredient("Lime Wedge", 1, "Pieces", 6, Ingredient.Category.GARNISH);
-        Ingredient a = new Ingredient("Orange Juice", 3, "Ounces", 7, Ingredient.Category.MIXER);
+        Ingredient i = new Ingredient("Lime Wedge", 6, Ingredient.Category.GARNISH);
+        Ingredient a = new Ingredient("Orange Juice", 7, Ingredient.Category.MIXER);
         Ingredient l = new Ingredient("Passion Fruit Juice", 8, Ingredient.Category.MIXER);
         Ingredient m = new Ingredient("Pinapple Juice", 9, Ingredient.Category.MIXER);
-        Ingredient d = new Ingredient("Tomato Juice", 4, "Ounces", 10, Ingredient.Category.MIXER);
-        Ingredient b = new Ingredient("Vodka", 1.5, "Ounces", 11, Ingredient.Category.SPIRIT);
+        Ingredient d = new Ingredient("Tomato Juice", 10, Ingredient.Category.MIXER);
+        Ingredient b = new Ingredient("Vodka", 11, Ingredient.Category.SPIRIT);
         Ingredient e = new Ingredient("Whiskey", 12, Ingredient.Category.SPIRIT);
 
         allIngredients.add(f);
@@ -70,30 +89,46 @@ public class Catalog {
         allIngredients.add(b);
         allIngredients.add(e);
 
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(a);
-        ingredients.add(b);
-        Drink z = new Drink("Srewdriver", ingredients, "Place ice in glass. Pour vodka " +
+
+        ArrayList<Drink.RecipeIngredient> recipeIngredients = new ArrayList<>();
+        Drink.RecipeIngredient screw1 = new Drink().new RecipeIngredient(a, 5, "Ounces");
+        Drink.RecipeIngredient screw2 = new Drink().new RecipeIngredient(b, 1.5, "Ounces");
+
+        recipeIngredients.add(screw1);
+        recipeIngredients.add(screw2);
+        Drink z = new Drink("Srewdriver", recipeIngredients, "Place ice in glass. Pour vodka " +
                 "over ice. Pour orange juice.", "Tumbler", 0);
 
-        ArrayList<Ingredient> ingredients2 = new ArrayList<>();
-        ingredients2.add(d);
-        ingredients2.add(b);
-        Drink y = new Drink("Bloody Mary", ingredients2, "Optionally you can salt the rim of the glass. Add ice, and" +
-                "ingredients.", "Pint glass", 0);
+        ArrayList<Drink.RecipeIngredient> bloodyIngredients = new ArrayList<>();
+        Drink.RecipeIngredient bloody1 = new Drink().new RecipeIngredient(d, 5, "Ounces");
+        Drink.RecipeIngredient bloody2 = new Drink().new RecipeIngredient(b, 1.5, "Ounces");
 
-        ArrayList<Ingredient> ingredients3 = new ArrayList<>();
-        ingredients3.add(c);
-        ingredients3.add(h);
-        ingredients3.add(b);
-        Drink x = new Drink("White Russian", ingredients3);
+        bloodyIngredients.add(bloody1);
+        bloodyIngredients.add(bloody2);
+        Drink y = new Drink("Bloody Mary", bloodyIngredients, "Place ice in glass. Pour vodka " +
+                "over ice. Pour tomato juice.", "Tumbler", 0);
 
-        ArrayList<Ingredient> ingredients4 = new ArrayList<>();
-        ingredients4.add(g);
-        ingredients4.add(i);
-        ingredients4.add(b);
-        Drink w = new Drink("Moscow Mule", ingredients4);
+        ArrayList<Drink.RecipeIngredient> russianIngredients = new ArrayList<>();
+        Drink.RecipeIngredient russian1 = new Drink().new RecipeIngredient(c, 1.5, "Ounces");
+        Drink.RecipeIngredient russian2 = new Drink().new RecipeIngredient(b, 2, "Ounces");
+        Drink.RecipeIngredient russian3 = new Drink().new RecipeIngredient(h, .5, "Ounces");
 
+        russianIngredients.add(russian1);
+        russianIngredients.add(russian2);
+        russianIngredients.add(russian3);
+        Drink x = new Drink("White Russian", russianIngredients, "Place ice in glass. Pour vodka " +
+                "khalua over ice. Top with cream. Stir and enjoy.", "Tumbler", 0);
+
+        ArrayList<Drink.RecipeIngredient> moscowIngredients = new ArrayList<>();
+        Drink.RecipeIngredient moscow1 = new Drink().new RecipeIngredient(g, 5, "Ounces");
+        Drink.RecipeIngredient moscow2 = new Drink().new RecipeIngredient(b, 1.5, "Ounces");
+        Drink.RecipeIngredient moscow3 = new Drink().new RecipeIngredient(i, 1, "Piece");
+
+        moscowIngredients.add(moscow1);
+        moscowIngredients.add(moscow2);
+        moscowIngredients.add(moscow3);
+        Drink  w= new Drink("Moscow Mule", moscowIngredients, "Place ice in glass. Pour vodka " +
+                "over ice. Pour ginger beer, and place lime wedge on rim of mug.", "Copper Mug", 0);
 
         allDrinks.add(z);
         allDrinks.add(y);
@@ -101,6 +136,33 @@ public class Catalog {
         allDrinks.add(w);
 
     }
+
+
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+
+    /**
+     * Adds a single drink into the allDrinks list
+     * @param aDrink The passed drink to be added.
+     */
+//    public void insertDrink(A_Drink aDrink){
+//        allDrinks2.add(aDrink);
+//    }
+
+    /**
+     * Gets and returns the list of all A_Drink.
+     *
+     * @return list of all A_Drink
+     */
+//    public ArrayList<A_Drink> getAllDrinks() {
+//        return allDrinks2;
+//    }
+
+    public ArrayList<Drink> getAllDrinks() {
+        return allDrinks;
+    }
+
+////////////////////////////   Chinh's Addition /////////////////////////////////////
+
 
     public static Catalog getInstance() {
         if (catalog == null) {
@@ -146,61 +208,52 @@ public class Catalog {
     }
 
     /**
-     * Gets and returns the list of all drinks.
+     * Sets the list of all A_Drink to the list of A_Drink passed in.
      *
-     * @return list of all drinks
-     */
-    public ArrayList<Drink> getAllDrinks() {
-        return allDrinks;
-    }
-
-    /**
-     * Sets the list of all drinks to the list of drinks passed in.
-     *
-     * @param allDrinks the list to which to set the list of drinks
+     * @param allDrinks the list to which to set the list of A_Drink
      */
     public void setAllDrinks(ArrayList<Drink> allDrinks) {
         this.allDrinks = allDrinks;
     }
 
     /**
-     * Gets and returns the list of makeable drinks.
+     * Gets and returns the list of makeable A_Drink.
      *
-     * @return the list of makeable drinks
+     * @return the list of makeable A_Drink
      */
     public ArrayList<Drink> getMakable() {
         return makable;
     }
 
     /**
-     * Sets the list of makeable drinks to the list of drinks passed in.
+     * Sets the list of makeable A_Drink to the list of A_Drink passed in.
      *
-     * @param makable the list to which to set the list of drinks
+     * @param makable the list to which to set the list of A_Drink
      */
     public void setMakable(ArrayList<Drink> makable) {
         this.makable = makable;
     }
 
     /**
-     * Gets and returns the list of near makeable drinks.
+     * Gets and returns the list of near makeable A_Drink.
      *
-     * @return the list of near makeable drinks
+     * @return the list of near makeable A_Drink
      */
     public ArrayList<Drink> getNearMakable() {
         return nearMakable;
     }
 
     /**
-     * Sets the list of near makeable drinks to the list of drinks passed in.
+     * Sets the list of near makeable A_Drink to the list of A_Drink passed in.
      *
-     * @param nearMakable the list to which to set the list of drinks
+     * @param nearMakable the list to which to set the list of A_Drink
      */
     public void setNearMakable(ArrayList<Drink> nearMakable) {
         this.nearMakable = nearMakable;
     }
 
     /**
-     * Searches drinks by iterating through every drink in the system. It compares each of the drink's
+     * Searches A_Drink by iterating through every drink in the system. It compares each of the drink's
      * ingredients' id to the set of working ingredient ids. Working ingredient ids should have been
      * set before this method is called.
      * <p>
@@ -219,11 +272,11 @@ public class Catalog {
      * weight is compared to the total drink weight to determine the percent match of the drink
      * with the given set of working ingredients.
      * <p>
-     * If the percent match is 100, the drink is added to the makeable drinks list, otherwise if the
+     * If the percent match is 100, the drink is added to the makeable A_Drink list, otherwise if the
      * percent match is greater than the minimum percent match constant, it is added to the near
      * makeable list. In both cases, the percent match attribute of the drink is set accordingly.
      * <p>
-     * At the start of the method, both makeable and near makeable lists are cleared of the drinks
+     * At the start of the method, both makeable and near makeable lists are cleared of the A_Drink
      * that are stored from the previous running of the method.
      */
     public void searchDrinks() {
@@ -263,7 +316,7 @@ public class Catalog {
     }
 
     /**
-     * Populates a list of Strings with the names of the drinks in the makeable drinks list, and
+     * Populates a list of Strings with the names of the A_Drink in the makeable A_Drink list, and
      * returns it.
      *
      * @return the list of makeable drink names
@@ -278,7 +331,7 @@ public class Catalog {
     }
 
     /**
-     * Populates a list of Strings with the names of the drinks in the near makeable drinks list, and
+     * Populates a list of Strings with the names of the A_Drink in the near makeable A_Drink list, and
      * returns it.
      *
      * @return the list of near makeable drink names
@@ -293,8 +346,8 @@ public class Catalog {
     }
 
     /**
-     * Populates a list of Strings with the toString value of the percent match of the drinks in
-     * the near makeable drinks list, and returns it.
+     * Populates a list of Strings with the toString value of the percent match of the A_Drink in
+     * the near makeable A_Drink list, and returns it.
      *
      * @return the list of near makeable percent matches as Strings
      */
@@ -331,7 +384,7 @@ public class Catalog {
     public ArrayList<String> getCreationVolumes() {
         ArrayList<String> creationVolumes = new ArrayList<>();
 
-        ArrayList<Ingredient> ingreds = creation.getIngreds();
+        ArrayList<Drink.RecipeIngredient> ingreds = creation.getRecipeIngredients();
         for (int i = 0; i < ingreds.size(); i++) {
             creationVolumes.add(Double.toString(ingreds.get(i).getVolume()));
         }
@@ -346,7 +399,7 @@ public class Catalog {
     public ArrayList<String> getCreationUnits() {
         ArrayList<String> creationUnits = new ArrayList<>();
 
-        ArrayList<Ingredient> ingreds = creation.getIngreds();
+        ArrayList<Drink.RecipeIngredient> ingreds = creation.getRecipeIngredients();
         for (int i = 0; i < ingreds.size(); i++) {
             creationUnits.add(ingreds.get(i).getUnit());
         }
@@ -436,17 +489,18 @@ public class Catalog {
     public void setCreationIngredient(int ingredientId, double ingredientVolume, String units,
                                       String name, Ingredient.Category category) {
         Ingredient i;
+        Drink.RecipeIngredient recipeIngredient;
 
         if (ingredientId == NO_ID) {
             String upperName = upperCaseAllFirst(name);
-            i = new Ingredient(upperName, ingredientVolume, units, NO_ID, category);
+            i = new Ingredient(upperName, NO_ID, category);
+            recipeIngredient = new Drink().new RecipeIngredient(i, ingredientVolume, units);
             newIngredients.add(i);
         } else {
             i = allIngredients.get(ingredientId);
-            i.setVolume(ingredientVolume);
-            i.setUnit(units);
+            recipeIngredient = new Drink().new RecipeIngredient(i, ingredientVolume, units);
         }
-        creation.addIngredient(i);
+        creation.addRecipeIngredient(recipeIngredient);
     }
 
     /**
@@ -463,7 +517,7 @@ public class Catalog {
     }
 
     /**
-     * Adds the creation drink to the set of all drinks. If there are any new ingredients, they are
+     * Adds the creation drink to the set of all A_Drink. If there are any new ingredients, they are
      * added to list of all ingredients and the list is ordered alphabetically and given new ids
      * based on their alphabetical order. The creation drink is then assigned a new empty drink.
      */
@@ -481,7 +535,7 @@ public class Catalog {
     }
 
     /**
-     * Finds the drink from the list of all drinks that's name matches the name passed in. It sets
+     * Finds the drink from the list of all A_Drink that's name matches the name passed in. It sets
      * the recipe drink to the drink found.
      *
      * @param drinkName the name of the drink to which to set the recipe
@@ -519,9 +573,9 @@ public class Catalog {
 
         ArrayList<String> recipeVolumes = new ArrayList<>();
 
-        ArrayList<Ingredient> ingreds = recipe.getIngreds();
-        for (int i = 0; i < ingreds.size(); i++)
-            recipeVolumes.add(Double.toString(ingreds.get(i).getVolume()));
+        ArrayList<Drink.RecipeIngredient> recipeIngredients = recipe.getRecipeIngredients();
+        for (int i = 0; i < recipeIngredients.size(); i++)
+            recipeVolumes.add(Double.toString(recipeIngredients.get(i).getVolume()));
 
         return recipeVolumes;
     }
@@ -536,9 +590,9 @@ public class Catalog {
 
         ArrayList<String> recipeUnits = new ArrayList<>();
 
-        ArrayList<Ingredient> ingreds = recipe.getIngreds();
-        for (int i = 0; i < ingreds.size(); i++)
-            recipeUnits.add(ingreds.get(i).getUnit());
+        ArrayList<Drink.RecipeIngredient> recipeIngredients = recipe.getRecipeIngredients();
+        for (int i = 0; i < recipeIngredients.size(); i++)
+            recipeUnits.add(recipeIngredients.get(i).getUnit());
 
         return recipeUnits;
     }

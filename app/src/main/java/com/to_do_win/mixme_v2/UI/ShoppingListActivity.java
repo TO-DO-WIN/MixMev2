@@ -118,7 +118,7 @@ public class ShoppingListActivity extends AppCompatActivity implements View.OnCl
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.SearchActivity");
+                        packageName + ".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 
