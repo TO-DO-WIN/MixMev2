@@ -3,6 +3,7 @@ package com.to_do_win.mixme_v2.model;
 import android.util.SparseBooleanArray;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User {
 
@@ -205,6 +206,7 @@ public class User {
                 myIngreds.add(allIngreds.get(i));
             }
         }
+        Collections.sort(myIngreds);
     }
 
     public void removeIngredientFromCabinet(String ingredName) {
