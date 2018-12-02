@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.SearchActivity">
+    tools:context=".UI.AllDrinksActivity">
 
     <include
         android:id="@+id/top_log_panel"
@@ -25,57 +25,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <Button
-        android:id="@+id/useIngredsBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Use My Ingredients"
-        android:textSize="7dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/clearBtn"
-        tools:padding="0dp" />
-
-    <Button
-        android:id="@+id/clearBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Clear"
-        android:textSize="7dp"
-        app:layout_constraintBottom_toBottomOf="@+id/useIngredsBtn"
-        app:layout_constraintLeft_toRightOf="@+id/useIngredsBtn"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:padding="0dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvIngredients"
+    <ListView
+        android:id="@+id/lv_drink_names"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/findDrinks"
-        app:layout_constraintTop_toBottomOf="@+id/useIngredsBtn"
+        app:layout_constraintBottom_toTopOf="@+id/searchByIngredsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
-        android:id="@+id/findDrinks"
+        android:id="@+id/searchByIngredsBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find Drinks"
+        android:text="Search by Ingredients"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"/>
+        app:layout_constraintTop_toBottomOf="@id/lv_drink_names"/>
 
     <include
         android:id="@+id/bottom_navigation"
-        layout="@layout/bottom_navigation"
+        layout="@layout/bottom_navigation_guest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
-
-
 
 
 </android.support.constraint.ConstraintLayout>

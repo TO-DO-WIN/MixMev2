@@ -3,7 +3,7 @@ package com.to_do_win.mixme_v2.controller;
 import android.util.SparseBooleanArray;
 
 import com.google.firebase.database.DataSnapshot;
-import com.to_do_win.mixme_v2.model.A_Drink;
+//import com.to_do_win.mixme_v2.model.A_Drink;
 import com.to_do_win.mixme_v2.model.Catalog;
 import com.to_do_win.mixme_v2.model.Drink;
 import com.to_do_win.mixme_v2.model.Ingredient;
@@ -39,23 +39,23 @@ public class Controller {
     }
 
 ////////////////////////////   Chinh's Addition /////////////////////////////////////
-    /**
+    /*
      * Method to read in and populate the catalog.
      * @param snapshot The datasnapshot received from the database.
      */
-    public void readInCatalog(DataSnapshot snapshot){
-        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-            A_Drink singleDrink = postSnapshot.getValue(A_Drink.class);
-
-            catalog.insertDrink( singleDrink );
-        }
-    }
-
+//    public void readInCatalog(DataSnapshot snapshot){
+//        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+//            A_Drink singleDrink = postSnapshot.getValue(A_Drink.class);
+//
+//            catalog.insertDrink( singleDrink );
+//        }
+//    }
+//
     public ArrayList<String> getDrinkNames() {
         ArrayList<String> drinkNames = new ArrayList<>();
 
-        for (A_Drink i : catalog.getAllDrinks()) {
-            drinkNames.add(i.getStrDrink());
+        for (Drink d : catalog.getAllDrinks()) {
+            drinkNames.add(d.getName());
         }
         return drinkNames;
     }

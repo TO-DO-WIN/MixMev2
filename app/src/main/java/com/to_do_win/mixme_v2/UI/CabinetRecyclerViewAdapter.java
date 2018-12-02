@@ -18,7 +18,7 @@ public class CabinetRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private ItemClickListener clickListener;
     private final int INGREDIENT = 0, DRINK = 1, TEXT = 2;
-    private final String DRINK_LIST = "You can make these A_Drink.";
+    private final String DRINK_LIST = "You can make these drinks.";
 
     CabinetRecyclerViewAdapter(Context context, List<String> items, int posOfText) {
         this.items = items;
