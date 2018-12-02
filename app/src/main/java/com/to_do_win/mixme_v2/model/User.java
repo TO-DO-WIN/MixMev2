@@ -2,6 +2,8 @@ package com.to_do_win.mixme_v2.model;
 
 import android.util.SparseBooleanArray;
 
+import com.to_do_win.mixme_v2.utilities.Repository;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,6 +15,7 @@ public class User {
     private ArrayList<Ingredient> shoppingGS;
     private ArrayList<Drink> faves;
     Catalog catalog = Catalog.getInstance();
+    Repository repository = Repository.getInstance();
 
     // make a singleton
     private static User user;
@@ -157,6 +160,11 @@ public class User {
         this.faves = faves;
     }
 
+    public void setFavesByName(ArrayList<String> faves) {
+        //////////////////////////////////////////////////////////////////////////////////////////////////////to be done
+        // create a list of drinks from the list of drinkName strings and call setFaves with the list as parameter
+    }
+
     public ArrayList<String> getMyIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
 
@@ -182,17 +190,21 @@ public class User {
         return false;
     }
 
+    // only from system, calls to add to db
     public void addFavorite(String drinkName) {
 
         Drink d = catalog.getDrinkByName(drinkName);
         faves.add(d);
+        repository.addDrinkToFaves(drinkName);
     }
 
+    // only from system, calls to remove in db
     public void removeFavorite(String drinkName){
         Boolean found = false;
         for (int i = 0; !found && i < faves.size(); i++){
             if (faves.get(i).getName().equals(drinkName)){
                 faves.remove(i);
+                repository.removeDrinkFromFaves(drinkName);
                 found = true;
             }
         }
@@ -213,6 +225,7 @@ public class User {
         for (Ingredient i : myIngreds) {
             if (i.getName().equals(ingredName)) {
                 myIngreds.remove(i);
+                repository.removeIngredientFromCabinet(i);
                 return;
             }
         }
@@ -297,7 +310,7 @@ public class User {
 //    }
 
     public void clearUser() {
-        user = new User();
+        user = null;
     }
 
     public void addIngredientsToShoppingList(SparseBooleanArray sba) {
@@ -341,12 +354,14 @@ public class User {
         for (Ingredient i : shoppingLS) {
             if (i.getName().equals(ingredientName)) {
                 shoppingLS.remove(i);
+                repository.removeIngredientFromShoppingList(i);
                 return;
             }
         }
         for (Ingredient i : shoppingGS) {
             if (i.getName().equals(ingredientName)) {
                 shoppingGS.remove(i);
+                repository.removeIngredientFromShoppingList(i);
                 return;
             }
         }
@@ -359,15 +374,32 @@ public class User {
         return false;
     }
 
+    // for setting from system, and calling db to set
     public void addToCabinet(String ingredName) {
         Ingredient ingredient = catalog.getIngredientByName(ingredName);
 
 
         if (!inCabinet(ingredient)){
             myIngreds.add(ingredient);
+            repository.addIngredientToCabinet(ingredient);
         }
     }
 
+    // for setting cabinet list from db
+    public void setCabinetListByName(ArrayList<String> cabinetList) {
+
+        myIngreds.clear();
+        for(String item: cabinetList){
+            Ingredient ingredient = catalog.getIngredientByName(item);
+
+
+            if (!inCabinet(ingredient)){
+                myIngreds.add(ingredient);
+            }
+        }
+    }
+
+    // for setting from system, and calling to db to set
     public void addToShoppingList(String ingredientName) {
         Ingredient ingredient = catalog.getIngredientByName(ingredientName);
         Ingredient.Category category = ingredient.getCategory();
@@ -386,7 +418,39 @@ public class User {
                 default:
 
             }
+            repository.addIngredientToShoppingList(ingredient);
         }
     }
+
+
+    // for setting from db
+    public void setShoppingListsByName(ArrayList<String> shoppingList) {
+
+        shoppingLS.clear();
+        shoppingGS.clear();
+        for(String item: shoppingList){
+            Ingredient ingredient = catalog.getIngredientByName(item);
+            Ingredient.Category category = ingredient.getCategory();
+
+            if (!inShoppingList(ingredient)) {
+                switch (category) {
+                    case SPIRIT:
+                    case LIQUEUR:
+                    case LOW_ALCOHOL:
+                        shoppingLS.add(ingredient);
+                        break;
+                    case MIXER:
+                    case GARNISH:
+                        shoppingGS.add(ingredient);
+                        break;
+                    default:
+
+                }
+
+            }
+        }
+    }
+
+
 }
 

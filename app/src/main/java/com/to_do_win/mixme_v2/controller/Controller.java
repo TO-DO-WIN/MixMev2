@@ -8,6 +8,7 @@ import com.to_do_win.mixme_v2.model.Catalog;
 import com.to_do_win.mixme_v2.model.Drink;
 import com.to_do_win.mixme_v2.model.Ingredient;
 import com.to_do_win.mixme_v2.model.User;
+import com.to_do_win.mixme_v2.utilities.Repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,10 +23,12 @@ public class Controller {
     private static Controller controller;
     private Catalog catalog;
     private User user;
+    private Repository repository;
 
     private Controller() {
         catalog = Catalog.getInstance();
         user = User.getInstance();
+        repository = Repository.getInstance();
     }
 
     /**
@@ -43,13 +46,9 @@ public class Controller {
      * Method to read in and populate the catalog.
      * @param snapshot The datasnapshot received from the database.
      */
-//    public void readInCatalog(DataSnapshot snapshot){
-//        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-//            A_Drink singleDrink = postSnapshot.getValue(A_Drink.class);
-//
-//            catalog.insertDrink( singleDrink );
-//        }
-//    }
+    public void readInCatalog(DataSnapshot snapshot){
+        repository.getAllDrinks();
+    }
 //
     public ArrayList<String> getDrinkNames() {
         ArrayList<String> drinkNames = new ArrayList<>();
@@ -516,6 +515,7 @@ public class Controller {
 
     public void setRating(String drinkName, String userName, float rating, String review) {
         catalog.addDrinkRating(drinkName, userName, rating, review);
+        repository.addRateReview(drinkName, userName, rating, review);
     }
 
 
