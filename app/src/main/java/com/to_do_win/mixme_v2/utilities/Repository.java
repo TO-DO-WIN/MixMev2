@@ -45,6 +45,9 @@ public class Repository {
      */
     public void getAllDrinks(){
         ArrayList<Drink> allDrinks = new ArrayList<>();
+
+        // we can decide to let the catalog get the list of ingredients from the list of drinks
+        // instead of doing it here.
         ArrayList<Ingredient> allIngredients = new ArrayList<>();
 
         // for loop should grab a drink, turn it into a Drink object, add it to list of all drinks,
@@ -83,40 +86,43 @@ public class Repository {
 
     public void addIngredientToCabinet(Ingredient ingredient){
         String ingredientName = ingredient.getName();
+        String userName = user.getUserName();
 
 
     }
 
     public void removeIngredientFromCabinet(Ingredient ingredient){
         String ingredientName = ingredient.getName();
+        String userName = user.getUserName();
 
 
     }
 
     public void addIngredientToShoppingList(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
+        String userName = user.getUserName();
 
 
     }
 
     public void removeIngredientFromShoppingList(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
+        String userName = user.getUserName();
 
 
     }
 
     public void addDrinkToFaves(String drink){
-
+        String userName = user.getUserName();
 
     }
 
     public void removeDrinkFromFaves(String drink) {
-
+        String userName = user.getUserName();
 
     }
 
     public void addDrink(Drink drink){
-
 
     }
 
