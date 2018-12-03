@@ -24,9 +24,9 @@ public class Repository {
     User user;
 
     private Repository() {
-        catalog = Catalog.getInstance();
-        user = User.getInstance();
-        controller = Controller.getInstance();
+//        catalog = Catalog.getInstance();
+//        user = User.getInstance();
+//        controller = Controller.getInstance();
     }
 
     /**
