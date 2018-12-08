@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="betweenMedBtn">5dp</dimen>
     <dimen name="aroundMedBtns">10dp</dimen>
+    <dimen name="logPanelHeight">28dp</dimen>
 </resources>
