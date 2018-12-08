@@ -5,5 +5,5 @@
     <color name="colorAccent">#1bb5d8</color>
     <color name="background_material_light">#e7f7c6</color>
     <color name="buttons">#99d686</color>
-    <color name="white">R.color.white</color>
+    <color name="white">#ffffff</color>
 </resources>

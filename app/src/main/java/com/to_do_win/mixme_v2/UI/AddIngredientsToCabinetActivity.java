@@ -38,6 +38,7 @@ public class AddIngredientsToCabinetActivity extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient_to_cabinet);
         logToggle = new LogToggle();
+        userName = UserManager.getUserName();
 
         greeting = (TextView) findViewById(R.id.greeting);
         greeting.setText(userName);
