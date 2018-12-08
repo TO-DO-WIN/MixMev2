@@ -35,7 +35,8 @@
             android:label="Drinks Found" />
         <activity
             android:name=".UI.CreateDrinkActivity"
-            android:label="Create A Drink" />
+            android:label="Create A Drink"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".UI.FavoritesActivity"
             android:label="Favorites" />
