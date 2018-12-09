@@ -92,8 +92,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
         controller.setRecipe(drinkName);
 
         recipeIngredients = controller.getRecipeIngredients();
-        ArrayList<String> recipeVolumes = controller.getRecipeVolumes();
-        ArrayList<String> recipeUnits = controller.getRecipeUnits();
+        ArrayList<String> recipeVolumeUnits = controller.getRecipeVolumeUnits();
 
         ingredientStatuses = new ArrayList<>();
 
@@ -135,8 +134,8 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
         // must pass values for user/non-user, and for ingredient being in user's cabinet and or shopping list
         // use different constructors for whether user or not, and within RecipeActivity or just in
         // create activity
-        adapter = new DrinkRecipeRecyclerViewAdapter(this, recipeIngredients, recipeVolumes,
-                recipeUnits, user, ingredientStatuses);
+        adapter = new DrinkRecipeRecyclerViewAdapter(this, recipeIngredients,
+                recipeVolumeUnits, user, ingredientStatuses);
         adapter.setClickListener(this);
         rv.setAdapter(adapter);
     }

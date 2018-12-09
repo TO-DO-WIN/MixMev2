@@ -292,11 +292,26 @@ public class Drink {
         private Ingredient ingredient;
         private double volume;
         private String unit;
+        private String volumeUnit;
 
         public RecipeIngredient(Ingredient ingredient, double volume, String unit) {
             this.ingredient = ingredient;
             this.volume = volume;
             this.unit = unit;
+            this.volumeUnit = Double.toString(volume) + " " + unit;
+        }
+
+        public RecipeIngredient(Ingredient ingredient, String volumeUnit){
+            this.ingredient = ingredient;
+            this.volumeUnit = volumeUnit;
+        }
+
+        public String getVolumeUnit() {
+            return volumeUnit;
+        }
+
+        public void setVolumeUnit(String volumeUnit) {
+            this.volumeUnit = volumeUnit;
         }
 
         public Ingredient getIngredient() {
