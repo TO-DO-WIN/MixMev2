@@ -1,16 +1,12 @@
 package com.to_do_win.mixme_v2.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Drink {
 
     private static final int MAX_INGREDS = 15;
-    private String name;
     private ArrayList<RecipeIngredient> recipeIngredients = new ArrayList<>();
-    //private Ingredient[] ingreds = new Ingredient[MAX_INGREDS];
+    private String name;
     private String directions;
     private String glassType;
     private int percentMatch;
@@ -18,6 +14,7 @@ public class Drink {
     private int totalWeight = 0;
     private ArrayList<RateReview> ratings = new ArrayList<>();
     private double rating;
+
 
 
     public int getTotalWeight() {
@@ -37,9 +34,75 @@ public class Drink {
     public Drink(String name, ArrayList<RecipeIngredient> recipeIngredients) {
         this.name = name;
         this.recipeIngredients = recipeIngredients;
+      //  setIngredients(this.recipeIngredients);//Added method to populate ingredients from db to list for interaction
         this.numIngreds = recipeIngredients.size();
         setTotalWeight();
     }
+
+    /**
+     * Retrieves list of ingredient names and units
+     * sets the ingredient names and units to the corrispoinding ingredient and measure attributes
+     * */
+//    private void setIngredients(ArrayList<RecipeIngredient> recipeIngredients) {
+//        ArrayList<String> ingredientNames = getIngredientNames();
+//        ArrayList<String> ingredientUnits = getIngredientUnits();
+//        int max = ingredientNames.size();
+//        int i = 0;
+//        for (RecipeIngredient recipeIngredient : recipeIngredients){
+//            if(i<=max){
+//                ingredientNames.set(i, recipeIngredient.getIngredient().getName());
+//                ingredientUnits.set(i, recipeIngredient.unit);
+//                i++;
+//            }
+//        }
+//
+//    }
+
+    /**
+     * Gets individual ingredients units and adds them to list
+     * */
+//    private ArrayList<String> getIngredientUnits() {
+//        ArrayList<String> ingredientUnits = new ArrayList<>();
+//        ingredientUnits.add(this.strMeasure1);
+//        ingredientUnits.add(this.strMeasure2);
+//        ingredientUnits.add(this.strMeasure3);
+//        ingredientUnits.add(this.strMeasure4);
+//        ingredientUnits.add(this.strMeasure5);
+//        ingredientUnits.add(this.strMeasure6);
+//        ingredientUnits.add(this.strMeasure7);
+//        ingredientUnits.add(this.strMeasure8);
+//        ingredientUnits.add(this.strMeasure9);
+//        ingredientUnits.add(this.strMeasure10);
+//        ingredientUnits.add(this.strMeasure11);
+//        ingredientUnits.add(this.strMeasure12);
+//        ingredientUnits.add(this.strMeasure13);
+//        ingredientUnits.add(this.strMeasure14);
+//        ingredientUnits.add(this.strMeasure15);
+//        return ingredientUnits;
+//    }
+
+    /**
+     * gets individual ingredient names and adds them to list
+     * */
+//    private ArrayList<String> getIngredientNames() {
+//        ArrayList<String> ingredientNames = new ArrayList<>();
+//        ingredientNames.add(this.strIngredient1);
+//        ingredientNames.add(this.strIngredient2);
+//        ingredientNames.add(this.strIngredient3);
+//        ingredientNames.add(this.strIngredient4);
+//        ingredientNames.add(this.strIngredient5);
+//        ingredientNames.add(this.strIngredient6);
+//        ingredientNames.add(this.strIngredient7);
+//        ingredientNames.add(this.strIngredient8);
+//        ingredientNames.add(this.strIngredient9);
+//        ingredientNames.add(this.strIngredient10);
+//        ingredientNames.add(this.strIngredient11);
+//        ingredientNames.add(this.strIngredient12);
+//        ingredientNames.add(this.strIngredient13);
+//        ingredientNames.add(this.strIngredient14);
+//        ingredientNames.add(this.strIngredient15);
+//        return ingredientNames;
+//    }
 
     public Drink(String name, ArrayList<RecipeIngredient> recipeIngredients, String directions, String glassType, int percentMatch) {
         this.name = name;
@@ -260,4 +323,6 @@ public class Drink {
             this.unit = unit;
         }
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.to_do_win.mixme_v2.model;
 
+import com.to_do_win.mixme_v2.utilities.Repository;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -29,6 +31,7 @@ public class Catalog {
     private ArrayList<Ingredient> newIngredients;
     private static final int NO_ID = -1;
     private Drink recipe;
+    private Repository repository;
 
     //make a singleton
     private static Catalog catalog;
@@ -523,6 +526,7 @@ public class Catalog {
      */
     public void addCreation() {
         allDrinks.add(creation);
+        repository.addDrink(creation);
         if (newIngredients.size() > 0) {
             allIngredients.addAll(newIngredients);
             Collections.sort(allIngredients);
