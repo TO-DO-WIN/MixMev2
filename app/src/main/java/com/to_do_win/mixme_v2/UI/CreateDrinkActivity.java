@@ -80,12 +80,15 @@ public class CreateDrinkActivity extends AppCompatActivity implements
         }
 
         ArrayList<String> ingreds = controller.getCreationIngredNames();
+        ArrayList<String> volumesUnits = controller.getCreationVolumeUnits();
+
         ArrayList<String> volumes = controller.getCreationVolumes();
         ArrayList<String> units = controller.getCreationUnits();
 
+
         RecyclerView rv = findViewById(R.id.rvIngredients);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CreateRecyclerViewAdapter(this, ingreds, volumes, units);
+        adapter = new CreateRecyclerViewAdapter(this, ingreds, volumesUnits);
         adapter.setClickListener(this);
         rv.setAdapter(adapter);
 

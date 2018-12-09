@@ -11,23 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/volumeTextView"/>
+        app:layout_constraintRight_toLeftOf="@id/volumeUnitsTextView"/>
 
     <TextView
-        android:id="@+id/volumeTextView"
+        android:id="@+id/volumeUnitsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:text="Volume"
         app:layout_constraintLeft_toRightOf="@id/ingredTextView" />
-
-    <TextView
-        android:id="@+id/unitsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="units"
-        app:layout_constraintLeft_toRightOf="@+id/volumeTextView"/>
 
     <Button
         android:id="@+id/removeBtn"

@@ -98,8 +98,8 @@ public class DrinkRecipeRecyclerViewAdapter extends
 
             // row = (ConstraintLayout) itemView.findViewById(R.layout.create_row);
             ingredTextView = itemView.findViewById(R.id.ingredTextView);
-            volumeTextView = itemView.findViewById(R.id.volumeTextView);
-            unitsTextView = itemView.findViewById(R.id.unitsTextView);
+            volumeTextView = itemView.findViewById(R.id.volumeUnitsTextView);
+            //unitsTextView = itemView.findViewById(R.id.unitsTextView);
             button = itemView.findViewById(R.id.removeBtn);
             itemView.setOnClickListener(this);
         }

@@ -17,8 +17,7 @@ public class CreateRecyclerViewAdapter extends
         RecyclerView.Adapter<CreateRecyclerViewAdapter.ViewHolder> {
 
     private List<String> ingreds;
-    private List<String> volumes;
-    private List<String> units;
+    private List<String> volumeUnits;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 //
@@ -28,12 +27,10 @@ public class CreateRecyclerViewAdapter extends
 //
 //    private SparseBooleanArray itemStateArray = new SparseBooleanArray();
 
-    CreateRecyclerViewAdapter(Context context, List<String> ingreds, List<String> volumes,
-                              List<String> units){
+    CreateRecyclerViewAdapter(Context context, List<String> ingreds, List<String> volumeUnits){
         this.inflater = LayoutInflater.from(context);
         this.ingreds = ingreds;
-        this.volumes = volumes;
-        this.units = units;
+        this.volumeUnits = volumeUnits;
     }
 
     // Inflates the row layout from xml
@@ -48,10 +45,8 @@ public class CreateRecyclerViewAdapter extends
     public void onBindViewHolder(ViewHolder holder, int position){
         String ingredient = ingreds.get(position);
         holder.ingredTextView.setText(ingredient);
-        String volume = volumes.get(position);
-        holder.volumeTextView.setText(volume);
-        String unit = units.get(position);
-        holder.unitsTextView.setText(unit);
+        String volume = volumeUnits.get(position);
+        holder.volumeUnitsTextView.setText(volume);
         // not sure if needed
         //holder.bind(position);
     }
@@ -66,8 +61,7 @@ public class CreateRecyclerViewAdapter extends
 
         public ConstraintLayout row;
         TextView ingredTextView;
-        TextView volumeTextView;
-        TextView unitsTextView;
+        TextView volumeUnitsTextView;
         Button button;
 
         ViewHolder(View itemView){
@@ -75,8 +69,7 @@ public class CreateRecyclerViewAdapter extends
 
            // row = (ConstraintLayout) itemView.findViewById(R.layout.create_row);
             ingredTextView = itemView.findViewById(R.id.ingredTextView);
-            volumeTextView = itemView.findViewById(R.id.volumeTextView);
-            unitsTextView = itemView.findViewById(R.id.unitsTextView);
+            volumeUnitsTextView = itemView.findViewById(R.id.volumeUnitsTextView);
             button = itemView.findViewById(R.id.removeBtn);
             itemView.setOnClickListener(this);
         }

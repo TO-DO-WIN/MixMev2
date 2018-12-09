@@ -409,6 +409,16 @@ public class Catalog {
         return creationUnits;
     }
 
+    public ArrayList<String> getCreationVolumeUnits() {
+        ArrayList<String> creationVolumeUnits = new ArrayList<>();
+
+        ArrayList<Drink.RecipeIngredient> ingreds = creation.getRecipeIngredients();
+        for (int i = 0; i < ingreds.size(); i++) {
+            creationVolumeUnits.add(ingreds.get(i).getVolumeUnit());
+        }
+        return creationVolumeUnits;
+    }
+
     /**
      * Calls on the drink's removeIngredient method to remove an ingredient at a position in its
      * ingredient list.
@@ -738,6 +748,7 @@ public class Catalog {
             d.replaceRating(userName, rating, review);
         }
     }
+
 
 
 }
