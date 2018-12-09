@@ -601,6 +601,17 @@ public class Catalog {
         return recipeUnits;
     }
 
+    public ArrayList<String> geRecipeVolumeUnits() {
+
+        ArrayList<String> recipeVolumeUnits = new ArrayList<>();
+
+        ArrayList<Drink.RecipeIngredient> recipeIngredients = recipe.getRecipeIngredients();
+        for (int i = 0; i < recipeIngredients.size(); i++)
+            recipeVolumeUnits.add(recipeIngredients.get(i).getVolumeUnit());
+
+        return recipeVolumeUnits;
+    }
+
     /**
      * Calls on the drink's getInstructions method to get the recipe drink's instructions and
      * returns them.
@@ -738,6 +749,7 @@ public class Catalog {
             d.replaceRating(userName, rating, review);
         }
     }
+
 
 
 }

@@ -314,6 +314,8 @@ public class Controller {
      */
     public ArrayList<String> getRecipeUnits() { return catalog.getRecipeUnits();}
 
+    public ArrayList<String> getRecipeVolumeUnits() { return catalog.geRecipeVolumeUnits();}
+
     /**
      * Calls on catalog to get the instructions of the drink recipe wanting to be displayed by the
      * Drink Recipe activity.
@@ -521,5 +523,7 @@ public class Controller {
 
 
     public void addToShoppingList(String ingredientName) { user.addToShoppingList(ingredientName); }
+
+
 }
 
