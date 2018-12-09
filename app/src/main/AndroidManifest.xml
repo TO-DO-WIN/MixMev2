@@ -35,7 +35,8 @@
             android:label="Drinks Found" />
         <activity
             android:name=".UI.CreateDrinkActivity"
-            android:label="Create A Drink" />
+            android:label="Create A Drink"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".UI.FavoritesActivity"
             android:label="Favorites" />
@@ -65,7 +66,8 @@
             android:label="Add Ingredients To Shopping List" />
         <activity
             android:name=".UI.RateReviewActivity"
-            android:label="Rate Review" />
+            android:label="Rate and Review"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".UI.RegisterActivity"
             android:label="Register a new user" />

@@ -58,11 +58,9 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:layout_margin="15dp"
             android:id="@+id/buttonLogin"
+            style="@style/LargeButton"
             android:text="Register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             />
 
         <TextView

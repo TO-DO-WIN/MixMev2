@@ -6,6 +6,69 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background_material_light</item>
+    </style>
+
+    <style name="LargeText">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MediumText">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SmallText">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="LargeButton">
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:background">@color/buttons</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="NavButton">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:text">@color/white</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">6dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="LinkButton">
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:background">@color/background_material_light</item>
+    </style>
+
+    <style name="MedButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/buttons</item>
+        <item name="android:textSize">7dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="SmallButton">
+        <item name="android:textSize">7dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/buttons</item>
+    </style>
+
+    <style name="SearchView">
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:queryBackground">@color/white</item>
     </style>
 
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/top_log_panel"
         layout="@layout/top_log_panel"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="@dimen/logPanelHeight"
         app:layout_constraintBottom_toTopOf="@id/drinkName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Drink Name"
+        android:inputType="textCapSentences"
         app:layout_constraintBottom_toTopOf="@+id/rvIngredients"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,18 +31,17 @@
         android:id="@+id/rvIngredients"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/instructionsText"
+        app:layout_constraintBottom_toTopOf="@+id/addIngredientBtn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/drinkName" />
 
     <Button
         android:id="@+id/addIngredientBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/LargeButton"
         android:text="Add Ingredient"
+        app:layout_constraintTop_toBottomOf="@id/rvIngredients"
         app:layout_constraintBottom_toTopOf="@+id/instructionsText"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
@@ -75,11 +75,9 @@
 
     <Button
         android:id="@+id/submitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/LargeButton"
         android:text="Submit"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
          />
