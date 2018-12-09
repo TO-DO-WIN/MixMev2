@@ -9,14 +9,15 @@
     <include
         android:id="@+id/top_log_panel"
         layout="@layout/top_log_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/logPanelHeight"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
         android:id="@+id/findRandomDrink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/LargeButton"
         android:text="Random Drink"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

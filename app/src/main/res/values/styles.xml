@@ -16,6 +16,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="MediumText">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="SmallText">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:layout_margin">8dp</item>

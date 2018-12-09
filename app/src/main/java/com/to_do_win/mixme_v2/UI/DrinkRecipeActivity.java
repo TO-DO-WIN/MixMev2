@@ -26,7 +26,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
     Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
     TextView drinkNameTV, instructionsTV, glassTV;
-    Button drinkRatingBtn;
+    TextView drinkRatingTV;
     RecyclerView rv;
     Controller controller;
     DrinkRecipeRecyclerViewAdapter adapter;
@@ -119,9 +119,9 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
         drinkNameTV = (TextView) findViewById(R.id.drink_name);
         drinkNameTV.setText(drinkName);
 
-        drinkRatingBtn = (Button) findViewById(R.id.ratingBtn);
-        drinkRatingBtn.setText(rating);
-        drinkRatingBtn.setOnClickListener(this);
+        drinkRatingTV = (TextView) findViewById(R.id.ratingTV);
+        drinkRatingTV.setText(rating);
+        drinkRatingTV.setOnClickListener(this);
 
         instructionsTV = (TextView) findViewById(R.id.instructionsTV);
         instructionsTV.setText(instructions);
