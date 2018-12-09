@@ -32,9 +32,7 @@
     <Button
         android:id="@+id/removeBtn"
         android:text="Remove"
-        android:textSize="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        style="@style/SmallButton"
         app:layout_constraintRight_toRightOf="parent"
         android:clickable="false"
         android:focusable="false"

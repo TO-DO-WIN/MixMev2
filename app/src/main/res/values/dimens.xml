@@ -5,4 +5,6 @@
     <dimen name="betweenMedBtn">5dp</dimen>
     <dimen name="aroundMedBtns">10dp</dimen>
     <dimen name="logPanelHeight">28dp</dimen>
+    <dimen name="recyclerSelections">40dp</dimen>
+    <dimen name="recyclerSelectionsInside">25dp</dimen>
 </resources>
