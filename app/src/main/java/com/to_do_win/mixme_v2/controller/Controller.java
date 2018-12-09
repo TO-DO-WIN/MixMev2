@@ -47,7 +47,8 @@ public class Controller {
      * @param snapshot The datasnapshot received from the database.
      */
     public void readInCatalog(DataSnapshot snapshot){
-        repository.getAllDrinks();
+
+        repository.getAllDrinks(snapshot);
     }
 //
     public ArrayList<String> getDrinkNames() {
