@@ -65,6 +65,15 @@
             android:textAlignment="center"
             />
 
+        <TextView
+            android:layout_margin="15dp"
+            android:id="@+id/guestUser"
+            android:text="Or Use as Guest"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            />
+
 
     </LinearLayout>
 </LinearLayout>
