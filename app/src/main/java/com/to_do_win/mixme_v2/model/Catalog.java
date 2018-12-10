@@ -538,6 +538,14 @@ public class Catalog {
         creation = new Drink();
     }
 
+    public void addIngredient(Ingredient ingredient) {
+        allIngredients.add(ingredient);
+        Collections.sort(allIngredients);
+        for (int i=0; i < allIngredients.size(); i++){
+            allIngredients.get(i).setId(i);
+        }
+    }
+
     /**
      * Finds the drink from the list of all A_Drink that's name matches the name passed in. It sets
      * the recipe drink to the drink found.
