@@ -148,7 +148,7 @@ public class Repository {
                         new Drink().new RecipeIngredient(ingredient, dbMeasurements.get(i));
                 d.addRecipeIngredient(recipeIngredient);
                 i++;
-            } while (dbIngreds.get(i) != null);
+            } while (dbIngreds.get(i) != null || dbIngreds.get(i) == "");
 
 
         }
