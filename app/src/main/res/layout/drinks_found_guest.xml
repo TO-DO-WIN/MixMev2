@@ -7,7 +7,7 @@
     <include
         android:id="@+id/top_log_panel"
         layout="@layout/top_log_panel"
-        android:layout_height="28dp"
+        android:layout_height="@dimen/logPanelHeight"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -17,8 +17,7 @@
     <TextView
         android:id="@+id/canMake"
         android:text="Great! You can make these drinks:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MediumText"
         app:layout_constraintTop_toBottomOf="@+id/top_log_panel"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
