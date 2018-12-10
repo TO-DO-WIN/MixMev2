@@ -59,6 +59,37 @@ public class Repository {
             RepoDrink singleDrink = postSnapshot.getValue(RepoDrink.class);
             Drink d = new Drink();
 
+            // add ingredients that aren't empty to drink and to list of all ingredients if not there
+            // first a list of them
+            ArrayList<String> dbIngreds = new ArrayList<>();
+
+            dbIngreds.add(singleDrink.strIngredient1);
+            dbIngreds.add(singleDrink.strIngredient2);
+            dbIngreds.add(singleDrink.strIngredient3);
+            dbIngreds.add(singleDrink.strIngredient4);
+            dbIngreds.add(singleDrink.strIngredient5);
+            dbIngreds.add(singleDrink.strIngredient6);
+            dbIngreds.add(singleDrink.strIngredient7);
+            dbIngreds.add(singleDrink.strIngredient8);
+            dbIngreds.add(singleDrink.strIngredient9);
+            dbIngreds.add(singleDrink.strIngredient10);
+            dbIngreds.add(singleDrink.strIngredient11);
+            dbIngreds.add(singleDrink.strIngredient12);
+            dbIngreds.add(singleDrink.strIngredient13);
+            dbIngreds.add(singleDrink.strIngredient14);
+            dbIngreds.add(singleDrink.strIngredient15);
+
+            int i=0;
+            do {
+                Ingredient ingredient = catalog.getIngredientByName(singleDrink.strDrink);
+                if (ingredient == null){
+                    ingredient = new Ingredient()
+                }
+                Drink.RecipeIngredient recipeIngredient = new Drink().new RecipeIngredient();
+                d.addRecipeIngredient();
+                i++;
+            } while (!dbIngreds.get(i).equals(" "));
+
 
         }
         catalog.setAllDrinks(allDrinks);
@@ -553,6 +584,11 @@ public class Repository {
         public void setStrMeasure15(String strMeasure15) {
             this.strMeasure15 = strMeasure15;
         }
+
+    }
+
+    public static class RepoIngredients{
+
 
     }
 }
