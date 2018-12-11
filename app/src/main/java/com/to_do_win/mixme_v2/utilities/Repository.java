@@ -13,7 +13,6 @@ import java.util.ArrayList;
 /**
  * Class to handle all communication with database. Typically the controller will call on
  * repository methods to get and set database entries.
- *
  */
 
 public class Repository {
@@ -42,9 +41,10 @@ public class Repository {
     /**
      * Gets all drinks checks each drink for unlisted ingredients. Populates catalog's list
      * of drinks and ingredients.
+     *
      * @param snapshot
      */
-    public void getAllDrinks(DataSnapshot snapshot){
+    public void getAllDrinks(DataSnapshot snapshot) {
         ArrayList<Drink> allDrinks = new ArrayList<>();
 
         // we can decide to let the catalog get the list of ingredients from the list of drinks
@@ -54,22 +54,116 @@ public class Repository {
         // for loop should grab a drink, turn it into a Drink object, add it to list of all drinks,
         // check each ingredient to see if it is in allIngredients, if not add it. Drink object needs to
         // include the list of Rate/Review objects.
-        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-
+        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
             RepoDrink singleDrink = postSnapshot.getValue(RepoDrink.class);
             Drink d = new Drink();
+            // add ingredients that aren't empty to drink and to list of all ingredients if not there
+            // first a list of them
+            ArrayList<String> dbIngreds = new ArrayList<>();
+            ArrayList<String> dbMeasurements = new ArrayList<>();
+            ArrayList<String> dbCats = new ArrayList<>();
+
+            dbIngreds.add(singleDrink.strIngredient1);
+            dbIngreds.add(singleDrink.strIngredient2);
+            dbIngreds.add(singleDrink.strIngredient3);
+            dbIngreds.add(singleDrink.strIngredient4);
+            dbIngreds.add(singleDrink.strIngredient5);
+            dbIngreds.add(singleDrink.strIngredient6);
+            dbIngreds.add(singleDrink.strIngredient7);
+            dbIngreds.add(singleDrink.strIngredient8);
+            dbIngreds.add(singleDrink.strIngredient9);
+            dbIngreds.add(singleDrink.strIngredient10);
+            dbIngreds.add(singleDrink.strIngredient11);
+            dbIngreds.add(singleDrink.strIngredient12);
+            dbIngreds.add(singleDrink.strIngredient13);
+            dbIngreds.add(singleDrink.strIngredient14);
+            dbIngreds.add(singleDrink.strIngredient15);
+
+            dbMeasurements.add(singleDrink.strMeasure1);
+            dbMeasurements.add(singleDrink.strMeasure2);
+            dbMeasurements.add(singleDrink.strMeasure3);
+            dbMeasurements.add(singleDrink.strMeasure4);
+            dbMeasurements.add(singleDrink.strMeasure5);
+            dbMeasurements.add(singleDrink.strMeasure6);
+            dbMeasurements.add(singleDrink.strMeasure7);
+            dbMeasurements.add(singleDrink.strMeasure8);
+            dbMeasurements.add(singleDrink.strMeasure9);
+            dbMeasurements.add(singleDrink.strMeasure10);
+            dbMeasurements.add(singleDrink.strMeasure11);
+            dbMeasurements.add(singleDrink.strMeasure12);
+            dbMeasurements.add(singleDrink.strMeasure13);
+            dbMeasurements.add(singleDrink.strMeasure14);
+            dbMeasurements.add(singleDrink.strMeasure15);
+
+            dbCats.add(singleDrink.strCategory1);
+            dbCats.add(singleDrink.strCategory2);
+            dbCats.add(singleDrink.strCategory3);
+            dbCats.add(singleDrink.strCategory4);
+            dbCats.add(singleDrink.strCategory5);
+            dbCats.add(singleDrink.strCategory6);
+            dbCats.add(singleDrink.strCategory7);
+            dbCats.add(singleDrink.strCategory8);
+            dbCats.add(singleDrink.strCategory9);
+            dbCats.add(singleDrink.strCategory10);
+            dbCats.add(singleDrink.strCategory11);
+            dbCats.add(singleDrink.strCategory12);
+            dbCats.add(singleDrink.strCategory13);
+            dbCats.add(singleDrink.strCategory14);
+            dbCats.add(singleDrink.strCategory15);
+
+            int i = 0;
+            do {
+                Ingredient ingredient = catalog.getIngredientByName(dbIngreds.get(i));
+                if (ingredient == null) {
+                    // get Ingredient category enum from string
+                    Ingredient.Category cat;
+                    if(dbCats.get(i)==null || dbCats.get(i)==""){
+                        return;
+                    }
+                    switch (dbCats.get(i).toLowerCase()) {
+                        case "spirit":
+                            cat = Ingredient.Category.SPIRIT;
+                            break;
+                        case "liqueur":
+                            cat = Ingredient.Category.LIQUEUR;
+                            break;
+                        case "low-alcohol":
+                            cat = Ingredient.Category.LOW_ALCOHOL;
+                            break;
+                        case "mixer":
+                            cat = Ingredient.Category.MIXER;
+                            break;
+                        case "garnish":
+                            cat = Ingredient.Category.GARNISH;
+                            break;
+                        default:
+                            cat = Ingredient.Category.GARNISH;
 
 
+                    }
+                    // create the new ingredient and put it in catalog
+                    ingredient = new Ingredient(dbIngreds.get(i), -1, cat);
+                    catalog.addIngredient(ingredient);
+                }
+                Drink.RecipeIngredient recipeIngredient =
+                        new Drink().new RecipeIngredient(ingredient, dbMeasurements.get(i));
+                d.addRecipeIngredient(recipeIngredient);
+                i++;
+
+            } while (dbIngreds.get(i) != null&&!dbIngreds.get(i).equals(""));
+            d.setDirections(singleDrink.strInstructions);
+            d.setGlassType(singleDrink.strGlass);
+            d.setName(singleDrink.strDrink);
+            allDrinks.add(d);
         }
         catalog.setAllDrinks(allDrinks);
-        catalog.setAllIngredients(allIngredients);
     }
 
     /**
      * Get user data should be used to get all user data from db and set the data to the user
      * object in the system.
      */
-    public void getUserData(){
+    public void getUserData() {
 
         // get all user data and set using user methods.
 
@@ -88,14 +182,14 @@ public class Repository {
 
     }
 
-    public void addIngredientToCabinet(Ingredient ingredient){
+    public void addIngredientToCabinet(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
         String userName = user.getUserName();
 
 
     }
 
-    public void removeIngredientFromCabinet(Ingredient ingredient){
+    public void removeIngredientFromCabinet(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
         String userName = user.getUserName();
 
@@ -116,7 +210,7 @@ public class Repository {
 
     }
 
-    public void addDrinkToFaves(String drink){
+    public void addDrinkToFaves(String drink) {
         String userName = user.getUserName();
 
     }
@@ -126,18 +220,19 @@ public class Repository {
 
     }
 
-    public void addDrink(Drink drink){
+    public void addDrink(Drink drink) {
 
     }
 
-    public void addRateReview(String drink, String userName, float rating, String review){
+    public void addRateReview(String drink, String userName, float rating, String review) {
 
 
     }
 
     public static class RepoDrink {
 
-        public RepoDrink() {}
+        public RepoDrink() {
+        }
 
         private String strDrink;
         private String idDrink;
@@ -184,6 +279,21 @@ public class Repository {
         private String strMeasure13;
         private String strMeasure14;
         private String strMeasure15;
+        private String strCategory1;
+        private String strCategory2;
+        private String strCategory3;
+        private String strCategory4;
+        private String strCategory5;
+        private String strCategory6;
+        private String strCategory7;
+        private String strCategory8;
+        private String strCategory9;
+        private String strCategory10;
+        private String strCategory11;
+        private String strCategory12;
+        private String strCategory13;
+        private String strCategory14;
+        private String strCategory15;
         private String dateModified;
 
         public String getStrDrink() {
@@ -554,5 +664,124 @@ public class Repository {
             this.strMeasure15 = strMeasure15;
         }
 
+        public String getStrCategory1() {
+            return strCategory1;
+        }
+
+        public void setStrCategory1(String strCategory1) {
+            this.strCategory1 = strCategory1;
+        }
+
+        public String getStrCategory2() {
+            return strCategory2;
+        }
+
+        public void setStrCategory2(String strCategory2) {
+            this.strCategory2 = strCategory2;
+        }
+
+        public String getStrCategory3() {
+            return strCategory3;
+        }
+
+        public void setStrCategory3(String strCategory3) {
+            this.strCategory3 = strCategory3;
+        }
+
+        public String getStrCategory4() {
+            return strCategory4;
+        }
+
+        public void setStrCategory4(String strCategory4) {
+            this.strCategory4 = strCategory4;
+        }
+
+        public String getStrCategory5() {
+            return strCategory5;
+        }
+
+        public void setStrCategory5(String strCategory5) {
+            this.strCategory5 = strCategory5;
+        }
+
+        public String getStrCategory6() {
+            return strCategory6;
+        }
+
+        public void setStrCategory6(String strCategory6) {
+            this.strCategory6 = strCategory6;
+        }
+
+        public String getStrCategory7() {
+            return strCategory7;
+        }
+
+        public void setStrCategory7(String strCategory7) {
+            this.strCategory7 = strCategory7;
+        }
+
+        public String getStrCategory8() {
+            return strCategory8;
+        }
+
+        public void setStrCategory8(String strCategory8) {
+            this.strCategory8 = strCategory8;
+        }
+
+        public String getStrCategory9() {
+            return strCategory9;
+        }
+
+        public void setStrCategory9(String strCategory9) {
+            this.strCategory9 = strCategory9;
+        }
+
+        public String getStrCategory10() {
+            return strCategory10;
+        }
+
+        public void setStrCategory10(String strCategory10) {
+            this.strCategory10 = strCategory10;
+        }
+
+        public String getStrCategory11() {
+            return strCategory11;
+        }
+
+        public void setStrCategory11(String strCategory11) {
+            this.strCategory11 = strCategory11;
+        }
+
+        public String getStrCategory12() {
+            return strCategory12;
+        }
+
+        public void setStrCategory12(String strCategory12) {
+            this.strCategory12 = strCategory12;
+        }
+
+        public String getStrCategory13() {
+            return strCategory13;
+        }
+
+        public void setStrCategory13(String strCategory13) {
+            this.strCategory13 = strCategory13;
+        }
+
+        public String getStrCategory14() {
+            return strCategory14;
+        }
+
+        public void setStrCategory14(String strCategory14) {
+            this.strCategory14 = strCategory14;
+        }
+
+        public String getStrCategory15() {
+            return strCategory15;
+        }
+
+        public void setStrCategory15(String strCategory15) {
+            this.strCategory15 = strCategory15;
+        }
     }
 }

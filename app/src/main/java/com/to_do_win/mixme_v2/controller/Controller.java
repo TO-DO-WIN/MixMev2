@@ -316,6 +316,7 @@ public class Controller {
      */
     public ArrayList<String> getRecipeUnits() { return catalog.getRecipeUnits();}
 
+
     public ArrayList<String> getRecipeVolumeUnits() { return catalog.getRecipeVolumeUnits();}
 
     /**
@@ -525,7 +526,6 @@ public class Controller {
 
 
     public void addToShoppingList(String ingredientName) { user.addToShoppingList(ingredientName); }
-
 
 
 }

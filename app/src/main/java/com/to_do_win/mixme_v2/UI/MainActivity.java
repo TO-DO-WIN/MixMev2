@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         controller = Controller.getInstance();
         // Getting A_Drink reference from Firebase
         database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference().child("drinks");
+        dbRef = database.getReference().child("drinks").child("drinks");
         dbRef.keepSynced(true);
 
         dbRef.addValueEventListener(new ValueEventListener() {
