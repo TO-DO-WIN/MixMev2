@@ -36,16 +36,16 @@ public class Ingredient implements Comparable<Ingredient>{
         }
         public int weight() {return weight;}
         public static Category getCategory(String catName){
-            switch (catName){
-                case "Garnish":
+            switch (catName.toLowerCase()){
+                case "garnish":
                     return GARNISH;
-                case "Mixer":
+                case "mixer":
                     return MIXER;
-                case "Low-Alcohol":
+                case "low-alcohol":
                     return LOW_ALCOHOL;
-                case "Liqueur":
+                case "liqueur":
                     return LIQUEUR;
-                case "Spirit":
+                case "spirit":
                     return SPIRIT;
                 default:
                     return null;

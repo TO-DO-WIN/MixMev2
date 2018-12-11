@@ -55,10 +55,8 @@ public class Repository {
         // check each ingredient to see if it is in allIngredients, if not add it. Drink object needs to
         // include the list of Rate/Review objects.
         for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-
             RepoDrink singleDrink = postSnapshot.getValue(RepoDrink.class);
             Drink d = new Drink();
-
             // add ingredients that aren't empty to drink and to list of all ingredients if not there
             // first a list of them
             ArrayList<String> dbIngreds = new ArrayList<>();
@@ -119,24 +117,27 @@ public class Repository {
                 if (ingredient == null) {
                     // get Ingredient category enum from string
                     Ingredient.Category cat;
-                    switch (dbCats.get(i)) {
-                        case "Spirit":
+                    if(dbCats.get(i)==null || dbCats.get(i)==""){
+                        return;
+                    }
+                    switch (dbCats.get(i).toLowerCase()) {
+                        case "spirit":
                             cat = Ingredient.Category.SPIRIT;
                             break;
-                        case "Liqueur":
+                        case "liqueur":
                             cat = Ingredient.Category.LIQUEUR;
                             break;
-                        case "Low-Alcohol":
+                        case "low-alcohol":
                             cat = Ingredient.Category.LOW_ALCOHOL;
                             break;
-                        case "Mixer":
+                        case "mixer":
                             cat = Ingredient.Category.MIXER;
                             break;
-                        case "Garnish":
+                        case "garnish":
                             cat = Ingredient.Category.GARNISH;
                             break;
                         default:
-                            cat = null;
+                            cat = Ingredient.Category.GARNISH;
 
 
                     }
@@ -148,9 +149,12 @@ public class Repository {
                         new Drink().new RecipeIngredient(ingredient, dbMeasurements.get(i));
                 d.addRecipeIngredient(recipeIngredient);
                 i++;
-            } while (dbIngreds.get(i) != null || dbIngreds.get(i) == "");
 
-
+            } while (dbIngreds.get(i) != null&&!dbIngreds.get(i).equals(""));
+            d.setDirections(singleDrink.strInstructions);
+            d.setGlassType(singleDrink.strGlass);
+            d.setName(singleDrink.strDrink);
+            allDrinks.add(d);
         }
         catalog.setAllDrinks(allDrinks);
     }
