@@ -153,6 +153,8 @@ public class Controller {
         return catalog.getCreationUnits();
     }
 
+    public ArrayList<String> getCreationVolumeUnits() {return catalog.getCreationVolumeUnits(); }
+
     /**
      * Calls on the catalog to remove an ingredient from the drink being created. The position of
      * the ingredient in the list from the Create Drink activity of the UI is the same as the
@@ -314,7 +316,8 @@ public class Controller {
      */
     public ArrayList<String> getRecipeUnits() { return catalog.getRecipeUnits();}
 
-    public ArrayList<String> getRecipeVolumeUnits() { return catalog.geRecipeVolumeUnits();}
+
+    public ArrayList<String> getRecipeVolumeUnits() { return catalog.getRecipeVolumeUnits();}
 
     /**
      * Calls on catalog to get the instructions of the drink recipe wanting to be displayed by the

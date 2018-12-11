@@ -298,7 +298,7 @@ public class Drink {
             this.ingredient = ingredient;
             this.volume = volume;
             this.unit = unit;
-            this.volumeUnit = Double.toString(volume) + unit;
+            this.volumeUnit = Double.toString(volume) + " " + unit;
         }
 
         public RecipeIngredient(Ingredient ingredient, String volumeUnit){

@@ -17,8 +17,7 @@ public class DrinkRecipeRecyclerViewAdapter extends
         RecyclerView.Adapter<DrinkRecipeRecyclerViewAdapter.ViewHolder> {
 
     private List<String> ingreds;
-    private List<String> volumes;
-    private List<String> units;
+    private List<String> volumeUnits;
     private boolean user;
     private List<DrinkRecipeActivity.IngredientStatus> statuses;
 
@@ -31,13 +30,11 @@ public class DrinkRecipeRecyclerViewAdapter extends
 //
 //    private SparseBooleanArray itemStateArray = new SparseBooleanArray();
 
-    DrinkRecipeRecyclerViewAdapter(Context context, List<String> ingreds, List<String> volumes,
-                                   List<String> units, boolean user,
-                                   List<DrinkRecipeActivity.IngredientStatus> statuses){
+    DrinkRecipeRecyclerViewAdapter(Context context, List<String> ingreds, List<String> volumeUnits,
+                                   boolean user, List<DrinkRecipeActivity.IngredientStatus> statuses){
         this.inflater = LayoutInflater.from(context);
         this.ingreds = ingreds;
-        this.volumes = volumes;
-        this.units = units;
+        this.volumeUnits = volumeUnits;
         this.user = user;
         this.statuses = statuses;
     }
@@ -54,10 +51,8 @@ public class DrinkRecipeRecyclerViewAdapter extends
     public void onBindViewHolder(DrinkRecipeRecyclerViewAdapter.ViewHolder holder, int position){
         String ingredient = ingreds.get(position);
         holder.ingredTextView.setText(ingredient);
-        String volume = volumes.get(position);
-        holder.volumeTextView.setText(volume);
-        String unit = units.get(position);
-        holder.unitsTextView.setText(unit);
+        String volume = volumeUnits.get(position);
+        holder.volumeUnitsTextView.setText(volume);
 
         /////////////////////////////////////////////////// non-users still unable to access, so not able to test this
         if (!user){
@@ -89,8 +84,7 @@ public class DrinkRecipeRecyclerViewAdapter extends
 
         public ConstraintLayout row;
         TextView ingredTextView;
-        TextView volumeTextView;
-        TextView unitsTextView;
+        TextView volumeUnitsTextView;
         Button button;
 
         ViewHolder(View itemView){
@@ -98,8 +92,8 @@ public class DrinkRecipeRecyclerViewAdapter extends
 
             // row = (ConstraintLayout) itemView.findViewById(R.layout.create_row);
             ingredTextView = itemView.findViewById(R.id.ingredTextView);
-            volumeTextView = itemView.findViewById(R.id.volumeTextView);
-            unitsTextView = itemView.findViewById(R.id.unitsTextView);
+            volumeUnitsTextView = itemView.findViewById(R.id.volumeUnitsTextView);
+            //unitsTextView = itemView.findViewById(R.id.unitsTextView);
             button = itemView.findViewById(R.id.removeBtn);
             itemView.setOnClickListener(this);
         }
