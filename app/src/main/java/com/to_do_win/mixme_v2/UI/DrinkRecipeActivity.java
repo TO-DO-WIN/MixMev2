@@ -151,7 +151,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
                 startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
             //////////////////////////////////////////////////////////////////////////////rating button to display ratings and reviews. no layout created yet.
-            case R.id.ratingBtn:
+            case R.id.ratingTV:
                 intent.putExtra("drinkName", drinkName);
                 intent.setClassName(packageName,
                         packageName + ".UI.RateReviewActivity");

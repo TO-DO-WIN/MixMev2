@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignup;
+    private TextView guestUser;
     private ProgressDialog progressDialog;
     private Button buttonSaveData;
     private FirebaseAuth firebaseAuth;
@@ -49,11 +50,13 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonLogin);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
+        guestUser = (TextView) findViewById(R.id.guestUser);
 
         progressDialog = new ProgressDialog(this);
 
         buttonSignIn.setOnClickListener(this);
         textViewSignup.setOnClickListener(this);
+        guestUser.setOnClickListener(this);
 
     }
 
@@ -105,6 +108,13 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
             intent.setClassName(packageName,
                     packageName +".UI.RegisterActivity");
             startActivity(intent);
+        }
+
+        if(v == guestUser){
+            finish();
+            Intent intent = new Intent();
+            intent.setClassName(packageName,
+                    packageName +".UI.AllDrinksActivity");
         }
 
 
