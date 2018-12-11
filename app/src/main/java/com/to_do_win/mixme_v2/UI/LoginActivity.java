@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
             Intent intent = new Intent();
             intent.setClassName(packageName,
                     packageName +".UI.AllDrinksActivity");
+            startActivity(intent);
         }
 
 
