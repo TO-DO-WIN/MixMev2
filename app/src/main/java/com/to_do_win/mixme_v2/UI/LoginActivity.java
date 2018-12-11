@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
             startActivity(intent);
         }
 
-        if(v ==  guestUser){
+        if(v == guestUser){
             finish();
             Intent intent = new Intent();
             intent.setClassName(packageName,
