@@ -31,7 +31,7 @@ public class RandomActivity extends AppCompatActivity implements View.OnClickLis
         logToggle = new LogToggle();
         userName = UserManager.getUserName();
 
-        if (userName == null) {
+        if (userName.equals("guest")) {
 
             setContentView(R.layout.random_guest);
             logBtn = (Button) findViewById(R.id.logBtn);
