@@ -1,7 +1,13 @@
 package com.to_do_win.mixme_v2.utilities;
 
 
+import android.support.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.model.Catalog;
 import com.to_do_win.mixme_v2.model.Drink;
@@ -21,11 +27,16 @@ public class Repository {
     Catalog catalog;
     Controller controller;
     User user;
+    FirebaseDatabase database;
+    private DatabaseReference dbRef;
 
     private Repository() {
         catalog = Catalog.getInstance();
-//        user = User.getInstance();
+        user = User.getInstance();
 //        controller = Controller.getInstance();
+
+        database = FirebaseDatabase.getInstance();
+
     }
 
     /**
@@ -160,6 +171,28 @@ public class Repository {
     }
 
     /**
+     * Sets a new user in database
+     */
+
+    public void setNewUser(RepoUser repoUser) {
+        database.getReference().child("users4").child(getRepoKey(repoUser)).setValue(user);
+
+        ArrayList<String> cabinetIngreds = new ArrayList<>();
+        cabinetIngreds.add("vodka");
+        cabinetIngreds.add("vermouth");
+        cabinetIngreds.add("beer");
+        repoUser.setMyIngreds(cabinetIngreds);
+        database.getReference().child("users4").child(getRepoKey(repoUser)).setValue(user);
+
+        //database.getReference().child("users").child(user.getUserName()).setValue(user);
+    }
+
+    private String getRepoKey(RepoUser repoUser) {
+        String repoKey = repoUser.userName.replace('.', ',');
+        return repoKey;
+    }
+
+    /**
      * Get user data should be used to get all user data from db and set the data to the user
      * object in the system.
      */
@@ -182,9 +215,17 @@ public class Repository {
 
     }
 
+    ////////////////////////////////////////////////////// I think i can remove all of these methods and just have one updateUser
+    ////////////////////////////////////////////////////  method which is called any time user data needs to be written or deleted
+    //////////////////////////////////////////////////// as long as all calls to updateUser are made after user changes are made.
+    ////////////////////////////////////////////////////
+
     public void addIngredientToCabinet(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
         String userName = user.getUserName();
+        RepoUser repoUser = new RepoUser(user);
+
+        database.getReference().child("users4").child(getRepoKey(repoUser)).setValue(user);
 
 
     }
@@ -208,10 +249,13 @@ public class Repository {
         String userName = user.getUserName();
 
 
+
     }
 
     public void addDrinkToFaves(String drink) {
         String userName = user.getUserName();
+
+
 
     }
 
@@ -220,7 +264,10 @@ public class Repository {
 
     }
 
+    //////////////////////////////////////////////////////////////////////// this method not to be removed with user methods
+    ////////////////////////////////////////////////////////////////////////
     public void addDrink(Drink drink) {
+        // needs to create a repo drink based on the drink, and append it to the list of all drinks.
 
     }
 
@@ -782,6 +829,74 @@ public class Repository {
 
         public void setStrCategory15(String strCategory15) {
             this.strCategory15 = strCategory15;
+        }
+    }
+
+    public static class RepoUser {
+
+        public RepoUser(){}
+
+        public RepoUser(User user){
+            this.userName = user.getUserName();
+            this.myIngreds = user.getMyIngredientNames();
+
+            for (Drink d: user.getFaves()){
+                this.faves.add(d.getName());
+            }
+
+            for (Ingredient i: user.getShoppingGS()){
+                this.shoppingGS.add(i.getName());
+            }
+
+            for (Ingredient i: user.getShoppingLS()){
+                this.shoppingLS.add(i.getName());
+            }
+        }
+
+        private String userName;
+        private ArrayList<String> myIngreds;
+        private ArrayList<String> shoppingLS;
+        private ArrayList<String> shoppingGS;
+        private ArrayList<String> faves;
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public ArrayList<String> getMyIngreds() {
+            return myIngreds;
+        }
+
+        public void setMyIngreds(ArrayList<String> myIngreds) {
+            this.myIngreds = myIngreds;
+        }
+
+        public ArrayList<String> getShoppingLS() {
+            return shoppingLS;
+        }
+
+        public void setShoppingLS(ArrayList<String> shoppingLS) {
+            this.shoppingLS = shoppingLS;
+        }
+
+        public ArrayList<String> getShoppingGS() {
+            return shoppingGS;
+        }
+
+        public void setShoppingGS(ArrayList<String> shoppingGS) {
+            this.shoppingGS = shoppingGS;
+        }
+
+        public ArrayList<String> getFaves() {
+            return faves;
+        }
+
+        public void setFaves(ArrayList<String> faves) {
+            this.faves = faves;
         }
     }
 }

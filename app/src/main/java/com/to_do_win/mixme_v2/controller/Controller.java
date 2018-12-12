@@ -528,5 +528,17 @@ public class Controller {
     public void addToShoppingList(String ingredientName) { user.addToShoppingList(ingredientName); }
 
 
+    public void setNewUser(String email) {
+        user.clearUser();
+        user.setUserName(email);
+        Repository.RepoUser repoUser = new Repository.RepoUser();
+        repoUser.setUserName(email);
+        ArrayList<String> stringArray = new ArrayList<>();
+        stringArray.add("this");
+        stringArray.add("should");
+        stringArray.add("work");
+        repoUser.setFaves(stringArray);
+        repository.setNewUser(repoUser);
+    }
 }
 

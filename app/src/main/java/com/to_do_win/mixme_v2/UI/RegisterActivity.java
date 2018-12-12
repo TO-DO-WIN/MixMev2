@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.to_do_win.mixme_v2.R;
+import com.to_do_win.mixme_v2.controller.Controller;
+import com.to_do_win.mixme_v2.utilities.Repository;
 
 import org.w3c.dom.Text;
 
@@ -30,12 +32,16 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
     private TextView textViewLogin;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    Repository repository;
+    Controller controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         firebaseAuth = FirebaseAuth.getInstance();
+        repository = Repository.getInstance();
+        controller = Controller.getInstance();
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmailmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -51,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
     }
 
     private void registerUser(){
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
 
@@ -83,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
                             //user is successfully registered and logged on
                             //we will start the profile activity here
                             //display message
+                            controller.setNewUser(email);
                             Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                             finish();
                             Intent intent = new Intent();
@@ -94,8 +101,10 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
                                     "Registration Unsuccessful: "+task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
+
     }
 
 

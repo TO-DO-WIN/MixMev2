@@ -20,6 +20,17 @@ public class User {
     // make a singleton
     private static User user;
 
+
+
+//    public User(String userName){
+//        this.userName = userName;
+//        this.myIngreds = new ArrayList<>();
+//        this.shoppingLS = new ArrayList<>();
+//        this.shoppingGS = new ArrayList<>();
+//        this.faves = new ArrayList<>();
+//
+//    }
+
     private User() {
         this.myIngreds = new ArrayList<>();
         this.shoppingLS = new ArrayList<>();
