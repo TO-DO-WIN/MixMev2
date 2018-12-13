@@ -120,7 +120,7 @@ public class Controller {
      * The sba of ingredients is transformed into a list of ingredient ids. This list is passed to
      * catalog as the set of working ingredient ids. Then the catalog's search method is called.
      *
-     * @param sba               sparse boolean array of ingredients being used for search
+     * @param ingredientIdList               sparse boolean array of ingredients being used for search
      * @param makableNames      list of makeable A_Drink to be populated
      * @param nearMakableNames  list of A_Drink that can almost be made to be populated
      * @param nearMakableMatch  list of percent matches of near makeable A_Drink to be populated
@@ -305,6 +305,10 @@ public class Controller {
      */
     public void addCreation() {
         catalog.addCreation();
+    }
+
+    public ArrayList<Ingredient> getNewIngredients(){
+        return catalog.getNewIngredients();
     }
 
     /**
