@@ -21,7 +21,6 @@ public class User {
     private static User user;
 
 
-
 //    public User(String userName){
 //        this.userName = userName;
 //        this.myIngreds = new ArrayList<>();
@@ -171,9 +170,16 @@ public class User {
         this.faves = faves;
     }
 
-    public void setFavesByName(ArrayList<String> faves) {
-        //////////////////////////////////////////////////////////////////////////////////////////////////////to be done
-        // create a list of drinks from the list of drinkName strings and call setFaves with the list as parameter
+    // for setting from db
+    public void setFavesByName(ArrayList<String> faveStrings) {
+
+        faves.clear();
+        for (String faveString : faveStrings) {
+            Drink drink = catalog.getDrinkByName(faveString);
+
+            faves.add(drink);
+
+        }
     }
 
     public ArrayList<String> getMyIngredientNames() {
@@ -210,10 +216,10 @@ public class User {
     }
 
     // only from system, calls to remove in db
-    public void removeFavorite(String drinkName){
+    public void removeFavorite(String drinkName) {
         Boolean found = false;
-        for (int i = 0; !found && i < faves.size(); i++){
-            if (faves.get(i).getName().equals(drinkName)){
+        for (int i = 0; !found && i < faves.size(); i++) {
+            if (faves.get(i).getName().equals(drinkName)) {
                 faves.remove(i);
                 repository.removeDrinkFromFaves(drinkName);
                 found = true;
@@ -236,7 +242,7 @@ public class User {
         for (Ingredient i : myIngreds) {
             if (i.getName().equals(ingredName)) {
                 myIngreds.remove(i);
-               // repository.removeIngredientFromCabinet(i);
+                // repository.removeIngredientFromCabinet(i);
                 return;
             }
         }
@@ -355,7 +361,7 @@ public class User {
         if (shoppingGS.contains(ingredient)) {
             return true;
         }
-        if (shoppingLS.contains(ingredient)){
+        if (shoppingLS.contains(ingredient)) {
             return true;
         }
         return false;
@@ -378,8 +384,8 @@ public class User {
         }
     }
 
-    private boolean inCabinet(Ingredient ingredient){
-        if (myIngreds.contains(ingredient)){
+    private boolean inCabinet(Ingredient ingredient) {
+        if (myIngreds.contains(ingredient)) {
             return true;
         }
         return false;
@@ -390,7 +396,7 @@ public class User {
         Ingredient ingredient = catalog.getIngredientByName(ingredName);
 
 
-        if (!inCabinet(ingredient)){
+        if (!inCabinet(ingredient)) {
             myIngreds.add(ingredient);
             repository.addIngredientToCabinet(ingredient);
         }
@@ -400,11 +406,11 @@ public class User {
     public void setCabinetListByName(ArrayList<String> cabinetList) {
 
         myIngreds.clear();
-        for(String item: cabinetList){
+        for (String item : cabinetList) {
             Ingredient ingredient = catalog.getIngredientByName(item);
 
 
-            if (!inCabinet(ingredient)){
+            if (!inCabinet(ingredient)) {
                 myIngreds.add(ingredient);
             }
         }
@@ -439,7 +445,7 @@ public class User {
 
         shoppingLS.clear();
         shoppingGS.clear();
-        for(String item: shoppingList){
+        for (String item : shoppingList) {
             Ingredient ingredient = catalog.getIngredientByName(item);
             Ingredient.Category category = ingredient.getCategory();
 

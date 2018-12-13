@@ -2,12 +2,14 @@ package com.to_do_win.mixme_v2.utilities;
 
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Repo;
 import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.model.Catalog;
 import com.to_do_win.mixme_v2.model.Drink;
@@ -192,13 +194,19 @@ public class Repository {
         return repoKey;
     }
 
+    private String getRepoKey(String userName) {
+        String repoKey = userName.replace('.', ',');
+        return repoKey;
+    }
+
     /**
      * Get user data should be used to get all user data from db and set the data to the user
      * object in the system.
      */
-    public void getUserData() {
+    public void getUserData(DataSnapshot snapshot) {
 
-        // get all user data and set using user methods.
+        // get all user data and set using user methods
+        RepoUser repoUser = snapshot.getValue(RepoUser.class);
 
         String userName = null;
         ArrayList<String> favorites = null;
@@ -212,6 +220,29 @@ public class Repository {
         user.setShoppingListsByName(shoppingList);
 
         user.setCabinetListByName(cabinetList);
+
+        // Get a reference to our posts
+        //dbRef = database.getReference("server/saving-data/fireblog/posts");
+        dbRef = database.getReference().child("users4").child(getRepoKey(user.getUserName()));
+
+// Attach a listener to read the data at our posts reference
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                RepoUser repoUser = dataSnapshot.getValue(RepoUser.class);
+                user.setUserName(repoUser.userName);
+                user.setFavesByName(repoUser.getFaves());
+                user.setShoppingListsByName(repoUser.getShoppingGS());
+                user.setShoppingListsByName(repoUser.getShoppingLS());
+                user.setCabinetListByName(repoUser.getMyIngreds());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
 
     }
 
