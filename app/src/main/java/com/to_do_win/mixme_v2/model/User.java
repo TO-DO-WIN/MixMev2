@@ -269,7 +269,7 @@ public class User {
         for (Ingredient i : shoppingLS) {
             if (i.getName().equals(ingredientName)) {
                 shoppingLS.remove(i);
-                repository.removeIngredientFromShoppingList(i);
+//                repository.removeIngredientFromShoppingList(i);
                 return;
             }
         }

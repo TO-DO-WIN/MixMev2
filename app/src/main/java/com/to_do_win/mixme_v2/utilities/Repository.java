@@ -205,7 +205,7 @@ public class Repository {
 
     public void removeIngredientFromShoppingList(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
-        String userName = user.getUserName();
+//        String userName = user.getUserName();
 
 
     }
