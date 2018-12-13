@@ -9,7 +9,6 @@
         android:layout_height="@dimen/recyclerSelectionsInside"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/aroundMedBtns"
-        android:background="@color/buttons"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"/>
