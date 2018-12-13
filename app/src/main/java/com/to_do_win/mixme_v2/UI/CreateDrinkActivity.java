@@ -117,15 +117,18 @@ public class CreateDrinkActivity extends AppCompatActivity implements
                 break;
 
             case R.id.submitBtn:
-                controller.setCreationName(drinkNameET.getText().toString());
-                controller.setCreationInstructions(instructionsET.getText().toString());
-                controller.setCreationGlassType(glassTypeET.getText().toString());
+                if(validationCheck()){
+                    controller.setCreationName(drinkNameET.getText().toString());
+                    controller.setCreationInstructions(instructionsET.getText().toString());
+                    controller.setCreationGlassType(glassTypeET.getText().toString());
+                    controller.addCreation();
 
-                Toast.makeText(this,"Drink has been created", Toast.LENGTH_LONG).show();
-                controller.addCreation();
-                intent.setClassName(packageName,
-                        packageName +".UI.SearchActivity");
-                startActivity(intent);
+                    Toast.makeText(this,"Drink has been created", Toast.LENGTH_LONG).show();
+                    intent.setClassName(packageName,
+                            packageName +".UI.SearchActivity");
+                    startActivity(intent);
+                    break;
+                }
                 break;
 
             case R.id.searchNVBtn:
@@ -159,6 +162,21 @@ public class CreateDrinkActivity extends AppCompatActivity implements
                 break;
 
         }
+    }
+
+    private boolean validationCheck() {
+
+        if(drinkNameET.getText().toString() == null ||drinkNameET.getText().toString().equals("")){
+            Toast.makeText(this,"Creation Failed: Invalid Drink Name", Toast.LENGTH_LONG).show();
+            return false;
+        }else if(instructionsET.getText().toString() == null || instructionsET.getText().toString().equals("")){
+            Toast.makeText(this,"Creation Failed: Invalid Drink Instructions", Toast.LENGTH_LONG).show();
+            return false;
+        }else if(glassTypeET.getText().toString() == null || glassTypeET.getText().toString().equals("")) {
+            Toast.makeText(this, "Creation Failed: No Glass Type", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -769,6 +769,7 @@ public class Catalog {
         }
     }
 
-
-
+    public ArrayList<Ingredient> getNewIngredients() {
+        return newIngredients;
+    }
 }

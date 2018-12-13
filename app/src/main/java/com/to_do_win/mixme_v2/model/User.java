@@ -110,7 +110,7 @@ public class User {
 
         Drink d = catalog.getDrinkByName(drinkName);
         faves.add(d);
-        repository.addDrinkToFaves(drinkName);
+//        repository.addDrinkToFaves(drinkName);
     }
 
     // only from system, calls to remove in db
