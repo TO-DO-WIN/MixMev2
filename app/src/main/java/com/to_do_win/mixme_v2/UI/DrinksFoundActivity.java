@@ -78,14 +78,14 @@ public class DrinksFoundActivity extends AppCompatActivity implements
         canMake = (TextView) findViewById(R.id.canMake);
 
         if(makables.size()==0){
-            canMake.setText("Sorry, there are no A_Drink you can make with the ingredients selected");
+            canMake.setText("Sorry, there are no drinks you can make with the ingredients selected");
         }
 
 
         for (String d: makables){
             drinkObjects.add(new DrinkForAdapter(d, "100"));
         }
-        drinkObjects.add("You can almost make these A_Drink");
+        drinkObjects.add("You can almost make these drinks");
         for (int i = 0; i < nearMakables.size(); i++){
             drinkObjects.add(new DrinkForAdapter(nearMakables.get(i), nearMakableMatch.get(i)));
         }

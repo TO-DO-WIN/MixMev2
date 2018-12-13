@@ -3,8 +3,11 @@ package com.to_do_win.mixme_v2.UI;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -19,7 +22,8 @@ import com.to_do_win.mixme_v2.utilities.UserManager;
 
 import java.util.ArrayList;
 
-public class AllDrinksActivity extends AppCompatActivity implements View.OnClickListener{
+public class AllDrinksActivity extends AppCompatActivity implements
+        View.OnClickListener{
 
     Controller controller;
     SearchView searchView;
@@ -81,13 +85,20 @@ public class AllDrinksActivity extends AppCompatActivity implements View.OnClick
         searchByIngredsBtn.setOnClickListener(this);
 
         controller = Controller.getInstance();
-
-        listView = findViewById(R.id.lv_drink_names);
-
-        drinkNames = controller.getDrinkNames();
-
-        lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drinkNames);
+        listView = (ListView) findViewById(R.id.lv_drink_names);
+        lvAdapter = new ArrayAdapter<String>(AllDrinksActivity.this, android.R.layout.simple_list_item_1, controller.getDrinkNames());
         listView.setAdapter(lvAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
+                Intent intent = new Intent();
+                Toast.makeText(getBaseContext(), controller.getDrinkNames().get(index),Toast.LENGTH_LONG).show();
+                intent.putExtra("drink", controller.getDrinkNames().get(index));
+                intent.setClassName(packageName,
+                        packageName + ".UI.DrinkRecipeActivity");
+                startActivity(intent);
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -111,7 +122,6 @@ public class AllDrinksActivity extends AppCompatActivity implements View.OnClick
         });
 
     }
-
 
     @Override
     public void onClick(View v) {
@@ -162,13 +172,5 @@ public class AllDrinksActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-//    @Override
-//    public void onItemClick(View view, int position) {
-//
-//        if (sba.get(position)) {
-//            sba.put(position, false);
-//        }
-//        else{
-//            sba.put(position, true);
-//        }}
+
 }
