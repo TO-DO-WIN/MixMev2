@@ -184,21 +184,21 @@ public class Repository {
 
     public void addIngredientToCabinet(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
-        String userName = user.getUserName();
+//        String userName = user.getUserName();
 
 
     }
 
     public void removeIngredientFromCabinet(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
-        String userName = user.getUserName();
+//        String userName = user.getUserName();
 
 
     }
 
     public void addIngredientToShoppingList(Ingredient ingredient) {
         String ingredientName = ingredient.getName();
-        String userName = user.getUserName();
+//        String userName = user.getUserName();
 
 
     }
@@ -211,12 +211,12 @@ public class Repository {
     }
 
     public void addDrinkToFaves(String drink) {
-        String userName = user.getUserName();
+//        String userName = user.getUserName();
 
     }
 
     public void removeDrinkFromFaves(String drink) {
-        String userName = user.getUserName();
+//        String userName = user.getUserName();
 
     }
 
