@@ -62,9 +62,6 @@ public class SearchActivity extends AppCompatActivity implements
             createDrinkBtn = (Button) findViewById(R.id.createNVBtn);
             createDrinkBtn.setOnClickListener(this);
 
-            searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
-            searchDrinksBtn.setOnClickListener(this);
-
             favesBtn = (Button) findViewById(R.id.favesNVBtn);
             favesBtn.setOnClickListener(this);
 
@@ -84,6 +81,9 @@ public class SearchActivity extends AppCompatActivity implements
 
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setQueryHint("Search Here");
+
+        searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
+        searchDrinksBtn.setOnClickListener(this);
 
         randomBtn = (Button) findViewById(R.id.randomNVBtn);
         randomBtn.setOnClickListener(this);
