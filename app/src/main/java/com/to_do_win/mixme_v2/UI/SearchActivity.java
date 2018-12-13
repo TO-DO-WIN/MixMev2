@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity implements
     TextView greeting;
     Button logBtn;
     String userName;
-    Button useIngredsBtn, clearBtn, findDrinksBtn;
+    Button searchDrinksBtn, useIngredsBtn, clearBtn, findDrinksBtn;
     Button createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
 
@@ -60,6 +60,9 @@ public class SearchActivity extends AppCompatActivity implements
 
             createDrinkBtn = (Button) findViewById(R.id.createNVBtn);
             createDrinkBtn.setOnClickListener(this);
+
+            searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
+            searchDrinksBtn.setOnClickListener(this);
 
             favesBtn = (Button) findViewById(R.id.favesNVBtn);
             favesBtn.setOnClickListener(this);
@@ -136,7 +139,11 @@ public class SearchActivity extends AppCompatActivity implements
                         packageName +".UI.CreateDrinkActivity");
                 startActivity(intent);
                 break;
-
+            case R.id.searchNVBtn:
+                intent.setClassName(packageName,
+                        packageName + ".UI.AllDrinksActivity");
+                startActivity(intent);
+                break;
             case R.id.favesNVBtn:
                 intent.setClassName(packageName,
                         packageName +".UI.FavoritesActivity");

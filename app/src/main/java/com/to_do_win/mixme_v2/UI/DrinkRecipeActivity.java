@@ -181,7 +181,7 @@ public class DrinkRecipeActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.searchNVBtn:
                 intent.setClassName(packageName,
-                        packageName + ".UI.SearchActivity");
+                        packageName + ".UI.AllDrinksActivity");
                 startActivity(intent);
                 break;
 

@@ -26,7 +26,7 @@ public class AddIngredientsToShoppingListActivity extends AppCompatActivity impl
     String userName;
     SearchView searchView;
     Button clearBtn, submitBtn;
-    Button createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
+    Button searchDrinksBtn, createDrinkBtn, favesBtn, shoppingBtn, cabinetBtn, randomBtn;
     String packageName = "com.to_do_win.mixme_v2";
     IngredientRecyclerViewAdapter adapter;
     Controller controller;
@@ -49,6 +49,10 @@ public class AddIngredientsToShoppingListActivity extends AppCompatActivity impl
 
         favesBtn = (Button) findViewById(R.id.favesNVBtn);
         favesBtn.setOnClickListener(this);
+
+        searchDrinksBtn = (Button) findViewById(R.id.searchNVBtn);
+        searchDrinksBtn.setOnClickListener(this);
+
 
         shoppingBtn = (Button) findViewById(R.id.shoppingNVBtn);
         shoppingBtn.setOnClickListener(this);
