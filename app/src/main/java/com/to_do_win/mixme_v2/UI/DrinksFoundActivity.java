@@ -78,7 +78,7 @@ public class DrinksFoundActivity extends AppCompatActivity implements
         canMake = (TextView) findViewById(R.id.canMake);
 
         if(makables.size()==0){
-            canMake.setText("Sorry, there are no drinks you can make with the ingredients selected");
+            canMake.setText("Sorry, no recipes found for provided ingredients.");
         }
 
 

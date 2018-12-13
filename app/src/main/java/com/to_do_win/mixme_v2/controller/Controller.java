@@ -113,6 +113,32 @@ public class Controller {
     }
 
     /**
+     * Accepts as parameters a sparse boolean array of the ingredients being used for the search,
+     * and three lists to add to. The lists should be empty lists when passed to this method. The
+     * method will populate the lists with the results of the catalog's search method.
+     * <p>
+     * The sba of ingredients is transformed into a list of ingredient ids. This list is passed to
+     * catalog as the set of working ingredient ids. Then the catalog's search method is called.
+     *
+     * @param sba               sparse boolean array of ingredients being used for search
+     * @param makableNames      list of makeable A_Drink to be populated
+     * @param nearMakableNames  list of A_Drink that can almost be made to be populated
+     * @param nearMakableMatch  list of percent matches of near makeable A_Drink to be populated
+     */
+    public void searchDrinks(ArrayList<Integer> ingredientIdList, ArrayList<String> makableNames,
+                             ArrayList<String> nearMakableNames, ArrayList<String> nearMakableMatch) {
+
+        // Set ingredients and search
+        catalog.setWorkingIngredientIDs(ingredientIdList);
+        catalog.searchDrinks();
+
+        // Populate lists by getting results from catalog
+        makableNames.addAll(catalog.getMakableNames());
+        nearMakableNames.addAll(catalog.getNearMakableNames());
+        nearMakableMatch.addAll(catalog.getNearMakableMatch());
+    }
+
+    /**
      * Search method used when list of user ingredient ids is available and only makeable A_Drink
      * are needed. The UI Cabinet activity uses this after gaining the user's ingredients' ids to
      * search for the A_Drink that can be made.

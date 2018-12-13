@@ -18,7 +18,7 @@ public class DrinkRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private ItemClickListener clickListener;
     private final int DRINK = 0, TEXT = 1;
-    private final String ALMOST_TEXT = "You can almost make these A_Drink.";
+    private final String ALMOST_TEXT = "You can almost make these drinks.";
 
     DrinkRecyclerViewAdapter(Context context, List<Object> items) {
         this.items = items;

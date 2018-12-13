@@ -20,6 +20,7 @@ import com.to_do_win.mixme_v2.controller.Controller;
 import com.to_do_win.mixme_v2.utilities.LogToggle;
 import com.to_do_win.mixme_v2.utilities.UserManager;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,9 +106,12 @@ public class SearchActivity extends AppCompatActivity implements
 
     }
 
-
     @Override
     public void onClick(View v) {
+
+        ArrayList<String > makableNames;
+        ArrayList<String > nearMakableNames;
+        ArrayList<String > nearMakableMatch;
 
         Intent intent = new Intent();
 
@@ -116,12 +120,28 @@ public class SearchActivity extends AppCompatActivity implements
             case R.id.logBtn:
                 startActivity(logToggle.logToggle(logBtn,greeting,packageName));
                 break;
-
+            case R.id.useIngredsBtn:
+                makableNames = new ArrayList<>();
+                nearMakableNames = new ArrayList<>();
+                nearMakableMatch = new ArrayList<>();
+                ArrayList<Integer> ingredientIds;
+                if((ingredientIds = controller.getUserIngredientIDs()).size()<1){
+                    Toast.makeText((this), "Cabinet empty",Toast.LENGTH_LONG).show();
+                    break;
+                }
+                controller.searchDrinks(controller.getUserIngredientIDs(), makableNames,
+                        nearMakableNames, nearMakableMatch);
+                intent.putStringArrayListExtra("makableNames", makableNames);
+                intent.putStringArrayListExtra("nearMakableNames", nearMakableNames);
+                intent.putStringArrayListExtra("nearMakableMatch", nearMakableMatch);
+                intent.setClassName(packageName,
+                        packageName +".UI.DrinksFoundActivity");
+                startActivity(intent);
+                break;
             case R.id.findDrinks:
-
-                ArrayList<String> makableNames = new ArrayList<>();
-                ArrayList<String> nearMakableNames = new ArrayList<>();
-                ArrayList<String> nearMakableMatch = new ArrayList<>();
+                makableNames = new ArrayList<>();
+                nearMakableNames = new ArrayList<>();
+                nearMakableMatch = new ArrayList<>();
 
                 controller.searchDrinks(sba, makableNames,
                         nearMakableNames, nearMakableMatch);
